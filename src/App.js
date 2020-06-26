@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MainContainer from './container/MainContainer';
 
 function App() {
   return (
     <div className="App">
       <h1>welcome</h1>
+        <MainContainer/>
     </div>
   );
 }
