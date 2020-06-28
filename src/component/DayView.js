@@ -1,12 +1,10 @@
 import React from 'react'
 import "../coachCalendar.css"
-import EventForm from './EventForm'
-import { useHistory } from "react-router-dom";
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from './event-utils'
+// import { INITIAL_EVENTS, createEventId } from './event-utils'
 import JoinCourse from './JoinCourse';
 
 
@@ -23,7 +21,6 @@ changeView = (view) => {
 }
 
   joinEvent = (e) => {
-    console.log(e)
     const eventInfo = e.event._def
     const eventDetails = eventInfo.extendedProps
     const range = e.event._instance.range

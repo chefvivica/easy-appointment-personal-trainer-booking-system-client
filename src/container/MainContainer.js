@@ -1,17 +1,10 @@
 import React, { Component } from 'react'
-import EventCalendar from '../component/EventCalendar'
-import DayView from '../component/DayView'
-import Login from '../component/Login'
-import Signup from '../component/Signup'
 import NavBar from '../component/NavBar'
-import EventForm from '../component/EventForm'
+import Home from '../component/Home'
+import DayView from '../component/DayView'
 import TrainerContainer from './TrainerContainer'
-import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from '../component/event-utils.js'
 import {BrowserRouter as Router, Route} from 'react-router-dom' 
 import Profile from '../container/Profile'
-import Auth from '../container/Auth'
-import FullCalendar, { formatDate } from '@fullcalendar/react'
 
 class MainContainer extends Component {
 
@@ -22,58 +15,42 @@ class MainContainer extends Component {
     userJoinedEvents:[ ],
     currentUser:''
   }
-
+  
   componentDidMount(){
     fetch('http://localhost:3000/events')
     .then(res => res.json())
     .then(events => this.setState({ events }))
-
+    
     fetch('http://localhost:3000/trainers')
     .then(res => res.json())
     .then(trainers => this.setState({ trainers }))
-
+    
     fetch('http://localhost:3000/users')
     .then(res => res.json())
     .then(users => this.setState({ users }))
-
-
+    
   }
-
-  findUser = (e, username) => {
+  
+  findUser = (e, username,match) => {
     e.preventDefault()
     if(this.state.users.find(user=> user.username===username)){
       let user = this.state.users.find(user=> username ===username)
       let id = user.id
       this.setState({currentUser:id})
+      match.history.push("/calendar")
     }else{
-      alert("Try again!")
+      alert("Something went wrong, please try again, or sign up.")
     }
   }
   
-
+  
   render() {
+
     // console.log(this.state.currentUser)
     return (
       <Router>
-      <div className="App">
+      <div>
         <NavBar />
-        <Route 
-          exact path='/signup' 
-          render={routerProps => 
-            <Signup
-              {...routerProps} 
-            />
-          }
-        />
-        <Route 
-          exact path='/login' 
-          render={routerProps => 
-            <Login
-              {...routerProps} 
-              findUser={this.findUser}
-            />
-          }
-        />
         <Route 
           exact path='/trainer' 
           render={routerProps => 
@@ -87,11 +64,20 @@ class MainContainer extends Component {
           }
         />
         <Route 
-          exact path='/' 
+          exact path='/calendar' 
           render={routerProps => 
             <DayView 
             events={this.state.events}
             currentUser={this.state.currentUser}
+            {...routerProps}/>
+          }
+        />
+        <Route 
+          exact path='/' 
+          render={routerProps => 
+            <Home
+            addUser={this.addUser}
+            findUser={this.findUser}
             {...routerProps}/>
           }
         />

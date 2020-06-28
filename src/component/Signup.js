@@ -19,7 +19,7 @@ export class Signup extends Component {
   // handleSubmit = (e) => {
   //   e.preventDefault()  
   //   if(this.state.password === this.state.confirmation){
-  //     fetch('http://localhost:3000/members', {
+  //     fetch('http://localhost:3000/users', {
   //       method: "POST",
   //       headers: headers,
   //       body: JSON.stringify({
@@ -30,12 +30,12 @@ export class Signup extends Component {
   //       })
   //     })
   //       .then(resp => resp.json())
-  //       .then(data=> this.props.addMember(data))
+  //       .then(data=> this.props.addUser(data))
   //   } else {
   //     alert("Passwords don't match")
   //   }
   //   this.setState(initState)
-  //   this.props.match.history.push("/hikes")
+  //   this.props.match.history.push("/")
   // }
 
   render() {
