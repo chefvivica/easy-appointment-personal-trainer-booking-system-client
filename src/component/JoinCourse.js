@@ -31,10 +31,10 @@ export class JoinCourse extends Component {
 
 
   render() {  
-      console.log(this.props.currentUser)
+      // console.log(this.props.currentUser)
       const {title, details, trainerImage, trainer, joinedUser, start, end} = this.props.joinCourse
     return (
-      <div className={"join-course-container"}>
+      <div className="join-course-container">
         <div className="join-course-info">
           <h4>Please confirm your course</h4>
           <h3>{title}</h3>

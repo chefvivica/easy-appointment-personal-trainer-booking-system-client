@@ -15,10 +15,6 @@ export default class DayView extends React.Component {
     joinCourse: { }
   }
 
-  
-changeView = (view) => {
-  this.setState({ view })
-}
 
   joinEvent = (e) => {
     const eventInfo = e.event._def
@@ -37,11 +33,13 @@ changeView = (view) => {
     
     let newJoinCousrse = {title, details, trainer, trainerImage, joinedUser, start, end, id}
     this.setState({joinCourse: newJoinCousrse})
-    // this.props.history.push("/join_course")
+    // this.props.history.push("/home")
+
   }
 
-  render() {
 
+  render() {
+    // console.log())
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
@@ -76,11 +74,10 @@ changeView = (view) => {
             // initialView= 'timeGridWeek'
             />        
         </div>
-        
         <div>
           <JoinCourse joinCourse={this.state.joinCourse} joinEvent={this.joinEvent} currentUser={this.props.currentUser} />
         </div>
-
+        
       </div>
     )
   }
