@@ -4,20 +4,24 @@ import DayView from '../component/DayView'
 import Login from '../component/Login'
 import Signup from '../component/Signup'
 import NavBar from '../component/NavBar'
+import EventForm from '../component/EventForm'
 import TrainerContainer from './TrainerContainer'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from '../component/event-utils.js'
 import {BrowserRouter as Router, Route} from 'react-router-dom' 
-
-
+import Profile from '../container/Profile'
+import Auth from '../container/Auth'
+import FullCalendar, { formatDate } from '@fullcalendar/react'
 
 class MainContainer extends Component {
 
   state = {
+    users: [ ],
     events:[ ],
-    trainers:[ ]
+    trainers:[ ],
+    userJoinedEvents:[ ],
+    currentUser:''
   }
-
 
   componentDidMount(){
     fetch('http://localhost:3000/events')
@@ -27,49 +31,32 @@ class MainContainer extends Component {
     fetch('http://localhost:3000/trainers')
     .then(res => res.json())
     .then(trainers => this.setState({ trainers }))
+
+    fetch('http://localhost:3000/users')
+    .then(res => res.json())
+    .then(users => this.setState({ users }))
+
+
   }
 
- 
-
-  // get= (clickInfo) => {
-  //   if (`${clickInfo.event.title}`){
-  //     alert ('Are you sure you want to delete the event ')
-  //     // let title = prompt('Are you sure you want to delete the event )
-  //   }
-  //     if("ok"){      
-  //       clickInfo.event.remove()
-  //     }
-  // }
-
-  // handleEvents = (events) => {
-  //   this.setState({
-  //     events: events
-  //   })
-  // }
+  findUser = (e, username) => {
+    e.preventDefault()
+    if(this.state.users.find(user=> user.username===username)){
+      let user = this.state.users.find(user=> username ===username)
+      let id = user.id
+      this.setState({currentUser:id})
+    }else{
+      alert("Try again!")
+    }
+  }
+  
 
   render() {
-
+    // console.log(this.state.currentUser)
     return (
-      // <div>
-      // {/* <EventCalendar events={this.state.events} />      */}
-      //   <DayView events={this.state.events}  handleDateSelect={this.props.handleDateSelect}/>
-      //   <TrainerContainer trainers={this.state.trainers}/>
-      //   <Login/>
-      //   <Signup/>
-      // </div>
       <Router>
       <div className="App">
         <NavBar />
-        {/* <Route exact path='/hikes/:id' render={routerProps =>{
-          const hikeId = parseInt(routerProps.match.url.split("/")[2])
-          const targetHike = this.state.hikes.find(hike=> hike.id === hikeId)
-          return <HikeProfile 
-            hike={targetHike} 
-            hikeId={hikeId} 
-            hikeId={parseInt(routerProps.match.url.split("/")[2])}
-            editHike={this.editHike}
-          /> 
-        }}/> */}
         <Route 
           exact path='/signup' 
           render={routerProps => 
@@ -83,6 +70,7 @@ class MainContainer extends Component {
           render={routerProps => 
             <Login
               {...routerProps} 
+              findUser={this.findUser}
             />
           }
         />
@@ -93,13 +81,23 @@ class MainContainer extends Component {
           }
         />
         <Route 
+          exact path='/profile' 
+          render={routerProps => 
+            <Profile  {...routerProps} addUserEvents={this.addUserEvents}/>
+          }
+        />
+        <Route 
           exact path='/' 
           render={routerProps => 
-            <DayView events={this.state.events}  handleDateSelect={this.props.handleDateSelect}/>
+            <DayView 
+            events={this.state.events}
+            currentUser={this.state.currentUser}
+            {...routerProps}/>
           }
         />
       </div>
     </Router>
+    
     )
   }
 }
