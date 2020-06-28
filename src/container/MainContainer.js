@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../component/NavBar'
 import Home from '../component/Home'
+import JoinCourse from '../component/JoinCourse'
 import DayView from '../component/DayView'
 import TrainerContainer from './TrainerContainer'
 import {BrowserRouter as Router, Route} from 'react-router-dom' 
@@ -69,6 +70,22 @@ class MainContainer extends Component {
             <DayView 
             events={this.state.events}
             currentUser={this.state.currentUser}
+            {...routerProps}/>
+          }
+        />
+        <Route 
+          exact path='/course' 
+          render={routerProps => 
+            <DayView 
+            events={this.state.events}
+            currentUser={this.state.currentUser}
+            {...routerProps}/>
+          }
+        />
+        <Route 
+          exact path='/joined_course' 
+          render={routerProps => 
+            <JoinCourse 
             {...routerProps}/>
           }
         />
