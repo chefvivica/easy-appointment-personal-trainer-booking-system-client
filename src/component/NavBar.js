@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import {NavDropdown, Navbar, Nav} from 'react-bootstrap';
+import '../css/navBar.css'
 
 
 export class NavBar extends Component {
@@ -18,11 +19,11 @@ export class NavBar extends Component {
   }
 
   return(
-    <div className="main-menu">
-    <NavLink to="/" exact style={link} activeStyle={{background: "blue"}}>Home</NavLink>
-    <NavLink to="/Signup" exact style={link} activeStyle={{background: "blue"}}>Sign Up</NavLink>
-    <NavLink to="/Login" exact style={link} activeStyle={{background: "green"}}>Log In</NavLink>
-    <NavLink to="/trainer" exact style={link} activeStyle={{background: "green"}}>Trainer</NavLink>
+    <div className="nav-bar">
+    <NavLink to="/" exact style={link} activeStyle={{background: "orange"}}>Home</NavLink>
+    <NavLink to="/Signup" exact style={link} activeStyle={{background: "orange"}}>Sign Up</NavLink>
+    <NavLink to="/Login" exact style={link} activeStyle={{background: "orange"}}>Log In</NavLink>
+    <NavLink to="/trainer" exact style={link} activeStyle={{background: "orange"}}>Trainer</NavLink>
     </div>
 
     )
