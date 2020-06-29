@@ -8,10 +8,10 @@ export class NavBar extends Component {
   return(
     <div className="nav-bar">
 
-    <NavLink to="/" exact>Home</NavLink>
-    <NavLink to="/" exact>Logout</NavLink>
-    <NavLink to="/calendar" exact>calendar</NavLink>
+    <NavLink to="/calendar" exact>Calendar</NavLink>
     <NavLink to="/trainer" exact>Trainer</NavLink>
+    <NavLink to="/users/:id" exact>Your Profile</NavLink>
+    <NavLink to="/" exact>Login/Logout</NavLink>
     </div>
 
     )

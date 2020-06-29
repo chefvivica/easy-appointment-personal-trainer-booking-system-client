@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const TrainerCard = (props) => {
-  const {id, image, bio, name, comments} = props.trainer
+  const {id, image, bio, name, comments,rating} = props.trainer
   
   return(
     <div>
@@ -13,12 +13,14 @@ const TrainerCard = (props) => {
           <h1>Name: {name}</h1>
           <span className="bio">{bio}</span>
         </div>
+      </div>
         <div className="comment">
           <ul>
+            <b>Comments about this Coach </b>
+            <br></br>
             {comments.map((comment,index)=> <li key={index}>{comment.content}</li>)}
           </ul>
         </div>
-      </div>
     </div>
   )
 }

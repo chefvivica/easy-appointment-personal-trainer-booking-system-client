@@ -1,5 +1,4 @@
 import React from 'react'
-import "../coachCalendar.css"
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -12,7 +11,8 @@ import JoinCourse from './JoinCourse';
 export default class DayView extends React.Component {
 
   state = {
-    joinCourse: { }
+    joinCourse: { },
+    joinedUsers: [ ]
   }
 
 
@@ -32,13 +32,17 @@ export default class DayView extends React.Component {
     let id = eventInfo.publicId
 
     let newJoinCousrse = {title, details, trainer, trainerImage, joinedUser, start, end, id}
-    this.setState({joinCourse: newJoinCousrse})
+    this.setState({joinCourse: newJoinCousrse, joinedUsers: joinedUser})
   }
 
-
+  updateJoinCourse = (username) => {
+    this.setState({
+      joinedUsers : [...this.state.joinedUsers, username]
+    })
+  }
   render() {
     // console.log())
-    const {currentUser, username} = this.props
+    const {currentUser, username, events} = this.props
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
@@ -58,21 +62,23 @@ export default class DayView extends React.Component {
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
-            height={850}
             aspectRatio= {1}
+            height={850}
           
-            events={this.props.events}
+            events={events}
             eventColor={'#3691b0'} 
             eventClick={this.joinEvent} 
           
             />        
         </div>
         {this.state.on?
-        <div>
+        <div className="join-course">
           <JoinCourse 
           joinCourse={this.state.joinCourse}
           joinEvent={this.joinEvent}
           currentUser={currentUser}
+          joinedUsers={this.state.joinedUsers}
+          updateJoinCourse={this.updateJoinCourse}
           username={username}/>
         </div>
         :null

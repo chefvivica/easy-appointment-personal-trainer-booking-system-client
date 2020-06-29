@@ -5,7 +5,8 @@ import TrainerCard from '../component/TrainerCard'
 export class TrainerContainer extends Component {
 
   state = {
-    trainers : []
+    trainers : [],
+    open: false
   }
 
   componentDidMount(){
@@ -14,11 +15,23 @@ export class TrainerContainer extends Component {
     .then(trainers => this.setState({ trainers }))
   }
   render() {
-
-  
+    
     return (
-      <div className="trainer-container">
-        {this.state.trainers.map(trainer => <TrainerCard key={trainer.id} trainer={trainer}/>)}
+      <div> 
+        <h1>Our trainers</h1>
+        <div className="trainer-dropdown">
+          <div className="trainr-container">
+            <button type="button" className="button">
+              ☰
+            </button>
+            <div className="dropdown">
+              <ul >
+              {this.state.trainers.map(trainer => <TrainerCard key={trainer.id} trainer={trainer}/>)}
+                {/* {this.state.trainers.map(trainer =><img className="trainer-image" src={trainer.image}></img>)} */}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
