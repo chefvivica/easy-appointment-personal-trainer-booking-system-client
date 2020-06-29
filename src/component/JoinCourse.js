@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
 
 
-
+const API = 'http://localhost:3000/events'
 export class JoinCourse extends Component {
   state = {
-    on: false
+    on: false,
+
   }
 
   toggle = () => this.setState({ on : !this.state.on})
 
   
-
   handleConfirm = (e) => {
     const {currentUser, joinCourse, username} = this.props
-
+    
     let userId = parseInt(currentUser)
     let eventId = parseInt(joinCourse.id)
     let newAppointment = {user_id:userId, event_id:eventId}
-
+    
     if(!currentUser){
       alert("please login to join this event")     
     }else if(joinCourse.joinedUser.includes(username)){
@@ -31,14 +31,20 @@ export class JoinCourse extends Component {
         },
         body:JSON.stringify(newAppointment)
       })
-      .then(res=> res.json())
-      .then(this.props.updateEvent)
+      .then(r=> r.json())
+      .then(r => {
+        this.props.updateJoinCourse(username)
+      })
+      
     }
   }
 
   render() {  
-      console.log(this.props.joinCourse.joinedUser)
+      console.log(this.props.joinedUsers, "whahahhah", this.props.username)
+      
+   
       const {title, details, trainerImage, trainer, joinedUser, start, end} = this.props.joinCourse
+    
     return (
       <div className="join-course-container">
         <div className="join-course-info">
@@ -54,7 +60,7 @@ export class JoinCourse extends Component {
           <h5>trainer: {trainer}</h5>
           <button onClick={this.toggle}>Student list</button>
           {this.state.on? <ul>
-          {joinedUser.map((user,index)=> <li key={index}>{user}</li>)} 
+          {this.props.joinedUsers.map((user,index)=> <li key={index}>{user}</li>)} 
         </ul>
         :null}
         </div>

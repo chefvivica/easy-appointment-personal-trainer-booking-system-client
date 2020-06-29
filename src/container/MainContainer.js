@@ -38,15 +38,10 @@ class MainContainer extends Component {
       alert("Something went wrong, please try again, or sign up.")
     }
   }
-
-  updateEvent = (e) => {
-    // this.setState({events : events})
-  }
-
   
   render() {
 
-    console.log(this.state.event)
+    console.log(this.state.events)
     return (
       
       <div>
