@@ -12,19 +12,16 @@ class MainContainer extends Component {
   state = {
     users: [ ],
     events:[ ],
-    trainers:[ ],
+    // trainers:[ ],
     userJoinedEvents:[ ],
-    currentUser:''
+    currentUser:'',
+    username:''
   }
   
   componentDidMount(){
     fetch('http://localhost:3000/events')
     .then(res => res.json())
     .then(events => this.setState({ events }))
-    
-    fetch('http://localhost:3000/trainers')
-    .then(res => res.json())
-    .then(trainers => this.setState({ trainers }))
     
     fetch('http://localhost:3000/users')
     .then(res => res.json())
@@ -35,19 +32,18 @@ class MainContainer extends Component {
   findUser = (e, username,match) => {
     e.preventDefault()
     if(this.state.users.find(user=> user.username===username)){
-      let user = this.state.users.find(user=> username ===username)
+      let user = this.state.users.find(user=> user.username ===username)
       let id = user.id
-      this.setState({currentUser:id})
+      this.setState({currentUser:id, username:username})
       match.history.push("/calendar")
     }else{
       alert("Something went wrong, please try again, or sign up.")
     }
   }
   
-  
   render() {
 
-    // console.log(this.state.currentUser)
+    console.log(this.state.currentUser, "hhh", this.state.username)
     return (
       <Router>
       <div>
@@ -55,7 +51,7 @@ class MainContainer extends Component {
         <Route 
           exact path='/trainer' 
           render={routerProps => 
-            <TrainerContainer trainers={this.state.trainers}  {...routerProps}/>
+            <TrainerContainer  {...routerProps}/>
           }
         />
         <Route 
@@ -70,10 +66,11 @@ class MainContainer extends Component {
             <DayView 
             events={this.state.events}
             currentUser={this.state.currentUser}
+            username={this.state.username}
             {...routerProps}/>
           }
         />
-        <Route 
+        {/* <Route 
           exact path='/course' 
           render={routerProps => 
             <DayView 
@@ -81,14 +78,14 @@ class MainContainer extends Component {
             currentUser={this.state.currentUser}
             {...routerProps}/>
           }
-        />
-        <Route 
+        /> */}
+        {/* <Route 
           exact path='/joined_course' 
           render={routerProps => 
             <JoinCourse 
             {...routerProps}/>
           }
-        />
+        /> */}
         <Route 
           exact path='/' 
           render={routerProps => 

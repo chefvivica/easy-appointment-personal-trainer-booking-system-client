@@ -17,6 +17,7 @@ export default class DayView extends React.Component {
 
 
   joinEvent = (e) => {
+    this.setState({on: true})
     const eventInfo = e.event._def
     const eventDetails = eventInfo.extendedProps
     const range = e.event._instance.range
@@ -30,20 +31,18 @@ export default class DayView extends React.Component {
     let end = range.end.toString()
     let id = eventInfo.publicId
 
-    
     let newJoinCousrse = {title, details, trainer, trainerImage, joinedUser, start, end, id}
     this.setState({joinCourse: newJoinCousrse})
-    // this.props.history.push("/home")
-
   }
 
 
   render() {
     // console.log())
+    const {currentUser, username} = this.props
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
-          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQcM0EAF9k6hgKK5kam6LhzfEYOK7KglBmyag&usqp=CAU'/>
+          <h1>Calendar</h1>
         </div>
         <div className = {'coach-calendar'}>
           <FullCalendar
@@ -64,19 +63,20 @@ export default class DayView extends React.Component {
           
             events={this.props.events}
             eventColor={'#3691b0'} 
-            // dateClick={this.handleDateSelect}
-            // eventContent={renderEventContent}
-            eventClick={this.joinEvent}
-            // eventClick={this.handleEventClick}
-            // eventsSet={this.props.handleEvents}
-            
-            // plugins ={[ timeGridPlugin ]}
-            // initialView= 'timeGridWeek'
+            eventClick={this.joinEvent} 
+          
             />        
         </div>
+        {this.state.on?
         <div>
-          <JoinCourse joinCourse={this.state.joinCourse} joinEvent={this.joinEvent} currentUser={this.props.currentUser} />
+          <JoinCourse 
+          joinCourse={this.state.joinCourse}
+          joinEvent={this.joinEvent}
+          currentUser={currentUser}
+          username={username}/>
         </div>
+        :null
+        } 
         
       </div>
     )

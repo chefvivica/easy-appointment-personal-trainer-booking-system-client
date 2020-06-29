@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
@@ -42,12 +43,66 @@ code {
   color: #f1f1f1;
 }
 
+
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-.home{
 
+
+
+/* .trainer-container {
+  background-color: #f7f8fc;
+  font-family: serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+} */
+
+
+
+.trainer-container {
+  background-color: #f7f8fc;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  gap:20px;
+}
+
+.trainer-card{
+  width: 500px;
+  height: 600px;
+  background-color: rgb(219, 144, 144);
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgb(15, 15, 15);
+  overflow: hidden;
+
+}
+
+.header img{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+  min-height: 250px;
+  gap: 20px;
+}
+
+.trainer-container > li{
+  gap: 20px;
+  border-color: burlywood;
+}
+
+
+.home{
     position: absolute;
     left: 0;
     overflow: hidden;
@@ -60,4 +115,9 @@ code {
 
 .join-course-container{
   background-color: burlywood;
+  inline-size: auto;
+  
 }
+
+
+

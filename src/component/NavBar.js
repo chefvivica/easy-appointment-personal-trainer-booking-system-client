@@ -7,7 +7,7 @@ export class NavBar extends Component {
 
   return(
     <div className="nav-bar">
-    <br></br>
+
     <NavLink to="/" exact>Home</NavLink>
     <NavLink to="/" exact>Logout</NavLink>
     <NavLink to="/calendar" exact>calendar</NavLink>

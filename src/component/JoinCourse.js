@@ -9,34 +9,46 @@ export class JoinCourse extends Component {
 
   toggle = () => this.setState({ on : !this.state.on})
 
+  
+
   handleConfirm = (e) => {
-    const {currentUser, joinCourse} = this.props
+    const {currentUser, joinCourse, username} = this.props
 
     let userId = parseInt(currentUser)
     let eventId = parseInt(joinCourse.id)
     let newAppointment = {user_id:userId, event_id:eventId}
 
-
-    fetch('http://localhost:3000/appointments',{
-      method: "POST",
-      headers: { 
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body:JSON.stringify(newAppointment)
-    })
-    .then(res=> res.json())
-    .then(data=> { console.log(data)})
+    if(!currentUser){
+      alert("please login to join this event")     
+    }else if(joinCourse.joinedUser.includes(username)){
+      alert("You have already joined this event")
+    }else {
+      fetch('http://localhost:3000/appointments',{
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body:JSON.stringify(newAppointment)
+      })
     }
+  }
+
+
+
+
+    
+    
+
 
 
   render() {  
-      // console.log(this.props.currentUser)
+      console.log(this.props.joinCourse.joinedUser)
       const {title, details, trainerImage, trainer, joinedUser, start, end} = this.props.joinCourse
     return (
       <div className="join-course-container">
         <div className="join-course-info">
-          <h4>Please confirm your course</h4>
+          <h1>Please confirm your course</h1>
           <h3>{title}</h3>
           <h4>Course details: {details}</h4>
           <div>
