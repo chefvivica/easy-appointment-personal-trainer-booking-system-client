@@ -31,16 +31,10 @@ export class JoinCourse extends Component {
         },
         body:JSON.stringify(newAppointment)
       })
+      .then(res=> res.json())
+      .then(this.props.updateEvent)
     }
   }
-
-
-
-
-    
-    
-
-
 
   render() {  
       console.log(this.props.joinCourse.joinedUser)

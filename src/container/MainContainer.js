@@ -12,10 +12,8 @@ class MainContainer extends Component {
   state = {
     users: [ ],
     events:[ ],
-    // trainers:[ ],
-    userJoinedEvents:[ ],
     currentUser:'',
-    username:''
+    // username:'',
   }
   
   componentDidMount(){
@@ -40,24 +38,29 @@ class MainContainer extends Component {
       alert("Something went wrong, please try again, or sign up.")
     }
   }
+
+  updateEvent = (e) => {
+    // this.setState({events : events})
+  }
+
   
   render() {
 
-    console.log(this.state.currentUser, "hhh", this.state.username)
+    console.log(this.state.event)
     return (
-      <Router>
+      
       <div>
-        <NavBar />
         <Route 
           exact path='/trainer' 
           render={routerProps => 
             <TrainerContainer  {...routerProps}/>
           }
         />
+
         <Route 
-          exact path='/profile' 
+          exact path='/users/:id' 
           render={routerProps => 
-            <Profile  {...routerProps} addUserEvents={this.addUserEvents}/>
+            <Profile  {...routerProps} addUserEvents={this.addUserEvents} currentUser={this.state.currentUser}/>
           }
         />
         <Route 
@@ -70,22 +73,6 @@ class MainContainer extends Component {
             {...routerProps}/>
           }
         />
-        {/* <Route 
-          exact path='/course' 
-          render={routerProps => 
-            <DayView 
-            events={this.state.events}
-            currentUser={this.state.currentUser}
-            {...routerProps}/>
-          }
-        /> */}
-        {/* <Route 
-          exact path='/joined_course' 
-          render={routerProps => 
-            <JoinCourse 
-            {...routerProps}/>
-          }
-        /> */}
         <Route 
           exact path='/' 
           render={routerProps => 
@@ -96,7 +83,6 @@ class MainContainer extends Component {
           }
         />
       </div>
-    </Router>
     
     )
   }

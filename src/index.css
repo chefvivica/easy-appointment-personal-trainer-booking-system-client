@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,24 +10,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  background-color: rgb(247, 240, 240);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
-.nav-bar{
+.nav-bar {
   height: 100%;
-  width: 200px;
+  width: 160px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 20px;
+  padding-top: 16px;
 }
 
 .nav-bar a {
@@ -43,42 +44,60 @@ code {
   color: #f1f1f1;
 }
 
-
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .nav-bar {padding-top: 15px;}
+  .nav-bar a {font-size: 18px;}
+} 
+.main-container {
+  position: absolute;
+  margin-left: 160px; 
+  padding: 0px 10px;
+  
 }
 
 
-
-/* .trainer-container {
-  background-color: #f7f8fc;
-  font-family: serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-} */
-
-
-
-.trainer-container {
-  background-color: #f7f8fc;
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(5, 1fr);
-  gap:20px;
+.coach-calendar { 
+  margin: auto;
+  width: 1000px;
+  border: 3px solid #1f1e1e;
+  padding: 10px; 
 }
+.join-course {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.join-course-container{
+  border:3px solid dimgray;
+  
+}
+
 
 .trainer-card{
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px;
   width: 500px;
   height: 600px;
-  background-color: rgb(219, 144, 144);
   border-radius: 10px;
   box-shadow: 0 2px 20px rgb(15, 15, 15);
   overflow: hidden;
 
+}
+
+.comment {
+  display: grid;
+  align-items: center;
+  gap:20px;
+  width: 500px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgb(15, 15, 15);
+  overflow: hidden;
 }
 
 .header img{
@@ -94,30 +113,41 @@ code {
   padding: 20px;
   min-height: 250px;
   gap: 20px;
-}
-
-.trainer-container > li{
-  gap: 20px;
-  border-color: burlywood;
-}
+} 
 
 
 .home{
-    position: absolute;
+    /* position: absolute;
     left: 0;
     overflow: hidden;
     min-width: 100%;
-    min-height: 100%;
-    background-image: url('https://svite-league-apps-content.s3.amazonaws.com/bgimages/steel-silhouette.jpg') ;
-    opacity: 70%;   
+    min-height: 100%; */
+
 
 }
 
-.join-course-container{
-  background-color: burlywood;
-  inline-size: auto;
-  
+.container {
+  position: relative;
+  display: inline-block;
+}
+.button {
+  padding: 0;
+  width: 50px;
+  border: 0;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  outline: 0;
+  font-size: 40px;
 }
 
+.trainer-image{
+  width: 300px;
+  height:350px;
+  background-color: rgb(209, 201, 201);
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgb(15, 15, 15);
+  object-fit: cover;
+  overflow: hidden;
 
-
+}
