@@ -5,7 +5,6 @@ const API = 'http://localhost:3000/events'
 export class JoinCourse extends Component {
   state = {
     on: false,
-    buttonText: ''
   }
 
   toggle = () => this.setState({ on : !this.state.on})
@@ -53,35 +52,34 @@ export class JoinCourse extends Component {
   render() {  
   const {title, details, trainerImage, trainer, start, end} = this.props.joinCourse
 
-  return (
-    <div className="join-course-container">
-      <div className="join-course-info">
-        <h2>Please confirm your course</h2>
-        <h1>{title}</h1>
-        <h4>Course details: {details}</h4>
+    return (
+      <div className="join-course-container">
+        <div className="join-course-info">
+          <h2>Please confirm your course</h2>
+          <h1>{title}</h1>
+          <h4>Course details: {details}</h4>
 
-        <div className='join-course-time'>
-          <h5> Start at: { start } </h5>
-          <h5> End  at: { end } </h5>
+          <div className='join-course-time'>
+            <h5> Start at: { start } </h5>
+            <h5> End  at: { end } </h5>
+          </div>
         </div>
-      </div>
 
-      <div className="join-course-trainer">
-        <img src={trainerImage} alt="trainer picture"/>
-        <h5>trainer: {trainer}</h5>
-      </div>
+        <div className="join-course-trainer">
+          <img src={trainerImage} alt="trainer picture"/>
+          <h5>trainer: {trainer}</h5>
+        </div>
 
-      <div>
-        Student list
-        <ul>
-          {this.props.joinedUsers.map((user,index)=> <li key={index}>{user}</li>)} 
-        </ul>
-      </div>
+        <div>
+          Student list
+          <ul>
+            {this.props.joinedUsers.map((user,index)=> <li key={index}>{user}</li>)} 
+          </ul>
+        </div>
 
-      <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}</button>
-    </div>
-  )
-    
+        <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}</button>
+      </div>
+    )   
   }
 }
 

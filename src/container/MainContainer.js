@@ -45,33 +45,29 @@ class MainContainer extends Component {
   
   render() {
     const {events, currentUser, appointments, username} = this.state
-    console.log(appointments)
+
     return (
       
       <div>
         <Route path='/trainer' render={routerProps => 
-          <TrainerContainer  {...routerProps}/>
-          }
+          <TrainerContainer  {...routerProps}/>}
         />
 
         <Route path='/users/:id' render={routerProps => 
-            <Profile  {...routerProps} addUserEvents={this.addUserEvents} currentUser={currentUser}/>
-          }
+            <Profile  {...routerProps} addUserEvents={this.addUserEvents} currentUser={currentUser}/>}
         />
         <Route path='/calendar' render={routerProps => 
           <DayView 
           events={events}
           currentUser={currentUser}
           username={username}
-          {...routerProps}/>
-        }
+          {...routerProps}/>}
         />
         <Route exact path='/' render={routerProps => 
             <Home
             addUser={this.addUser}
             findUser={this.findUser}
-            {...routerProps}/>
-          }
+            {...routerProps}/>}
         />
       </div>
     

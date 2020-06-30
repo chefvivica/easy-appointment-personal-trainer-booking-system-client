@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const TrainerCard = (props) => {
   const {id, image, bio, name, comments,rating} = props.trainer

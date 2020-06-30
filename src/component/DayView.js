@@ -41,6 +41,7 @@ export default class DayView extends React.Component {
       joinedUsers : [...this.state.joinedUsers, username]
     })
   }
+  
   render() {
     // console.log())
     const {currentUser, username, events} = this.props
