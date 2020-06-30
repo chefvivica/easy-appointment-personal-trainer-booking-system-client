@@ -11,8 +11,9 @@ import JoinCourse from './JoinCourse';
 export default class DayView extends React.Component {
 
   state = {
-    joinCourse: { },
-    joinedUsers: [ ]
+    joinCourse: {},
+    joinedUsers: [],
+    on:false
   }
 
 
@@ -35,7 +36,7 @@ export default class DayView extends React.Component {
     this.setState({joinCourse: newJoinCousrse, joinedUsers: joinedUser})
   }
 
-  updateJoinCourse = (username) => {
+  addJoinCourse = (username) => {
     this.setState({
       joinedUsers : [...this.state.joinedUsers, username]
     })

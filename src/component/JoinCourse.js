@@ -5,13 +5,14 @@ const API = 'http://localhost:3000/events'
 export class JoinCourse extends Component {
   state = {
     on: false,
-
+    buttonText: ''
   }
 
   toggle = () => this.setState({ on : !this.state.on})
 
   
   handleConfirm = (e) => {
+    e.persist()
     const {currentUser, joinCourse, username} = this.props
     
     let userId = parseInt(currentUser)
@@ -22,7 +23,8 @@ export class JoinCourse extends Component {
       alert("please login to join this event")     
     }else if(joinCourse.joinedUser.includes(username)){
       alert("You have already joined this event")
-    }else {
+      console.log(e.target.innerText)
+    }else if(e.target.innerText === 'Join this course'){
       fetch('http://localhost:3000/appointments',{
         method: "POST",
         headers: { 
@@ -31,43 +33,54 @@ export class JoinCourse extends Component {
         },
         body:JSON.stringify(newAppointment)
       })
-      .then(r=> r.json())
-      .then(r => {
-        this.props.updateJoinCourse(username)
+      .then(res=> res.json())
+      .then(res => {
+        this.props.addJoinCourse(username)
       })
-      
+      alert(" You have been enrolled this course succesfully!")
+      this.setState({on:true})
+    }else if(e.target.innerText === 'Cancel your appointment'){
+      fetch('http://localhost:3000/appointments',{
+      method: "DELETE"
+      })
+      .then(res=> res.json())
+      .then(res => {
+        this.props.removeJoinCourse(username)
+      })
     }
   }
 
   render() {  
-      console.log(this.props.joinedUsers, "whahahhah", this.props.username)
-      
-   
-      const {title, details, trainerImage, trainer, joinedUser, start, end} = this.props.joinCourse
-    
-    return (
-      <div className="join-course-container">
-        <div className="join-course-info">
-          <h1>Please confirm your course</h1>
-          <h3>{title}</h3>
-          <h4>Course details: {details}</h4>
-          <div>
-            <h5>{ start } to {end}</h5>
-          </div>
+  const {title, details, trainerImage, trainer, start, end} = this.props.joinCourse
+
+  return (
+    <div className="join-course-container">
+      <div className="join-course-info">
+        <h2>Please confirm your course</h2>
+        <h1>{title}</h1>
+        <h4>Course details: {details}</h4>
+
+        <div className='join-course-time'>
+          <h5> Start at: { start } </h5>
+          <h5> End  at: { end } </h5>
         </div>
-        <div className="join-course-trainer">
-          <img src={trainerImage} alt="trainer picture"/>
-          <h5>trainer: {trainer}</h5>
-          <button onClick={this.toggle}>Student list</button>
-          {this.state.on? <ul>
+      </div>
+
+      <div className="join-course-trainer">
+        <img src={trainerImage} alt="trainer picture"/>
+        <h5>trainer: {trainer}</h5>
+      </div>
+
+      <div>
+        Student list
+        <ul>
           {this.props.joinedUsers.map((user,index)=> <li key={index}>{user}</li>)} 
         </ul>
-        :null}
-        </div>
+      </div>
 
-        <button className="join-course-confirm-button" onClick={this.handleConfirm}>Confirm</button>
+      <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}</button>
     </div>
-    )
+  )
     
   }
 }

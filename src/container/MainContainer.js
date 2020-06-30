@@ -4,7 +4,7 @@ import Home from '../component/Home'
 import JoinCourse from '../component/JoinCourse'
 import DayView from '../component/DayView'
 import TrainerContainer from './TrainerContainer'
-import {BrowserRouter as Router, Route} from 'react-router-dom' 
+import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
 
 class MainContainer extends Component {
@@ -13,7 +13,7 @@ class MainContainer extends Component {
     users: [ ],
     events:[ ],
     currentUser:'',
-    // username:'',
+    appointments:[]
   }
   
   componentDidMount(){
@@ -24,6 +24,10 @@ class MainContainer extends Component {
     fetch('http://localhost:3000/users')
     .then(res => res.json())
     .then(users => this.setState({ users }))
+
+    fetch('http://localhost:3000/appointments')
+    .then(res => res.json())
+    .then(appointments => this.setState({ appointments }))
     
   }
   
@@ -40,37 +44,29 @@ class MainContainer extends Component {
   }
   
   render() {
-
-    console.log(this.state.events)
+    const {events, currentUser, appointments, username} = this.state
+    console.log(appointments)
     return (
       
       <div>
-        <Route 
-          exact path='/trainer' 
-          render={routerProps => 
-            <TrainerContainer  {...routerProps}/>
+        <Route path='/trainer' render={routerProps => 
+          <TrainerContainer  {...routerProps}/>
           }
         />
 
-        <Route 
-          exact path='/users/:id' 
-          render={routerProps => 
-            <Profile  {...routerProps} addUserEvents={this.addUserEvents} currentUser={this.state.currentUser}/>
+        <Route path='/users/:id' render={routerProps => 
+            <Profile  {...routerProps} addUserEvents={this.addUserEvents} currentUser={currentUser}/>
           }
         />
-        <Route 
-          exact path='/calendar' 
-          render={routerProps => 
-            <DayView 
-            events={this.state.events}
-            currentUser={this.state.currentUser}
-            username={this.state.username}
-            {...routerProps}/>
-          }
+        <Route path='/calendar' render={routerProps => 
+          <DayView 
+          events={events}
+          currentUser={currentUser}
+          username={username}
+          {...routerProps}/>
+        }
         />
-        <Route 
-          exact path='/' 
-          render={routerProps => 
+        <Route exact path='/' render={routerProps => 
             <Home
             addUser={this.addUser}
             findUser={this.findUser}
