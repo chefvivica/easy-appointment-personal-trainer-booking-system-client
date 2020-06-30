@@ -42,10 +42,14 @@ class MainContainer extends Component {
       alert("Something went wrong, please try again, or sign up.")
     }
   }
+  addAppointment = (newAppt) => {
+    this.setState({ appointments: [...this.state.appointments, newAppt] })
+  }
+
   
   render() {
     // console.log(this.state.events)
-    const {events, currentUser, appointments, username} = this.state
+    const {events, currentUser, appointments, username,} = this.state
 
     return (
       
@@ -62,6 +66,7 @@ class MainContainer extends Component {
           events={events}
           currentUser={currentUser}
           username={username}
+          addAppointment={this.addAppointment}
           appointments={appointments}
           {...routerProps}/>}
         />

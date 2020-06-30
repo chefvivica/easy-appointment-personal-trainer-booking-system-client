@@ -28,10 +28,8 @@ export default class DayView extends React.Component {
     let trainer = eventDetails.trainer.name
     let trainerImage = eventDetails.trainer.image
     let joinedUser = eventDetails.users.map(user=> user.username)
-  
     let a = range.start.toISOString()
     let start = a.split('').slice(0,a.length-5).join('')
-  
     let b = range.end.toISOString()
     let end = b.split('').slice(0,b.length-5).join('')
     
@@ -46,9 +44,13 @@ export default class DayView extends React.Component {
       joinedUsers : [...this.state.joinedUsers, username]
     })
   }
-  
+
+  // removeJoinCourse = (username) => {
+    
+  // }
+
   render() {
-    const {currentUser, username, events,appointments} = this.props
+    const {currentUser, username, events,appointments,addAppointment} = this.props
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
@@ -86,6 +88,7 @@ export default class DayView extends React.Component {
           joinedUsers={this.state.joinedUsers}
           addJoinCourse={this.addJoinCourse}
           appointments={appointments}
+          addAppointment={addAppointment}
 
           username={username}/>
         </div>

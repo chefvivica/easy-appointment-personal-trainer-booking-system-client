@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-
+const url ="http://localhost:3000/appointments"
 const API = 'http://localhost:3000/events'
 export class JoinCourse extends Component {
   state = {
@@ -20,11 +20,12 @@ export class JoinCourse extends Component {
     
     if(!currentUser){
       alert("please login to join this event")     
-    }else if(joinCourse.joinedUser.includes(username)){
+    }
+    else if(joinCourse.joinedUser.includes(username)){
       alert("You have already joined this event")
-      console.log(e.target.innerText)
-    }else if(e.target.innerText === 'Join this course'){
-      fetch('http://localhost:3000/appointments',{
+    }
+    else if(e.target.innerText === 'Join this course'){
+      fetch(`${url}`,{
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -33,22 +34,32 @@ export class JoinCourse extends Component {
         body:JSON.stringify(newAppointment)
       })
       .then(res=> res.json())
-      .then(res => {
+      .then(data => {
         this.props.addJoinCourse(username)
+        this.props.addAppointment(data)
       })
       alert(" You have been enrolled this course succesfully!")
       this.setState({on:true})
-    }else if(e.target.innerText === 'Cancel your appointment'){
-      fetch('http://localhost:3000/appointments',{
+    }
+    else if(e.target.innerText === 'Cancel your appointment'){
+
+      
+      let arr = this.props.appointments.find(a=> a.user_id === userId && a.event_id === eventId)
+      let id = arr.id
+      console.log(arr)
+  
+      console.log(id)
+      fetch(`${url}/${id}`,{ //need to work on / this.props.removeAppointment check backend
       method: "DELETE"
       })
       .then(res=> res.json())
-      .then(console.log)
+      .then(console.log)   
     }
   }
 
+
   render() {  
-    console.log(this.props.appointments)
+    console.log("username", this.props.username, "total appt", this.props.appointments)
   const {title, details, trainerImage, trainer, start, end} = this.props.joinCourse
 
     return (
