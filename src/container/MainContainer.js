@@ -44,6 +44,7 @@ class MainContainer extends Component {
   }
   
   render() {
+    // console.log(this.state.events)
     const {events, currentUser, appointments, username} = this.state
 
     return (
@@ -61,6 +62,7 @@ class MainContainer extends Component {
           events={events}
           currentUser={currentUser}
           username={username}
+          appointments={appointments}
           {...routerProps}/>}
         />
         <Route exact path='/' render={routerProps => 

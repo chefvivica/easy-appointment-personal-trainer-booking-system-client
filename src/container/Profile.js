@@ -21,9 +21,10 @@ export class Profile extends Component {
   }
 
   handleMyEvent = (e) => {
-    alert("are you sure you want to cancel this course?")
-    if("ok"){
-      e.event.remove()
+    console.log(e)
+    // alert("are you sure you want to cancel this course?")
+    // if("ok"){
+    //   e.event.remove()
 
       // fetch(`${API}/${this.props.currentUser}`{
       //   method: "detele",
@@ -33,7 +34,7 @@ export class Profile extends Component {
       //   },
       //   body:JSON.stringify(newAppointment)
       // })
-    }
+    // }
   }
 
 

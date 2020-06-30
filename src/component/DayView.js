@@ -28,8 +28,13 @@ export default class DayView extends React.Component {
     let trainer = eventDetails.trainer.name
     let trainerImage = eventDetails.trainer.image
     let joinedUser = eventDetails.users.map(user=> user.username)
-    let start = range.start.toString()
-    let end = range.end.toString()
+  
+    let a = range.start.toISOString()
+    let start = a.split('').slice(0,a.length-5).join('')
+  
+    let b = range.end.toISOString()
+    let end = b.split('').slice(0,b.length-5).join('')
+    
     let id = eventInfo.publicId
 
     let newJoinCousrse = {title, details, trainer, trainerImage, joinedUser, start, end, id}
@@ -43,8 +48,7 @@ export default class DayView extends React.Component {
   }
   
   render() {
-    // console.log())
-    const {currentUser, username, events} = this.props
+    const {currentUser, username, events,appointments} = this.props
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
@@ -69,10 +73,10 @@ export default class DayView extends React.Component {
           
             events={events}
             eventColor={'#3691b0'} 
-            eventClick={this.joinEvent} 
-          
+            eventClick={this.joinEvent}           
             />        
         </div>
+
         {this.state.on?
         <div className="join-course">
           <JoinCourse 
@@ -80,7 +84,9 @@ export default class DayView extends React.Component {
           joinEvent={this.joinEvent}
           currentUser={currentUser}
           joinedUsers={this.state.joinedUsers}
-          updateJoinCourse={this.updateJoinCourse}
+          addJoinCourse={this.addJoinCourse}
+          appointments={appointments}
+
           username={username}/>
         </div>
         :null

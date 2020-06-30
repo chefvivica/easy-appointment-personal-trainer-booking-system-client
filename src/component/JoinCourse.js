@@ -43,13 +43,12 @@ export class JoinCourse extends Component {
       method: "DELETE"
       })
       .then(res=> res.json())
-      .then(res => {
-        this.props.removeJoinCourse(username)
-      })
+      .then(console.log)
     }
   }
 
   render() {  
+    console.log(this.props.appointments)
   const {title, details, trainerImage, trainer, start, end} = this.props.joinCourse
 
     return (
