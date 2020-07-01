@@ -18,7 +18,7 @@ export class TrainerContainer extends Component {
     
     return (
       <div> 
-        <h1>Our trainers</h1>
+        {/* <h1>Our trainers</h1>
         <div className="trainer-dropdown">
           <div className="trainr-container">
             <button type="button" className="button">
@@ -27,11 +27,11 @@ export class TrainerContainer extends Component {
             <div className="dropdown">
               <ul >
               {this.state.trainers.map(trainer => <TrainerCard key={trainer.id} trainer={trainer}/>)}
-                {/* {this.state.trainers.map(trainer =><img className="trainer-image" src={trainer.image}></img>)} */}
+                {this.state.trainers.map(trainer =><img className="trainer-image" src={trainer.image}></img>)}
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }

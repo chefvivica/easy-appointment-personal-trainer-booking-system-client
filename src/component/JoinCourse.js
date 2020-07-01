@@ -1,30 +1,31 @@
 import React, { Component } from 'react'
 
+
 const url ="http://localhost:3000/appointments"
 const API = 'http://localhost:3000/events'
 export class JoinCourse extends Component {
   state = {
-    on: false,
+    button:'Join this course',
+    trainer:{},
+    on:false
   }
 
   toggle = () => this.setState({ on : !this.state.on})
 
-  unique = (value, index, self) => {
-    return self.indexOf(value) === index
-  }
-  
   handleConfirm = e => {
     e.persist()
-    const {currentUser, joinCourse, username} = this.props
+    const {currentUser, joinCourse, joinedUsers} = this.props
+    let username = currentUser.username
     
-    let userId = parseInt(currentUser)
+    let userId = currentUser.id
     let eventId = parseInt(joinCourse.id)
     let newAppointment = {user_id:userId, event_id:eventId}
     
-    if(!currentUser){
+    console.log(username)
+    if(currentUser.id === undefined){
       alert("please login to join this event")     
     }
-    else if(joinCourse.joinedUser.includes(username)){
+    else if(e.target.innerText === 'Join this course' && joinedUsers.find(user=> user===username)){
       alert("You have already joined this event")
     }
     else if(e.target.innerText === 'Join this course'){
@@ -42,33 +43,40 @@ export class JoinCourse extends Component {
         this.props.addAppointment(data)
       })
       alert(" You have been enrolled this course succesfully!")
-      this.setState({on:true})
+      this.setState({button:"Cancel"})
     }
-    else if(e.target.innerText === 'Cancel your appointment'){
-      let arr = this.props.appointments.find(a=> a.user_id === userId && a.event_id === eventId)
-      let id = arr.id
-      fetch(`${url}/${id}`,{ 
-      method: "DELETE"
-      })
-      .then(res=> res.json())
-      .then(data=>{
-        this.props.removeAppointment(data)
-        this.props.removeJoinCourse(username)
-      })   
+    else if(e.target.innerText === 'Cancel'){
+        let arr = this.props.appointments.find(a=> a.user_id === userId && a.event_id === eventId)
+        let id = arr.id
+        fetch(`${url}/${id}`,{ 
+          method: "DELETE"
+          })
+          .then(res=> res.json())
+          .then(data=>{
+              this.props.removeAppointment(data)
+              this.props.removeJoinCourse(username)
+            })   
       alert(" You cancelled this course succesfully!")
-      this.setState({on:false})
+      this.setState({button:"x"})
+    }
+    else if(e.target.innerText === 'x'){
+      //
     }
   }
+  
 
-
+  
   render() {  
-    // console.log("username", this.props.username, "total appt", this.props.appointments)
-  const {title, details, trainerImage, trainer, start, end} = this.props.joinCourse
-  let studentsTorender = this.props.joinedUsers.filter(this.unique)
+    
+    const {title, details, start, end} = this.props.joinCourse
+    const {name, image}=this.props.trainer
+    let studentsTorender = [...new Set(this.props.joinedUsers)]
 
     return (
+      
       <div className="join-course-container">
         <div className="join-course-info">
+          <button className="join-course-close-form-button" onClick={this.handleConfirm}>x</button>
           <h2>Please confirm your course</h2>
           <h1>{title}</h1>
           <h4>Course details: {details}</h4>
@@ -80,18 +88,20 @@ export class JoinCourse extends Component {
         </div>
 
         <div className="join-course-trainer">
-          <img src={trainerImage} alt="trainer picture"/>
-          <h5>trainer: {trainer}</h5>
+          <img src={image} alt="trainer picture"/>
+          <h5>trainer: {name}</h5>
         </div>
 
         <div>
           Student list
           <ul>
-            {studentsTorender.map((user,index)=> <li key={index}>{user}</li>)} 
+            {studentsTorender.map((user,index)=> <li key={index}> {user} </li>)} 
           </ul>
         </div>
-        <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}
-        </button>
+        {/* <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}
+        </button> */}
+        <button className="join-course-confirm-button" onClick={this.handleConfirm}> {this.state.button}</button>
+        
       </div>
     )   
   }
