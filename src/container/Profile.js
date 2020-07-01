@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import FullCalendar, { formatDate } from '@fullcalendar/react'
+import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
 const API = 'http://localhost:3000/users'
-
-
 export class Profile extends Component {
 
   state = {
@@ -25,15 +23,6 @@ export class Profile extends Component {
     // alert("are you sure you want to cancel this course?")
     // if("ok"){
     //   e.event.remove()
-
-      // fetch(`${API}/${this.props.currentUser}`{
-      //   method: "detele",
-      //   headers: { 
-      //     'Content-Type': 'application/json',
-      //     Accept: 'application/json'
-      //   },
-      //   body:JSON.stringify(newAppointment)
-      // })
     // }
   }
 
@@ -61,12 +50,10 @@ export class Profile extends Component {
             selectMirror={true}
             dayMaxEvents={true}
             aspectRatio= {1}
-            height={500}
-          
+            height={500}         
             events={events}
             eventColor={'#3671b0'} 
-            eventClick={this.handleMyEvent} 
-          
+            eventClick={this.handleMyEvent}          
             />  
         </div>                  
         

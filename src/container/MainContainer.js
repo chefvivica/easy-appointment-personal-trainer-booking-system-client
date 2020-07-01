@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import NavBar from '../component/NavBar'
 import Home from '../component/Home'
-import JoinCourse from '../component/JoinCourse'
-import DayView from '../component/DayView'
+import MainCalendar from './MainCalendar'
 import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
@@ -42,42 +40,40 @@ class MainContainer extends Component {
       alert("Something went wrong, please try again, or sign up.")
     }
   }
-  addAppointment = (newAppt) => {
-    this.setState({ appointments: [...this.state.appointments, newAppt] })
-  }
 
+  addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
+
+  removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt) })
+
   render() {
-    // console.log(this.state.events)
+    console.log(this.state.currentUser)
     const {events, currentUser, appointments, username,} = this.state
 
     return (
       
       <div>
-        <Route path='/trainer' render={routerProps => 
-          <TrainerContainer  {...routerProps}/>}
-        />
-
-        <Route path='/users/:id' render={routerProps => 
-            <Profile  {...routerProps} addUserEvents={this.addUserEvents} currentUser={currentUser}/>}
-        />
-        <Route path='/calendar' render={routerProps => 
-          <DayView 
-          events={events}
-          currentUser={currentUser}
-          username={username}
-          addAppointment={this.addAppointment}
-          appointments={appointments}
-          {...routerProps}/>}
-        />
-        <Route exact path='/' render={routerProps => 
-            <Home
-            addUser={this.addUser}
-            findUser={this.findUser}
+        <Switch>
+          <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
+          <Route path='/users/:id' render={routerProps => 
+            <Profile  
+            {...routerProps} 
+            addUserEvents={this.addUserEvents} 
+            currentUser={currentUser}/>}
+          />
+          <Route path='/calendar' render={routerProps => 
+            <MainCalendar
+            events={events}
+            currentUser={currentUser}
+            username={username}
+            addAppointment={this.addAppointment}
+            removeAppointment={this.removeAppointment}
+            appointments={appointments}
             {...routerProps}/>}
-        />
-      </div>
-    
+          />
+          <Route exact path='/' render={routerProps => <Home addUser={this.addUser} findUser={this.findUser} {...routerProps}/>}/>
+        </Switch>
+      </div>   
     )
   }
 }

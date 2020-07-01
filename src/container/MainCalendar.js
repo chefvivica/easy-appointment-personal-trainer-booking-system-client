@@ -1,21 +1,19 @@
 import React from 'react'
-import FullCalendar, { formatDate } from '@fullcalendar/react'
+import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-// import { INITIAL_EVENTS, createEventId } from './event-utils'
-import JoinCourse from './JoinCourse';
+import JoinCourse from '../component/JoinCourse';
 
 
 
-export default class DayView extends React.Component {
+export default class MainCarlendar extends React.Component {
 
   state = {
     joinCourse: {},
     joinedUsers: [],
     on:false
   }
-
 
   joinEvent = (e) => {
     this.setState({on: true})
@@ -31,26 +29,25 @@ export default class DayView extends React.Component {
     let a = range.start.toISOString()
     let start = a.split('').slice(0,a.length-5).join('')
     let b = range.end.toISOString()
-    let end = b.split('').slice(0,b.length-5).join('')
-    
+    let end = b.split('').slice(0,b.length-5).join('')    
     let id = eventInfo.publicId
 
     let newJoinCousrse = {title, details, trainer, trainerImage, joinedUser, start, end, id}
     this.setState({joinCourse: newJoinCousrse, joinedUsers: joinedUser})
   }
 
-  addJoinCourse = (username) => {
-    this.setState({
-      joinedUsers : [...this.state.joinedUsers, username]
-    })
-  }
+  addJoinCourse = username => this.setState({ joinedUsers : [...this.state.joinedUsers, username] })
+  
 
-  // removeJoinCourse = (username) => {
+  removeJoinCourse = username => this.setState({ joinedUsers: this.state.joinedUsers.filter(user => user !== username) })
     
-  // }
+  
 
   render() {
-    const {currentUser, username, events,appointments,addAppointment} = this.props
+    const {currentUser, username, events,appointments,addAppointment, removeAppointment} = this.props
+    const {joinCourse, joinedUsers,on} = this.state
+    console.log(this.state.joinedUsers)
+
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
@@ -79,22 +76,22 @@ export default class DayView extends React.Component {
             />        
         </div>
 
-        {this.state.on?
+        {on?
         <div className="join-course">
           <JoinCourse 
-          joinCourse={this.state.joinCourse}
-          joinEvent={this.joinEvent}
+          joinCourse={joinCourse}
           currentUser={currentUser}
-          joinedUsers={this.state.joinedUsers}
+          joinedUsers={joinedUsers}
+          joinEvent={this.joinEvent}
           addJoinCourse={this.addJoinCourse}
+          removeJoinCourse={this.removeJoinCourse}
           appointments={appointments}
           addAppointment={addAppointment}
-
+          removeAppointment={removeAppointment}
           username={username}/>
         </div>
-        :null
-        } 
-        
+          :null
+        }         
       </div>
     )
   }
