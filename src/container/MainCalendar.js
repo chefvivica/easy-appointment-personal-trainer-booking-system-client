@@ -12,31 +12,20 @@ export default class MainCarlendar extends React.Component {
   state = {
     joinCourse: {},
     joinedUsers: [],
+    trainer:{},
     on:false
   }
 
   joinEvent = (e) => {
     this.setState({on: true})
-    const eventInfo = e.event._def
-    const eventDetails = eventInfo.extendedProps
-    const range = e.event._instance.range
-
-    let details = eventDetails.details
-    let title = eventInfo.title
-    let trainer = eventDetails.trainer.name
-    let trainerImage = eventDetails.trainer.image
-    let joinedUser = eventDetails.users.map(user=> user.username)
-    let a = range.start.toISOString()
-    let start = a.split('').slice(0,a.length-5).join('')
-    let b = range.end.toISOString()
-    let end = b.split('').slice(0,b.length-5).join('')    
-    let id = eventInfo.publicId
-
-    let newJoinCousrse = {title, details, trainer, trainerImage, joinedUser, start, end, id}
-    this.setState({joinCourse: newJoinCousrse, joinedUsers: joinedUser})
+    const eventInfo = e.event._def.publicId
+    let id = parseInt(eventInfo)
+    let targetEvent = this.props.events.find(event=> event.id === id)
+    let users = targetEvent.users.map( user=> user.username)
+    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:users})
   }
 
-  addJoinCourse = username => this.setState({ joinedUsers : [...this.state.joinedUsers, username] })
+  addJoinCourse = user => this.setState({ joinedUsers : [...this.state.joinedUsers, user] })
   
 
   removeJoinCourse = username => this.setState({ joinedUsers: this.state.joinedUsers.filter(user => user !== username) })
@@ -44,10 +33,10 @@ export default class MainCarlendar extends React.Component {
   
 
   render() {
-    const {currentUser, username, events,appointments,addAppointment, removeAppointment} = this.props
-    const {joinCourse, joinedUsers,on} = this.state
+    const {currentUser, events,appointments,addAppointment, removeAppointment} = this.props
+    const {joinCourse, joinedUsers,trainer,on } = this.state
     console.log(this.state.joinedUsers)
-
+    
     return (
       <div className={'coach-calendar-container'}>
         <div className = {'header-img-container'}>
@@ -88,7 +77,9 @@ export default class MainCarlendar extends React.Component {
           appointments={appointments}
           addAppointment={addAppointment}
           removeAppointment={removeAppointment}
-          username={username}/>
+          trainer={trainer}
+          
+          />
         </div>
           :null
         }         

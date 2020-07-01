@@ -7,16 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 const API = 'http://localhost:3000/users'
 export class Profile extends Component {
 
-  state = {
-    user: {},
-  }
-
-  componentDidMount(){ 
-    fetch(`${API}/${this.props.currentUser}`)
-    .then(res => res.json())
-    .then(user => this.setState({ user }))
-    
-  }
+ 
 
   handleMyEvent = (e) => {
     console.log(e)
@@ -28,12 +19,12 @@ export class Profile extends Component {
 
 
   render() {
-    const {username, image, events} = this.state.user
+    // const {username, image, events} = this.state.user
     return (
       <div className="profile-container">
         <div className="profile-info">
-          <h1>Welcome back {username}</h1>
-          <img src={image} alt='user img'/>
+          {/* <h1>Welcome back {username}</h1>
+          <img src={image} alt='user img'/> */}
         </div>
         <div className="profile-calendar">
         <FullCalendar
@@ -51,7 +42,7 @@ export class Profile extends Component {
             dayMaxEvents={true}
             aspectRatio= {1}
             height={500}         
-            events={events}
+            // events={events}
             eventColor={'#3671b0'} 
             eventClick={this.handleMyEvent}          
             />  

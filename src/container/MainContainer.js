@@ -10,7 +10,7 @@ class MainContainer extends Component {
   state = {
     users: [ ],
     events:[ ],
-    currentUser:'',
+    currentUser:{},
     appointments:[]
   }
   
@@ -33,8 +33,7 @@ class MainContainer extends Component {
     e.preventDefault()
     if(this.state.users.find(user=> user.username===username)){
       let user = this.state.users.find(user=> user.username ===username)
-      let id = user.id
-      this.setState({currentUser:id, username:username})
+      this.setState({currentUser: user})
       match.history.push("/calendar")
     }else{
       alert("Something went wrong, please try again, or sign up.")
@@ -47,9 +46,8 @@ class MainContainer extends Component {
   removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt) })
 
   render() {
-    console.log(this.state.currentUser)
-    const {events, currentUser, appointments, username,} = this.state
-
+    const {events, currentUser, appointments} = this.state
+    
     return (
       
       <div>
@@ -65,7 +63,6 @@ class MainContainer extends Component {
             <MainCalendar
             events={events}
             currentUser={currentUser}
-            username={username}
             addAppointment={this.addAppointment}
             removeAppointment={this.removeAppointment}
             appointments={appointments}

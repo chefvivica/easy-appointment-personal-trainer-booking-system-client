@@ -1,11 +1,11 @@
 import React from 'react';
 
 const TrainerCard = (props) => {
-  const {id, image, bio, name, comments,rating} = props.trainer
+  // const {id, image, bio, name, comments,rating} = props.trainer
   
   return(
     <div>
-      <div className="trainer-card">
+      {/* <div className="trainer-card">
         <div className="header">
           <img  src={image} alt="trainer picture" />
         </div>
@@ -20,7 +20,7 @@ const TrainerCard = (props) => {
             <br></br>
             {comments.map((comment,index)=> <li key={index}>{comment.content}</li>)}
           </ul>
-        </div>
+        </div> */}
     </div>
   )
 }
