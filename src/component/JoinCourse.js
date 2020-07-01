@@ -9,8 +9,11 @@ export class JoinCourse extends Component {
 
   toggle = () => this.setState({ on : !this.state.on})
 
+  unique = (value, index, self) => {
+    return self.indexOf(value) === index
+  }
   
-  handleConfirm = (e) => {
+  handleConfirm = e => {
     e.persist()
     const {currentUser, joinCourse, username} = this.props
     
@@ -42,25 +45,26 @@ export class JoinCourse extends Component {
       this.setState({on:true})
     }
     else if(e.target.innerText === 'Cancel your appointment'){
-
-      
       let arr = this.props.appointments.find(a=> a.user_id === userId && a.event_id === eventId)
       let id = arr.id
-      console.log(arr)
-  
-      console.log(id)
-      fetch(`${url}/${id}`,{ //need to work on / this.props.removeAppointment check backend
+      fetch(`${url}/${id}`,{ 
       method: "DELETE"
       })
       .then(res=> res.json())
-      .then(console.log)   
+      .then(data=>{
+        this.props.removeAppointment(data)
+        this.props.removeJoinCourse(username)
+      })   
+      alert(" You cancelled this course succesfully!")
+      this.setState({on:false})
     }
   }
 
 
   render() {  
-    console.log("username", this.props.username, "total appt", this.props.appointments)
+    // console.log("username", this.props.username, "total appt", this.props.appointments)
   const {title, details, trainerImage, trainer, start, end} = this.props.joinCourse
+  let studentsTorender = this.props.joinedUsers.filter(this.unique)
 
     return (
       <div className="join-course-container">
@@ -83,11 +87,11 @@ export class JoinCourse extends Component {
         <div>
           Student list
           <ul>
-            {this.props.joinedUsers.map((user,index)=> <li key={index}>{user}</li>)} 
+            {studentsTorender.map((user,index)=> <li key={index}>{user}</li>)} 
           </ul>
         </div>
-
-        <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}</button>
+        <button className="join-course-confirm-button" onClick={this.handleConfirm}>{this.state.on? "Cancel your appointment": "Join this course"}
+        </button>
       </div>
     )   
   }
