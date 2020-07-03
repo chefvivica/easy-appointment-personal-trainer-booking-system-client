@@ -20,7 +20,6 @@ export class Home extends Component {
           
         </h1>
         {this.state.on? <Login match={this.props} findUser={this.props.findUser}/> : <Signup addUser={addUser} match={this.props} /> }
-        <br></br><br></br><br></br>
         <button onClick={this.toggle}>{this.state.on? "Sign up instead": "Login in instead"}</button>
       </div>
     )

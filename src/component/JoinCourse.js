@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "../css/joinCourse.css"
 
 
 const url ="http://localhost:3000/appointments"
@@ -20,7 +21,7 @@ export class JoinCourse extends Component {
     let userId = currentUser.id
     let eventId = parseInt(joinCourse.id)
     let newAppointment = {user_id:userId, event_id:eventId}
-    
+    console.log(eventId, userId)
     if(e.target.innerText === 'Join this course' && currentUser.id === undefined){
       alert("please login to join this event")     
     }
@@ -38,7 +39,7 @@ export class JoinCourse extends Component {
       })
       .then(res=> res.json())
       .then(data => {
-        this.props.addJoinCourse(username)
+        this.props.addJoinCourse(this.props.currentUser)
         this.props.addAppointment(data)
       })
       alert(" You have been enrolled this course succesfully!")
@@ -53,37 +54,40 @@ export class JoinCourse extends Component {
           .then(res=> res.json())
           .then(data=>{
               this.props.removeAppointment(data)
-              this.props.removeJoinCourse(username)
+              this.props.removeJoinCourse(this.props.currentUser)
             })   
       alert(" You cancelled this course succesfully!")
-      this.setState({button:"x"})
+      this.setState({button:"close"})
     }
-    else if(e.target.innerText === 'x'){
+    else if(e.target.innerText === 'close'){
       this.props.closeForm()
     }
   }
-  
 
-  
+  getUnique = (arr, index) =>{
+    const unique = arr.map(e => e[index])
+    .map((e, i, final) => final.indexOf(e) === i && i)
+    .filter(e => arr[e]).map(e => arr[e]);      
+    return unique;
+  }
+
   render() {  
     
     const {title, details, start, end} = this.props.joinCourse
     const {name, image}=this.props.trainer
-    let studentsTorender = [...new Set(this.props.joinStudents)]
-    // console.log( this.props.joinStudents)
-  
-    return (
-      
-      <div className="join-course-container">
+    let studentsTorender = this.getUnique([...this.props.joinedUsers],"username")
 
+    console.log( this.props.joinStudents, "???",studentsTorender)
+    return (     
+      <div className="join-course-container">
+          <button className="join-course-close-form-button" onClick={this.handleConfirm}>close</button> 
         <div className="join-course-info">
-          <button className="join-course-close-form-button" onClick={this.handleConfirm}>x</button>
           <h1>{title}</h1>
         </div>
 
         <div className="join-course-trainer">
           <img src={image} alt="trainer picture"/>
-          <h5>Trainer: {name}</h5>
+          <h2>Trainer: {name}</h2>
           <h4>Course details: {details}</h4>
           
             <h5> Start at: { start } </h5>
@@ -91,8 +95,7 @@ export class JoinCourse extends Component {
         </div>
 
         <div className='student-container'>
-          Student list
-          <ul>
+          <ul className='student-info'>
             {studentsTorender.map((user,index)=> <div key={index}><img src={user.image}/><span> {user.username}</span></div>)} 
           </ul>
         <button className="join-course-confirm-button" onClick={this.handleConfirm}> {this.state.button}</button>

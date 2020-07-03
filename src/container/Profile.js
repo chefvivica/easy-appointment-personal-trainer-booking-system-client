@@ -54,14 +54,12 @@ export class Profile extends Component {
       return "loading"
     }else{
       return (
-
         <div className="profile-container">
           <div className="profile-info">
             <h1>Welcome back {username}</h1>
             <img src={image} alt='user img'/>           
           </div> 
-  
-  
+
           <div className="profile-calendar">
           <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -82,22 +80,11 @@ export class Profile extends Component {
               // eventClick={this.removeMyEvent} 
               eventClick={this.handleEventClick}
               />  
-          </div>
-            
-          
-          <div className='cancle-btn'>
-            <button >Cancel this course</button>
-
-            {/* <ul>
-            {this.state.events.map((event,index)=> <li key={index}>{event.title} time start: <b>{event.start}</b> end at <b>{event.end}</b> <button onClick={()=>this.removeMyEvent(event.start, event.trainer_id)}>Cancel this event</button></li> )}
-            </ul> */}
-          </div>                  
-      </div>	      
+          </div>                
+        </div>	      
       )	    
-    }
-    
+    }   
   }	
-
 }	
 
 export default Profile

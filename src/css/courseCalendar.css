@@ -1,0 +1,14 @@
+.coach-calendar-container {
+  background-color: rgb(250, 245, 247);
+  position: relative;
+  width: 1300px;
+  border: 3px solid rgb(37, 37, 37);
+  padding: 2 px 10px; 
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgb(255, 254, 254);
+  overflow: hidden; 
+}
+
+.coach-calendar-container h1{
+  margin-top: 50px;
+}

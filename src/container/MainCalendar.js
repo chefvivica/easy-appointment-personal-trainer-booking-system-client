@@ -12,7 +12,6 @@ export default class MainCarlendar extends React.Component {
   state = {
     joinCourse: {},
     joinedUsers: [],
-    joinStudents:[],
     trainer:{},
     on:false,
     color:'#8FBC8F'
@@ -23,9 +22,10 @@ export default class MainCarlendar extends React.Component {
     const eventInfo = e.event._def.publicId
     let id = parseInt(eventInfo)
     let targetEvent = this.props.events.find(event=> event.id === id)
-    let users = targetEvent.users.map( user=> user.username)
+    // let users = targetEvent.users.map( user=> user.username)
     let info = targetEvent.users
-    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:users, joinStudents: info})
+   
+    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:info})
   }
 
   addJoinCourse = user => this.setState({ joinedUsers : [...this.state.joinedUsers, user] })
@@ -37,8 +37,8 @@ export default class MainCarlendar extends React.Component {
 
   render() {
     const {currentUser, events,appointments,addAppointment, removeAppointment} = this.props
-    const {joinCourse, joinedUsers,trainer,on,joinStudents} = this.state
-    // console.log(this.state.joinStudents)
+    const {joinCourse, joinedUsers,trainer,on} = this.state
+    // console.log(this.state.joinedUsers)
     
     return (
       <div>
@@ -60,7 +60,6 @@ export default class MainCarlendar extends React.Component {
             dayMaxEvents={true}
             aspectRatio= {1}
             height={780}
-          
             events={events}
             eventColor={this.state.color}
             eventBackgroundColor={'#B0E0E6'}
@@ -75,7 +74,6 @@ export default class MainCarlendar extends React.Component {
           joinCourse={joinCourse}
           currentUser={currentUser}
           joinedUsers={joinedUsers}
-          joinStudents={joinStudents}
           joinEvent={this.joinEvent}
           addJoinCourse={this.addJoinCourse}
           removeJoinCourse={this.removeJoinCourse}

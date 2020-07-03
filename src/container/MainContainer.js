@@ -4,6 +4,7 @@ import MainCalendar from './MainCalendar'
 import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
+import '../css/courseCalendar.css'
 
 const url = "http://localhost:3000/appointments"
 class MainContainer extends Component {
@@ -12,7 +13,8 @@ class MainContainer extends Component {
     users: [ ],
     events:[ ],
     currentUser:{},
-    appointments:[]
+    appointments:[],
+  
   }
   
   componentDidMount(){
@@ -52,7 +54,7 @@ class MainContainer extends Component {
       
       <div className= "main-container">
         <div className="banner"> 
-          <h1>Easy Appointment Personal Trainer Booking App</h1>
+          <h1 className="logo">EAPT</h1>
         </div>
         <Switch>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
