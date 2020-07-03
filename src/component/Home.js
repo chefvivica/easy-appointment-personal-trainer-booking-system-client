@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Login from './Login'
 import Signup from './Signup'
+import '../css/home.css'
 
 
 export class Home extends Component {

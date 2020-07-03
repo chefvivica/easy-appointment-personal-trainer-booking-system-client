@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TrainerCard from '../component/TrainerCard'
-// import "../trainer.css"
+import "../css/trainer.css"
 
 export class TrainerContainer extends Component {
 
@@ -17,22 +17,11 @@ export class TrainerContainer extends Component {
   render() {
     
     return (
-      <div> 
-        {/* <h1>Our trainers</h1>
-        <div className="trainer-dropdown">
-          <div className="trainr-container">
-            <button type="button" className="button">
-              ☰
-            </button>
-            <div className="dropdown">
-              <ul >
-              {this.state.trainers.map(trainer => <TrainerCard key={trainer.id} trainer={trainer}/>)}
-                {this.state.trainers.map(trainer =><img className="trainer-image" src={trainer.image}></img>)}
-              </ul>
-            </div>
-          </div>
-        </div> */}
-      </div>
+
+        <div className="trainer-div">
+          {this.state.trainers.map(trainer => <TrainerCard key={trainer.id} trainer={trainer}/>)}
+        </div>   
+
     )
   }
 }

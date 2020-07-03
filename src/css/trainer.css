@@ -1,0 +1,32 @@
+/* .trainer-div{
+  margin-left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  height: 100vh;
+  
+} */
+/* .trainer-div .trainer-card{ 
+  background-color: rgb(248, 242, 233);
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px;
+  width: 630px;
+  height: 550px;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgb(15, 15, 15);
+  box-shadow: 0 2px 20px rgb(255, 254, 254);
+  overflow: hidden;
+} */
+
+/* .trainer-image{
+  width: 300px;
+  height:350px;
+  background-color: rgb(209, 201, 201);
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgb(15, 15, 15);
+  object-fit: cover;
+  overflow: hidden;
+
+} */

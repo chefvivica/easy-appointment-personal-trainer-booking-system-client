@@ -1,0 +1,14 @@
+.home {
+  display: flex;
+  padding: 30px;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: 20px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  background-color:  rgb(252, 249, 250);
+
+}
