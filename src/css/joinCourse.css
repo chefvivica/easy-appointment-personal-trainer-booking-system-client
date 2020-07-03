@@ -1,18 +1,51 @@
 .join-course-container {
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+.join-course-info h1{
+  font-size: 42px;
+  font-weight: bolder;
+  
+}
 
-  color: rgb(248, 242, 233);
+.join-course-trainer img{
+  width: 380px;
+  height: 380px;
+  position: relative;
 }
-.join-course-trainer {
-  width: 300px;
-  height: 270px;
+.join-course-trainer h5{
+ color: rgba(253, 126, 80, 0.767);
 }
-.student-container ul{
+.student-container ul {
+  height: 100px;
+  position: relative;
   display: flex;
-  background-color: #FFEBCD;
-  border-radius: 5px;
+  align-items: center;
+  justify-content: first baseline;
+  color: #333;
+  background-color: #dcdcdc00;
+  border-radius: 10px;
+
 }
-.student-container img{
+
+.student-container img{ 
+  border: 50px;
   border-radius: 50%;
+}
+.student-container span{ 
+  color: rgba(255, 255, 255, 0.596);
+}
+
+.student-container button{
+  margin-top: 30px;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: x-large;
+  width: 280px;
+  height: 40px;
 }
 
 
