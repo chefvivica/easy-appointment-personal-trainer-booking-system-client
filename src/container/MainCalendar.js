@@ -12,8 +12,10 @@ export default class MainCarlendar extends React.Component {
   state = {
     joinCourse: {},
     joinedUsers: [],
+    joinStudents:[],
     trainer:{},
-    on:false
+    on:false,
+    color:'#8FBC8F'
   }
 
   joinEvent = (e) => {
@@ -22,7 +24,8 @@ export default class MainCarlendar extends React.Component {
     let id = parseInt(eventInfo)
     let targetEvent = this.props.events.find(event=> event.id === id)
     let users = targetEvent.users.map( user=> user.username)
-    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:users})
+    let info = targetEvent.users
+    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:users, joinStudents: info})
   }
 
   addJoinCourse = user => this.setState({ joinedUsers : [...this.state.joinedUsers, user] })
@@ -30,19 +33,18 @@ export default class MainCarlendar extends React.Component {
 
   removeJoinCourse = username => this.setState({ joinedUsers: this.state.joinedUsers.filter(user => user !== username) })
     
-  
+  closeForm = () => this.setState({ on: false })
 
   render() {
     const {currentUser, events,appointments,addAppointment, removeAppointment} = this.props
-    const {joinCourse, joinedUsers,trainer,on } = this.state
-    console.log(this.state.joinedUsers)
+    const {joinCourse, joinedUsers,trainer,on,joinStudents} = this.state
+    // console.log(this.state.joinStudents)
     
     return (
-      <div className={'coach-calendar-container'}>
-        <div className = {'header-img-container'}>
-          <h1>Calendar</h1>
-        </div>
-        <div className = {'coach-calendar'}>
+      <div>
+        
+        {!on?
+        <div className='coach-calendar-container'>
           <FullCalendar
             
             plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -57,28 +59,31 @@ export default class MainCarlendar extends React.Component {
             selectMirror={true}
             dayMaxEvents={true}
             aspectRatio= {1}
-            height={850}
+            height={780}
           
             events={events}
-            eventColor={'#3691b0'} 
+            eventColor={this.state.color}
+            eventBackgroundColor={'#B0E0E6'}
             eventClick={this.joinEvent}           
             />        
         </div>
+        :null}
 
         {on?
-        <div className="join-course">
+        <div className ="join-course-container">
           <JoinCourse 
           joinCourse={joinCourse}
           currentUser={currentUser}
           joinedUsers={joinedUsers}
+          joinStudents={joinStudents}
           joinEvent={this.joinEvent}
           addJoinCourse={this.addJoinCourse}
           removeJoinCourse={this.removeJoinCourse}
+          closeForm={this.closeForm}
           appointments={appointments}
           addAppointment={addAppointment}
           removeAppointment={removeAppointment}
-          trainer={trainer}
-          
+          trainer={trainer}         
           />
         </div>
           :null

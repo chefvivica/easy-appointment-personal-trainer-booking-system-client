@@ -5,6 +5,7 @@ import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
 
+const url = "http://localhost:3000/appointments"
 class MainContainer extends Component {
 
   state = {
@@ -23,7 +24,7 @@ class MainContainer extends Component {
     .then(res => res.json())
     .then(users => this.setState({ users }))
 
-    fetch('http://localhost:3000/appointments')
+    fetch(url)
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))
     
@@ -42,7 +43,6 @@ class MainContainer extends Component {
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
-
   removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt) })
 
   render() {
@@ -50,13 +50,19 @@ class MainContainer extends Component {
     
     return (
       
-      <div>
+      <div className= "main-container">
+        <div className="banner"> 
+          <h1>Easy Appointment Personal Trainer Booking App</h1>
+        </div>
         <Switch>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
           <Route path='/users/:id' render={routerProps => 
             <Profile  
             {...routerProps} 
-            addUserEvents={this.addUserEvents} 
+            // handleMyEvent={this.handleMyEvent}
+            removeAppointment={this.removeAppointment}
+            events={events}
+            appointments={appointments}
             currentUser={currentUser}/>}
           />
           <Route path='/calendar' render={routerProps => 
@@ -76,3 +82,5 @@ class MainContainer extends Component {
 }
 
 export default MainContainer
+
+

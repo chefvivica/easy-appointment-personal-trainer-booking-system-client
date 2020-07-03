@@ -1,0 +1,18 @@
+.join-course-container {
+
+  color: rgb(248, 242, 233);
+}
+.join-course-trainer {
+  width: 300px;
+  height: 270px;
+}
+.student-container ul{
+  display: flex;
+  background-color: #FFEBCD;
+  border-radius: 5px;
+}
+.student-container img{
+  border-radius: 50%;
+}
+
+

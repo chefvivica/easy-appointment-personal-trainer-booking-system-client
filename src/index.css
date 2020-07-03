@@ -5,88 +5,132 @@
 
 body {
   margin: 0;
+  border: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(247, 240, 240);
+  background-color: rgb(0, 0, 0);
 }
 
 
-.nav-bar {
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 16px;
-}
-
-.nav-bar a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-
-.nav-bar a:hover {
-  color: #f1f1f1;
-}
-
-@media screen and (max-height: 450px) {
-  .nav-bar {padding-top: 15px;}
-  .nav-bar a {font-size: 18px;}
-} 
 .main-container {
-  position: absolute;
+  position: relative;
+  /* display: flex; */
   margin-left: 160px; 
-  padding: 0px 10px;
-  
+  margin-right: 160px; 
+  margin-top: 0;
+  border: 0;
+  margin-bottom: 30px;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  /* box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  overflow: hidden; */
 }
 
-
-.coach-calendar { 
-  margin: auto;
-  width: 1000px;
-  border: 3px solid #1f1e1e;
-  padding: 10px; 
-}
-.join-course {
+.banner{
+  background-color: rgb(0, 0, 0);
+  height: 80px;
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
+  text-align: center;
+  
+}
+.banner h1 {
+  position: relative;
+  margin-top: 50px;
+  color: rgb(203, 211, 211);
+  /* border: 0; */
 }
 
-.join-course-container{
-  border:3px solid dimgray;
+.test{
+  width: 900px;
+  height: 900px;
+  background-color: bisque;
+}
+
+.coach-calendar-container {
+  background-color: rgb(250, 245, 247);
+  position: relative;
+  width: 1300px;
+  border: 3px solid rgb(37, 37, 37);
+  padding: 2 px 10px; 
+  border-radius: 10px;
+  /* box-shadow: 0 2px 20px rgb(15, 15, 15); */
+  box-shadow: 0 2px 20px rgb(255, 254, 254);
+  overflow: hidden;
   
 }
 
+.coach-calendar-container h1{
+  margin-top: 50px;
+}
 
-.trainer-card{
+
+/* .coach-calendar { 
+  position: relative;
+  margin: auto;
+  width: 800px;
+  border: 3px solid #777;
+  padding: 2 px 10px; 
+} */
+
+
+.trainer-div{
+  margin-left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  height: 100vh;
+  
+}
+.trainer-div .trainer-card{ 
+  background-color: rgb(248, 242, 233);
   display: grid;
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
   gap:20px;
-  width: 500px;
-  height: 600px;
+  width: 630px;
+  height: 550px;
   border-radius: 10px;
-  box-shadow: 0 2px 20px rgb(15, 15, 15);
+  /* box-shadow: 0 2px 20px rgb(15, 15, 15); */
+  box-shadow: 0 2px 20px rgb(255, 254, 254);
   overflow: hidden;
+  
+}
+.join-course-container {
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+}
 
+.join-course-trainer img{
+  width: 500px;
+  height: 700px;
+  position: relative;
+  
+}
+.student-container ul{
+  position: relative;
+  display: flex;
+  color: #333;
+  background-color: #FFEBCD;
+  border-radius: 5px;
+  box-shadow: 0 2px 20px rgb(255, 254, 254);;
+}
+.student-container img{
+  border-radius: 50%;
+}
+
+.student-container button{
+  margin-top: 30px;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: x-large;
+  width: 300px;
+  height: 30px;
 }
 
 .comment {
@@ -107,12 +151,12 @@ body {
 }
 
 .card-body {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: start;
   padding: 20px;
   min-height: 250px;
-  gap: 20px;
+  gap: 20px; */
 } 
 
 
@@ -122,8 +166,6 @@ body {
     overflow: hidden;
     min-width: 100%;
     min-height: 100%; */
-
-
 }
 
 .container {
