@@ -7,28 +7,126 @@ import "../css/profile.css"
 
 const API = 'http://localhost:3000/users'
 const url = "http://localhost:3000/appointments"
+// export class Profile extends Component {
+
+//   state = {
+//     user: {},
+//     on: false,
+//     removeEvent:{},
+//     userEvents:[]
+//   }
+
+//   componentDidMount(){ 
+//     fetch(`${API}/${this.props.currentUser.id}`)
+//     .then(res => res.json())
+//     .then(user => this.setState({ user: user, userEvents: user.events}))
+
+//   }
+
+//   closeForm = () => this.setState({ on: false }) 
+
+
+//   handleRemove = (e) => {
+//     let start = e.event._instance.range.start.toISOString().slice(0,-5)
+//     let target = this.props.events.find(event=> event.start === start)
+//     this.setState({on:true,removeEvent: target})    
+//     // e.event.remove()
+//   }  
+
+//   handler = (e) => {
+//     e.persist()
+//     if(e.target.innerText==='Confirm'){
+//       let eventId = this.state.removeEvent.id
+//       let appt = this.props.appointments.find(appointment => appointment.event_id === eventId && appointment.user_id === this.state.user.id)
+//       let id = appt.id
+//       fetch(`${url}/${id}`,{
+//         method: "DELETE"
+//       })
+//       .then(res=> res.json())
+//       .then(data=> {
+//         this.props.removeAppointment(data)
+//         // this.removeUserEvent(this.state.removeEvent)
+//       })
+//     }
+//   }
+
+//   componentDidUpdate(prevProps, prevState) {
+//     if (prevState.user.events !== this.state.user.events) {
+//       console.log('pokemons state has changed.')
+//     }
+//   }
+  
+//   render() {
+//     const {username, image} = this.props.currentUser
+//     console.log(this.state.removeEvent,     "???", this.props.currentUser.events)
+
+//     if(username === undefined){
+//       return "loading"
+//     }else{
+//       return (
+//         <div className="profile-container">
+//           <div className="profile-info">
+//             <h1>Welcome back {username}</h1>
+//             <img src={image} alt='user img'/>           
+//           </div> 
+
+//           <div className="profile-calendar">
+//           <FullCalendar
+//               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
+//               initialView="dayGridMonth"
+//               headerToolbar={{
+//                 left: 'prev,next today',
+//                 center: 'title',
+//                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//               }}
+//               editable={true}
+//               selectable={true}
+//               selectMirror={true}
+//               dayMaxEvents={true}
+//               aspectRatio= {1}
+//               height={500}
+//               events={this.state.userEvents}
+//               eventColor={'#3671b0'} 
+//               eventClick={this.handleRemove}
+//               />  
+//           </div> 
+          
+//           {this.state.on?
+//             <div>
+//               <h3>Are you sure to cancel this event?</h3>
+//               <button onClick={this.handler}>Close</button><button onClick={this.handler}>Confirm</button>
+//             </div>               
+//           :null
+//           }  
+
+//         </div>
+//       )	    
+//     }   
+//   }	
+// }	
+
+// export default Profile
+
+
+
+
+
+
+
 export class Profile extends Component {
 
   state = {
-    // user: {},
     on: false,
-    removeEvent:{}
+    removeEvent:{},
   }
 
-  // componentDidMount(){ 
-  //   fetch(`${API}/${this.props.currentUser.id}`)
-  //   .then(res => res.json())
-  //   .then(user => this.setState({ user: user}))
-  // }
-
-  // closeForm = () => this.setState({ on: false }) 
+  closeForm = () => this.setState({ on: false }) 
 
 
   handleRemove = (e) => {
     let start = e.event._instance.range.start.toISOString().slice(0,-5)
     let target = this.props.events.find(event=> event.start === start)
     this.setState({on:true,removeEvent: target})    
-    // e.event.remove()
   }  
 
   handler = (e) => {
@@ -44,16 +142,14 @@ export class Profile extends Component {
       .then(data=> {
         this.props.removeAppointment(data)
         this.props.removeUserEvent(this.state.removeEvent)
-        console.log(this.state.removeEvent)
       })
     }
   }
 
   
-  
   render() {
     const {username, image} = this.props.currentUser
-    console.log(this.state.removeEvent,     "???", this.props.currentUser.events)
+    console.log(this.props.userEvents)
 
     if(username === undefined){
       return "loading"
@@ -64,7 +160,7 @@ export class Profile extends Component {
             <h1>Welcome back {username}</h1>
             <img src={image} alt='user img'/>           
           </div> 
-
+          
           <div className="profile-calendar">
           <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -93,7 +189,6 @@ export class Profile extends Component {
             </div>               
           :null
           }  
-
         </div>
       )	    
     }   

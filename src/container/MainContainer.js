@@ -45,18 +45,28 @@ class MainContainer extends Component {
     }
   }
 
-  
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
   removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt)})
 
-  removeUserEvent = romoveEvent => this.setState({userEvents: this.state.userEvents.filter(event=>event !== romoveEvent) })
+  updateUserEvents = eventId =>{
+    console.log(eventId)
+    let newEvent = this.state.events.find(event=> event.id === eventId)
+    console.log(newEvent)
+    this.setState({userEvents: [...this.state.userEvents, newEvent]})
+  }
 
+  removeUserEvent = removeEvent => {
+    let updatedUserEvents = this.state.userEvents.filter(event=> event.start !==removeEvent.start)
+    console.log("updatedUserEvents", updatedUserEvents, "this.state.userEvents", this.state.userEvents, "rm", removeEvent)
+    this.setState({userEvents : updatedUserEvents})
+  }
+
+  
   render() {
     const {events, currentUser, appointments, userEvents} = this.state
-  
-    console.log(userEvents)
+
     return (
       
       <div className= "main-container">
@@ -69,14 +79,13 @@ class MainContainer extends Component {
           // <Test/>
             <Profile  
             {...routerProps} 
-            // handleMyEvent={this.handleMyEvent}
             removeAppointment={this.removeAppointment}
             removeUserEvent={this.removeUserEvent}
             events={events}
             userEvents={userEvents}
             appointments={appointments}
-            currentUser={currentUser}/>       
-            }
+            currentUser={currentUser}/>     
+          }
           />
 
           
@@ -84,6 +93,7 @@ class MainContainer extends Component {
           <Route path='/calendar' render={routerProps => 
             <MainCalendar
             events={events}
+            updateUserEvents={this.updateUserEvents}  
             currentUser={currentUser}
             addAppointment={this.addAppointment}
             removeAppointment={this.removeAppointment}

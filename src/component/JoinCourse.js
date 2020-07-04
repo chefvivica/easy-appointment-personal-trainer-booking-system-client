@@ -41,6 +41,7 @@ export class JoinCourse extends Component {
       .then(data => {
         this.props.addJoinCourse(this.props.currentUser)
         this.props.addAppointment(data)
+        this.props.updateUserEvents(eventId)
       })
       alert(" You have been enrolled this course succesfully!")
       this.setState({button:"Cancel"})
