@@ -24,7 +24,7 @@ export default class MainCarlendar extends React.Component {
     let targetEvent = this.props.events.find(event=> event.id === id)
     // let users = targetEvent.users.map( user=> user.username)
     let info = targetEvent.users
-   
+  
     this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:info})
   }
 

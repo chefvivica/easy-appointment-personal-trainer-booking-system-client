@@ -77,7 +77,6 @@ export class JoinCourse extends Component {
     const {name, image}=this.props.trainer
     let studentsTorender = this.getUnique([...this.props.joinedUsers],"username")
 
-    console.log( this.props.joinStudents, "???",studentsTorender)
     return (     
       <div className="join-course-container">
           <button className="join-course-close-form-button" onClick={this.handleConfirm}>close</button> 

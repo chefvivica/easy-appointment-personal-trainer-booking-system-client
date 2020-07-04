@@ -5,6 +5,7 @@ import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
+import Test from '../container/Test'
 
 const url = "http://localhost:3000/appointments"
 class MainContainer extends Component {
@@ -13,6 +14,7 @@ class MainContainer extends Component {
     users: [ ],
     events:[ ],
     currentUser:{},
+    userEvents:[],
     appointments:[],
   
   }
@@ -36,20 +38,25 @@ class MainContainer extends Component {
     e.preventDefault()
     if(this.state.users.find(user=> user.username===username)){
       let user = this.state.users.find(user=> user.username ===username)
-      this.setState({currentUser: user})
+      this.setState({currentUser: user, userEvents:user.events})
       match.history.push("/calendar")
     }else{
       alert("Something went wrong, please try again, or sign up.")
     }
   }
 
+  
+
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
-  removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt) })
+  removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt)})
+
+  removeUserEvent = romoveEvent => this.setState({userEvents: this.state.userEvents.filter(event=>event !== romoveEvent) })
 
   render() {
-    const {events, currentUser, appointments} = this.state
-    
+    const {events, currentUser, appointments, userEvents} = this.state
+  
+    console.log(userEvents)
     return (
       
       <div className= "main-container">
@@ -59,14 +66,21 @@ class MainContainer extends Component {
         <Switch>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
           <Route path='/users/:id' render={routerProps => 
+          // <Test/>
             <Profile  
             {...routerProps} 
             // handleMyEvent={this.handleMyEvent}
             removeAppointment={this.removeAppointment}
+            removeUserEvent={this.removeUserEvent}
             events={events}
+            userEvents={userEvents}
             appointments={appointments}
-            currentUser={currentUser}/>}
+            currentUser={currentUser}/>       
+            }
           />
+
+          
+
           <Route path='/calendar' render={routerProps => 
             <MainCalendar
             events={events}
