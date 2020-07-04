@@ -41,6 +41,7 @@ export class JoinCourse extends Component {
       .then(data => {
         this.props.addJoinCourse(this.props.currentUser)
         this.props.addAppointment(data)
+        this.props.updateUserEvents(eventId)
       })
       alert(" You have been enrolled this course succesfully!")
       this.setState({button:"Cancel"})
@@ -77,7 +78,6 @@ export class JoinCourse extends Component {
     const {name, image}=this.props.trainer
     let studentsTorender = this.getUnique([...this.props.joinedUsers],"username")
 
-    console.log( this.props.joinStudents, "???",studentsTorender)
     return (     
       <div className="join-course-container">
           <button className="join-course-close-form-button" onClick={this.handleConfirm}>close</button> 

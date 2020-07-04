@@ -24,7 +24,7 @@ export default class MainCarlendar extends React.Component {
     let targetEvent = this.props.events.find(event=> event.id === id)
     // let users = targetEvent.users.map( user=> user.username)
     let info = targetEvent.users
-   
+  
     this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:info})
   }
 
@@ -36,7 +36,7 @@ export default class MainCarlendar extends React.Component {
   closeForm = () => this.setState({ on: false })
 
   render() {
-    const {currentUser, events,appointments,addAppointment, removeAppointment} = this.props
+    const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents} = this.props
     const {joinCourse, joinedUsers,trainer,on} = this.state
     // console.log(this.state.joinedUsers)
     
@@ -81,7 +81,8 @@ export default class MainCarlendar extends React.Component {
           appointments={appointments}
           addAppointment={addAppointment}
           removeAppointment={removeAppointment}
-          trainer={trainer}         
+          trainer={trainer}  
+          updateUserEvents={updateUserEvents}    
           />
         </div>
           :null

@@ -7,50 +7,46 @@ import "../css/profile.css"
 
 const API = 'http://localhost:3000/users'
 const url = "http://localhost:3000/appointments"
+
 export class Profile extends Component {
 
   state = {
-    user: {},
-    events: [],
-    on: false
-  }
-
-  componentDidMount(){ 
-    fetch(`${API}/${this.props.currentUser.id}`)
-    .then(res => res.json())
-    .then(user => this.setState({ user: user, events: user.events }))
+    on: false,
+    removeEvent:{},
   }
 
   closeForm = () => this.setState({ on: false }) 
-  removeMyEvent = (event) =>{
-    // event.remove()
- 
-  //   let target = this.props.events.find(event => event.trainer_id === trainerId && event.start === eventStart)
-  //   let eventId = target.id
-  //   let appt = this.props.appointments.find(appointment => appointment.event_id === eventId )
-  //   let id = appt.id
-  //   console.log(id)
-  //   fetch(`${url}/${id}`,{
-  //     method: "DELETE"
-  //   })
-  //   .then(res=> res.json())
-  //   .then(data=> {
-  //     this.props.removeAppointment(data)
-  //     this.setState({events: this.state.events.filter(event=> event.trainer_id === trainerId)})
-  //   })
-  }
 
-  handleEventClick = (e) => {
-    {
-      
-      e.event.remove()
-    }
+
+  handleRemove = (e) => {
+    let start = e.event._instance.range.start.toISOString().slice(0,-5)
+    let target = this.props.events.find(event=> event.start === start)
+    this.setState({on:true,removeEvent: target})    
   }  
 
+  handler = (e) => {
+    e.persist()
+    if(e.target.innerText==='Confirm'){
+      let eventId = this.state.removeEvent.id
+      let appt = this.props.appointments.find(appointment => appointment.event_id === eventId && appointment.user_id === this.props.currentUser.id)
+      let id = appt.id
+      fetch(`${url}/${id}`,{
+        method: "DELETE"
+      })
+      .then(res=> res.json())
+      .then(data=> {
+        this.props.removeAppointment(data)
+        this.props.removeUserEvent(this.state.removeEvent)
+      })
+    }
+  }
+
+  
   render() {
-    const {username, image, events} = this.state.user
-    console.log(this.state.events)
-    if(this.state.user.username === undefined){
+    const {username, image} = this.props.currentUser
+    console.log(this.props.userEvents)
+
+    if(username === undefined){
       return "loading"
     }else{
       return (
@@ -75,13 +71,20 @@ export class Profile extends Component {
               dayMaxEvents={true}
               aspectRatio= {1}
               height={500}
-              events={events}
+              events={this.props.userEvents}
               eventColor={'#3671b0'} 
-              // eventClick={this.removeMyEvent} 
-              eventClick={this.handleEventClick}
+              eventClick={this.handleRemove}
               />  
-          </div>                
-        </div>	      
+          </div> 
+          
+          {this.state.on?
+            <div>
+              <h3>Are you sure to cancel this event?</h3>
+              <button onClick={this.handler}>Close</button><button onClick={this.handler}>Confirm</button>
+            </div>               
+          :null
+          }  
+        </div>
       )	    
     }   
   }	
