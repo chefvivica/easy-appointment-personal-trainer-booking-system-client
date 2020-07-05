@@ -16,7 +16,6 @@ class MainContainer extends Component {
     currentUser:{},
     userEvents:[],
     appointments:[],
-    requests:[]
   }
   
   componentDidMount(){
@@ -31,18 +30,13 @@ class MainContainer extends Component {
     fetch(url)
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
-    
-    fetch('http://localhost:3000/requests')
-    .then(res => res.json())
-    .then(requests => this.setState({ requests }))
-    
   }
   
   findUser = (e, username,match) => {
     e.preventDefault()
     if(this.state.users.find(user=> user.username===username)){
       let user = this.state.users.find(user=> user.username ===username)
-      this.setState({currentUser: user, userEvents:user.events.concat(this.state.requests)})
+      this.setState({currentUser: user, userEvents:user.events})
       match.history.push("/calendar")
     }else{
       alert("Something went wrong, please try again, or sign up.")
@@ -65,7 +59,7 @@ class MainContainer extends Component {
     this.setState({userEvents : updatedUserEvents})
   }
 
-  addRequest = requestEvent => this.setState({userEvents : [...this.state.userEvents, requestEvent] })
+  // addRequest = requestEvent => this.setState({userEvents : [...this.state.userEvents, requestEvent] })
   
   
   render() {
@@ -80,16 +74,16 @@ class MainContainer extends Component {
         <Switch>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
           <Route path='/users/:id' render={routerProps => 
-          <Test/>
-          //   <Profile  
-          //   {...routerProps} 
-          //   removeAppointment={this.removeAppointment}
-          //   removeUserEvent={this.removeUserEvent}
-          //   addRequest={this.addRequest}
-          //   events={events}
-          //   userEvents={userEvents}
-          //   appointments={appointments}
-          //   currentUser={currentUser}/>     
+          // <Test/>
+            <Profile  
+            {...routerProps} 
+            removeAppointment={this.removeAppointment}
+            removeUserEvent={this.removeUserEvent}
+            // addRequest={this.addRequest}
+            events={events}
+            userEvents={userEvents}
+            appointments={appointments}
+            currentUser={currentUser}/>     
           }
           />
 

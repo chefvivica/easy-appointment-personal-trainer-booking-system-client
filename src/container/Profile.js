@@ -12,7 +12,7 @@ const trainerUrl = 'http://localhost:3000/trainers'
 export class Profile extends Component {
 
   state = {
-    condition: "hide",
+    condition: "dayCalendar",
     removeEvent:{},
     removeId:'',
     trainer:[],
@@ -53,9 +53,14 @@ export class Profile extends Component {
       .then(data=> {
         this.props.removeAppointment(data)
         this.props.removeUserEvent(this.state.removeEvent)
+        this.setState({condition: "dayCalendar"})
       })
     }else if(e.target.innerText==='Close'){
-      this.setState({ condition: "hide"})
+      this.setState({ condition: "dayCalendar"})
+    }else if(e.target.innerText==="Request a one on one"){
+      this.setState({condition:"timeCalendar"})
+    }else if(e.target.innerText==="Group lesson"){
+      this.setState({condition:"dayCalendar"})
     }
   }
 
@@ -80,8 +85,6 @@ export class Profile extends Component {
     let trainer = this.state.trainers.find(trainer=> trainer.sports === targetType)
     let trainerId = trainer.id
     let newRequest = {user_id: this.props.currentUser.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end, color:'#FF0000'}
-    this.setState({ renderEvents: [...this.props.userEvents, newRequest]})
-
     fetch(requestUrl,{
       method: "POST",
         headers: { 
@@ -92,16 +95,11 @@ export class Profile extends Component {
       })
       .then(res=> res.json())
       .then(data => {
-        this.props.addRequest(newRequest)
-        // request confirmation div 
-        //√show on the calendar but differnt color with request
-        //√rerender without refresh
-        //     
+        this.setState({ requests: [...this.state.requests, data]})           
     })
+      this.setState({condition:"timeCalendar"})
   }
-  // render request showing in the calendar but with differnt color  add color and backGround color at backend
-  // to do, drag to edit the request *** only can drag the request 
-  // 
+  
 
   render() {
     const {username, image,email} = this.props.currentUser
@@ -117,10 +115,14 @@ export class Profile extends Component {
               <img src={image} alt='user img'/> 
               <h4>Welcome back {username}</h4>
               <h5>{email}</h5>
-              <button>Edit</button>          
+              <button>Edit</button>
+              <button onClick={this.handler}>Request a one on one</button>
+              <button onClick={this.handler}>Group lesson</button>
+                      
             </div>
           </div> 
 
+          {condition === "dayCalendar"? 
           <div className="profile-calendar">
           <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -131,16 +133,16 @@ export class Profile extends Component {
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
               }}
               editable={true}
-              selectable={true}
-              selectMirror={true}
+              // selectable={true}
+              // selectMirror={true}
               dayMaxEvents={true}
               aspectRatio= {1}
               height={700}
               events={this.props.userEvents}
               eventClick={this.handleRemove}
-              select={this.handleDateSelect}
               />  
-          </div> 
+          </div>
+          :null} 
           
           {condition === "cancel"? 
             <div className='profile-cancle-container'>
@@ -169,6 +171,30 @@ export class Profile extends Component {
             </div>        
           :null
           }  
+
+          {condition === "timeCalendar"? 
+          <div>
+            <FullCalendar
+              plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              initialView="timeGridWeek"
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              }}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={true}
+              aspectRatio= {1}
+              height={700}
+              events={this.state.requests}
+              eventClick={this.handleRemove}
+              select={this.handleDateSelect}
+              eventBackgroundColor={'#FFA500'}
+              />  
+          </div>
+          :null}
         </div>
       )	    
     }   
