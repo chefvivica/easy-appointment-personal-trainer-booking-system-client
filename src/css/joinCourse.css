@@ -1,8 +1,10 @@
 .join-course-container {
-  color: #fff;
+  /* color: #fff; */
+  color: rgba(30, 31, 30, 0.678);
   align-items: center;
   justify-content: center;
   margin-bottom: 80px;
+
 }
 .join-course-info h1{
   font-size: 42px;
@@ -11,12 +13,12 @@
 }
 
 .join-course-trainer img{
-  width: 380px;
-  height: 380px;
+  width: 300px;
+  height:350px;
   position: relative;
 }
 .join-course-trainer h5{
- color: rgba(253, 126, 80, 0.767);
+ color:#191970;
 }
 .student-container ul {
   height: 100px;
@@ -35,7 +37,7 @@
   border-radius: 50%;
 }
 .student-container span{ 
-  color: rgba(255, 255, 255, 0.596);
+  color: rgba(14, 12, 12, 0.596);
 }
 
 .student-container button{

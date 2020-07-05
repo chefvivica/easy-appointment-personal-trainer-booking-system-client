@@ -16,6 +16,7 @@ class MainContainer extends Component {
     currentUser:{},
     userEvents:[],
     appointments:[],
+    requests:[]
   }
   
   componentDidMount(){
@@ -29,7 +30,11 @@ class MainContainer extends Component {
 
     fetch(url)
     .then(res => res.json())
-    .then(appointments => this.setState({ appointments }))    
+    .then(appointments => this.setState({ appointments }))  
+    
+    fetch('http://localhost:3000/requests')
+    .then(res => res.json())
+    .then(requests => this.setState({ requests }))
     
   }
   
@@ -37,7 +42,7 @@ class MainContainer extends Component {
     e.preventDefault()
     if(this.state.users.find(user=> user.username===username)){
       let user = this.state.users.find(user=> user.username ===username)
-      this.setState({currentUser: user, userEvents:user.events})
+      this.setState({currentUser: user, userEvents:user.events.concat(this.state.requests)})
       match.history.push("/calendar")
     }else{
       alert("Something went wrong, please try again, or sign up.")
@@ -49,23 +54,23 @@ class MainContainer extends Component {
   
   removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt)})
 
-  updateUserEvents = eventId =>{
+  updateUserEvents = eventId => {
     console.log(eventId)
     let newEvent = this.state.events.find(event=> event.id === eventId)
-    console.log(newEvent)
     this.setState({userEvents: [...this.state.userEvents, newEvent]})
   }
 
   removeUserEvent = removeEvent => {
     let updatedUserEvents = this.state.userEvents.filter(event=> event.start !==removeEvent.start)
-    // console.log("updatedUserEvents", updatedUserEvents, "this.state.userEvents", this.state.userEvents, "rm", removeEvent)
     this.setState({userEvents : updatedUserEvents})
   }
 
+  addRequest = requestEvent => this.setState({userEvents : [...this.state.userEvents, requestEvent] })
+  
   
   render() {
     const {events, currentUser, appointments, userEvents} = this.state
-
+    console.log(this.state.userEvents)
     return (
       
       <div className= "main-container">
@@ -75,15 +80,16 @@ class MainContainer extends Component {
         <Switch>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
           <Route path='/users/:id' render={routerProps => 
-          // <Test/>
-            <Profile  
-            {...routerProps} 
-            removeAppointment={this.removeAppointment}
-            removeUserEvent={this.removeUserEvent}
-            events={events}
-            userEvents={userEvents}
-            appointments={appointments}
-            currentUser={currentUser}/>     
+          <Test/>
+          //   <Profile  
+          //   {...routerProps} 
+          //   removeAppointment={this.removeAppointment}
+          //   removeUserEvent={this.removeUserEvent}
+          //   addRequest={this.addRequest}
+          //   events={events}
+          //   userEvents={userEvents}
+          //   appointments={appointments}
+          //   currentUser={currentUser}/>     
           }
           />
 

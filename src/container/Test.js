@@ -6,30 +6,54 @@ import interactionPlugin from '@fullcalendar/interaction'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'; 
 import { Calendar } from '@fullcalendar/core';
 
+const requestUrl = 'http://localhost:3000/requests'
+const url = "http://localhost:3000/events"
 export class Test extends Component {
 
-  state={
-        events: [ ],
-      }
-  
-  handleDateSelect = (selectInfo) => {
-        
-        // let calendarApi = selectInfo.view.calendar
-    
-        // calendarApi.unselect() // clear date selection
-    
-
-          let wah = {
-            start: selectInfo.startStr,
-            end: selectInfo.endStr,
-            allDay: selectInfo.allDay
+  state = {
+    eventSources: [
+      {
+        events: [ // put the array in the `events` property
+          {
+            title  : 'event1',
+            start  : '2020-07-01'
+          },
+          {
+            title  : 'event2',
+            start  : '2020-07-05',
+            end    : '2020-07-05'
+          },
+          {
+            title  : 'event3',
+            start  : '2020-07-09T12:30:00',
           }
-          console.log(wah)
+        ],
+        color: 'black',     // an option!
+        textColor: 'yellow' // an option!
+      },
+
+      {
+        events: [
+          {
+            title  : 'event7',
+            start  : '2020-07-11'
+          }
+        ],
+          color: 'red',     // an option!
+        textColor: 'blue' // an option!
         
       }
+
+  
+      // any other event sources...
+  
+    ]
+  }
+ 
     
 
   render() {
+    console.log(this.state.eventSources)
     return (
       <div className="test">
         <FullCalendar
@@ -46,10 +70,9 @@ export class Test extends Component {
         dayMaxEvents={true}
         aspectRatio= {1}
         height={780}       
-        events={this.state.events}
+        events={this.state.eventSources}
         select={this.handleDateSelect}
         eventBackgroundColor={'red'}
-        // eventTextColor={'green'}
         eventContent= {this.ahhh}
         />
 

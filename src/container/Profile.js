@@ -14,6 +14,7 @@ export class Profile extends Component {
   state = {
     condition: "hide",
     removeEvent:{},
+    removeId:'',
     trainer:[],
     requests:[],
     start:'',
@@ -35,15 +36,15 @@ export class Profile extends Component {
   handleRemove = (e) => {
     let start = e.event._instance.range.start.toISOString().slice(0,-5)
     let target = this.props.events.find(event=> event.start === start)
-    this.setState({condition:"cancel",removeEvent: target})
+    let item = this.props.userEvents.find(event=> event.start === start)
+    this.setState({condition:"cancel",removeEvent:item , removeId:target.id})
 
   }  
 
   handler = (e) => {
     e.persist()
     if(e.target.innerText==='Confirm'){
-      let eventId = this.state.removeEvent.id
-      let appt = this.props.appointments.find(appointment => appointment.event_id === eventId && appointment.user_id === this.props.currentUser.id)
+      let appt = this.props.appointments.find(appointment => appointment.event_id === this.state.removeId && appointment.user_id === this.props.currentUser.id)
       let id = appt.id
       fetch(`${url}/${id}`,{
         method: "DELETE"
@@ -64,13 +65,12 @@ export class Profile extends Component {
     this.setState({start: eventStart , end: eventEnd, condition:"booking"})
   }
 
-  unique = (value, index, self) => {
-    return self.indexOf(value) === index
-  }
+  // unique = (value, index, self) => {
+  //   return self.indexOf(value) === index
+  // }
   
-  handleChange = e => {
-    this.setState({ option: e.target.value})
-  }
+  handleChange = e => this.setState({ option: e.target.value})
+  
 
   handleDetail = e => this.setState({ detail: e.target.value})
 
@@ -79,7 +79,8 @@ export class Profile extends Component {
     let targetType= this.state.option
     let trainer = this.state.trainers.find(trainer=> trainer.sports === targetType)
     let trainerId = trainer.id
-    let newRequest = {user_id: this.props.currentUser.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end}
+    let newRequest = {user_id: this.props.currentUser.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end, color:'#FF0000'}
+    this.setState({ renderEvents: [...this.props.userEvents, newRequest]})
 
     fetch(requestUrl,{
       method: "POST",
@@ -91,12 +92,12 @@ export class Profile extends Component {
       })
       .then(res=> res.json())
       .then(data => {
-        console.log(data)
+        this.props.addRequest(newRequest)
         // request confirmation div 
-        //show on the calendar but differnt color with request
-        //rerender without refresh
+        //√show on the calendar but differnt color with request
+        //√rerender without refresh
         //     
-      })
+    })
   }
   // render request showing in the calendar but with differnt color  add color and backGround color at backend
   // to do, drag to edit the request *** only can drag the request 
@@ -105,7 +106,7 @@ export class Profile extends Component {
   render() {
     const {username, image,email} = this.props.currentUser
     const {start, end, condition, trainers} = this.state
-    console.log(this.state.detail, this.state.option)
+    console.log(this.state.removeEvent,                  "!!",this.state.removeId)
     if(username === undefined){
       return "please login first"
     }else{
@@ -136,7 +137,6 @@ export class Profile extends Component {
               aspectRatio= {1}
               height={700}
               events={this.props.userEvents}
-              eventColor={'#3671b0'} 
               eventClick={this.handleRemove}
               select={this.handleDateSelect}
               />  
