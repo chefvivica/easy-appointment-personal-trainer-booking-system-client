@@ -21,11 +21,11 @@ export class JoinCourse extends Component {
     let userId = currentUser.id
     let eventId = parseInt(joinCourse.id)
     let newAppointment = {user_id:userId, event_id:eventId}
-    // console.log(eventId, userId)
+ 
     if(e.target.innerText === 'Join this course' && currentUser.id === undefined){
       alert("please login to join this event")     
     }
-    else if(e.target.innerText === 'Join this course' && joinedUsers.find(user=> user===username)){
+    else if(e.target.innerText === 'Join this course' && joinedUsers.find(user=> user.username===username)){
       alert("You have already joined this event")
     }
     else if(e.target.innerText === 'Join this course'){
@@ -73,7 +73,7 @@ export class JoinCourse extends Component {
   }
 
   render() {  
-    
+    console.log(this.props.joinedUsers)
     const {title, details, start, end} = this.props.joinCourse
     const {name, image}=this.props.trainer
     let studentsTorender = this.getUnique([...this.props.joinedUsers],"username")
