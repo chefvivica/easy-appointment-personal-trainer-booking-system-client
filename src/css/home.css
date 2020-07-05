@@ -1,4 +1,4 @@
-.home {
+/* .home {
   display: flex;
   padding: 90px;
   font-size: 20px;
@@ -12,6 +12,25 @@
   align-items: center;
   justify-content: center;
   background-color:  rgb(252, 249, 250);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgb(255, 254, 254);
+} */
+
+.home {
+  display: flex;
+  padding: 90px;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  margin-left: 330px;
+  margin-top: 100px;
+  width: 600px;
+  height: 60%;
+  text-align: center;
+  cursor: pointer; 
+  align-items: center;
+  justify-content: center;
+  background-color:  rgba(56, 56, 56, 0.151);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgb(255, 254, 254);
 }

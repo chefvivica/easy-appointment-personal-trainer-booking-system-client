@@ -16,7 +16,6 @@ class MainContainer extends Component {
     currentUser:{},
     userEvents:[],
     appointments:[],
-  
   }
   
   componentDidMount(){
@@ -30,7 +29,7 @@ class MainContainer extends Component {
 
     fetch(url)
     .then(res => res.json())
-    .then(appointments => this.setState({ appointments }))
+    .then(appointments => this.setState({ appointments }))    
     
   }
   
@@ -59,7 +58,7 @@ class MainContainer extends Component {
 
   removeUserEvent = removeEvent => {
     let updatedUserEvents = this.state.userEvents.filter(event=> event.start !==removeEvent.start)
-    console.log("updatedUserEvents", updatedUserEvents, "this.state.userEvents", this.state.userEvents, "rm", removeEvent)
+    // console.log("updatedUserEvents", updatedUserEvents, "this.state.userEvents", this.state.userEvents, "rm", removeEvent)
     this.setState({userEvents : updatedUserEvents})
   }
 
@@ -71,7 +70,7 @@ class MainContainer extends Component {
       
       <div className= "main-container">
         <div className="banner"> 
-          <h1 className="logo">EAPT</h1>
+          <h1>EAPT</h1>
         </div>
         <Switch>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>

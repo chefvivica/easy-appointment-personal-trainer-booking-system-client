@@ -22,7 +22,7 @@ body {
   margin-right: 160px; 
   margin-top: 0;
   border: 0;
-  margin-bottom: 0px;
+  margin-bottom: 100px;
   margin-right: 0;
   width: 85%;
   align-items: center;
@@ -32,25 +32,19 @@ body {
   overflow: hidden; */
 }
 
-
-
-
 .banner{
   background-color: rgb(0, 0, 0);
-  height: 80px;
+  height: 70px;
   width: 100%;
   text-align: center;
-  margin: auto;
-  
+  border-radius: 5px;
 }
-.logo  {
+.banner > h1 {
   font-weight: bolder;
-  font-size: x-large;
-  font-family: serif;
-  position: relative;
-  margin-top: 50px;
+  font-size: 50px;
   color: rgb(203, 211, 211);
-  /* border: 0; */
+  text-align: center;
+  justify-content: center;
 }
 
 .test{
