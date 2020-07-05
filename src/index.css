@@ -11,7 +11,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: rgb(0, 0, 0); */
+  /* background-color: rgba(0, 0, 0, 0.979); */
 
 }
 
@@ -22,38 +22,30 @@ body {
   margin-right: 160px; 
   margin-top: 0;
   border: 0;
-  margin-bottom: 0px;
+  margin-bottom: 100px;
   margin-right: 0;
   width: 85%;
   align-items: center;
   justify-content: center;
   height: 100vh; 
-  /* box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-  overflow: hidden; */
 }
-
-
-
 
 .banner{
   background-color: rgb(0, 0, 0);
-  height: 80px;
+  height: 70px;
   width: 100%;
   text-align: center;
-  margin: auto;
-  
+  border-radius: 5px;
 }
-.logo  {
+.banner > h1 {
   font-weight: bolder;
-  font-size: x-large;
-  font-family: serif;
-  position: relative;
-  margin-top: 50px;
+  font-size: 50px;
   color: rgb(203, 211, 211);
-  /* border: 0; */
+  text-align: center;
+  justify-content: center;
 }
 
-.test{
+.test{ 
   width: 900px;
   height: 900px;
   background-color: bisque;
@@ -62,41 +54,3 @@ body {
 
 
 
-/* .comment {
-  display: grid;
-  align-items: center;
-  gap:20px;
-  width: 500px;
-  height: 600px;
-  border-radius: 10px;
-  box-shadow: 0 2px 20px rgb(15, 15, 15);
-  overflow: hidden;
-} */
-
-
-
-/* .card-body {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: 20px;
-  min-height: 250px;
-  gap: 20px;
-}  */
-
-
-
-/* .container {
-  position: relative;
-  display: inline-block;
-}
-.button {
-  padding: 0;
-  width: 50px;
-  border: 0;
-  background-color: #fff;
-  color: #333;
-  cursor: pointer;
-  outline: 0;
-  font-size: 40px;
-} */

@@ -14,7 +14,6 @@ export default class MainCarlendar extends React.Component {
     joinedUsers: [],
     trainer:{},
     on:false,
-    color:'#8FBC8F'
   }
 
   joinEvent = (e) => {
@@ -38,7 +37,6 @@ export default class MainCarlendar extends React.Component {
   render() {
     const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents} = this.props
     const {joinCourse, joinedUsers,trainer,on} = this.state
-    // console.log(this.state.joinedUsers)
     
     return (
       <div>
@@ -61,8 +59,6 @@ export default class MainCarlendar extends React.Component {
             aspectRatio= {1}
             height={780}
             events={events}
-            eventColor={this.state.color}
-            eventBackgroundColor={'#B0E0E6'}
             eventClick={this.joinEvent}           
             />        
         </div>

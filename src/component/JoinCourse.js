@@ -21,7 +21,7 @@ export class JoinCourse extends Component {
     let userId = currentUser.id
     let eventId = parseInt(joinCourse.id)
     let newAppointment = {user_id:userId, event_id:eventId}
-    console.log(eventId, userId)
+    // console.log(eventId, userId)
     if(e.target.innerText === 'Join this course' && currentUser.id === undefined){
       alert("please login to join this event")     
     }
