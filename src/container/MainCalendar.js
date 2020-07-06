@@ -14,17 +14,19 @@ export default class MainCarlendar extends React.Component {
     joinedUsers: [],
     trainer:{},
     on:false,
+    date:'',
+    range:''
   }
 
   joinEvent = (e) => {
     this.setState({on: true})
     const eventInfo = e.event._def.publicId
+    let targetDate = e.event._instance.range.start.toISOString().slice(0,10)
+    let  timeRange = "from " + e.event._instance.range.start.toISOString().slice(11,19) + " to " + e.event._instance.range.end.toISOString().slice(11,19)
     let id = parseInt(eventInfo)
     let targetEvent = this.props.events.find(event=> event.id === id)
-    // let users = targetEvent.users.map( user=> user.username)
     let info = targetEvent.users
-  
-    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:info})
+    this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:info , date: targetDate, range:timeRange})
   }
 
   addJoinCourse = user => this.setState({ joinedUsers : [...this.state.joinedUsers, user] })
@@ -36,7 +38,7 @@ export default class MainCarlendar extends React.Component {
 
   render() {
     const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents} = this.props
-    const {joinCourse, joinedUsers,trainer,on} = this.state
+    const {joinCourse, joinedUsers,trainer,on, date, range} = this.state
     
     return (
       <div>
@@ -53,7 +55,7 @@ export default class MainCarlendar extends React.Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             editable={true}
-            selectable={true}
+            // selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
             aspectRatio= {1}
@@ -78,7 +80,9 @@ export default class MainCarlendar extends React.Component {
           addAppointment={addAppointment}
           removeAppointment={removeAppointment}
           trainer={trainer}  
-          updateUserEvents={updateUserEvents}    
+          updateUserEvents={updateUserEvents}
+          date={date}
+          range={range}
           />
         </div>
           :null

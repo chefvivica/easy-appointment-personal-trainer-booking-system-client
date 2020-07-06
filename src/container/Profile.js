@@ -156,7 +156,7 @@ export class Profile extends Component {
           
           {condition === "cancel"? 
             <div className='profile-cancle-container'>
-              <h3>Are you sure to cancel this event?</h3>
+              <h3>Are you sure you want to cancel this course?</h3>
               <button onClick={this.handler}>Close</button><button onClick={this.handler}>Confirm</button>
             </div>               
           :null
@@ -169,12 +169,12 @@ export class Profile extends Component {
                 <h4> Time: from <b>{start.slice(0,10)} at {start.slice(11,start.length)} </b> to  <b>{end.slice(0,10)} at {end.slice(11, end.length)} </b></h4>
               </div>
               <div>
-                <h5>Please pick the sport your want to learn:</h5>
+                <h5>Please pick your sport:</h5>
                 <select value={this.state.option} onChange={this.handleChange}>
                   <option>please select</option>
                   {trainers.map((trainer, index) => <option key={index} value={trainer.sports}>{trainer.sports}</option>)}         
                 </select> 
-                <h5>What are you expecting from this lesson </h5>
+                <h5>What are you expecting from this lesson?</h5>
                 <input type="text" value={this.state.detail} name='detail' onChange={this.handleDetail}/>
                 <button onClick={this.handleSubmit}>Submit</button> 
                 <button>Close</button>                         
