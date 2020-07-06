@@ -73,10 +73,11 @@ export class JoinCourse extends Component {
   }
 
   render() {  
-    console.log(this.props.joinedUsers)
-    const {title, details, start, end} = this.props.joinCourse
+    const {title, details} = this.props.joinCourse
+    const {date, range} = this.props
     const {name, image}=this.props.trainer
     let studentsTorender = this.getUnique([...this.props.joinedUsers],"username")
+
 
     return (     
       <div className="join-course-container">
@@ -88,13 +89,15 @@ export class JoinCourse extends Component {
         <div className="join-course-trainer">
           <img src={image} />
           <h2>Trainer: {name}</h2>
+          <h5><b> Date: { date } </b></h5>
+          <h5> Course time: { range} </h5>
           <h4>Course details: {details}</h4>
+          <hr></hr>
           
-            <h5> Start at: { start } </h5>
-            <h5> End  at: { end } </h5>
         </div>
 
         <div className='student-container'>
+            <h3>Students who have been enrolled in this course</h3>
           <ul className='student-info'>
             {studentsTorender.map((user,index)=> <div key={index}><img src={user.image}/><span> {user.username}</span></div>)} 
           </ul>
