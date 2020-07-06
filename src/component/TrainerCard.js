@@ -7,7 +7,7 @@ const TrainerCard = (props) => {
     <div>
       <div className="trainer-card">
         <div className="header">
-          <img  src={image} alt="trainer picture" />
+          <img  src={image}/>
         </div>
         <div className="card-body">
           <h1>Name: {name}</h1>

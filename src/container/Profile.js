@@ -8,6 +8,7 @@ import "../css/profile.css"
 const requestUrl = 'http://localhost:3000/requests'
 const url = "http://localhost:3000/appointments"
 const trainerUrl = 'http://localhost:3000/trainers'
+const base = 'http://localhost:3000/users'
 
 export class Profile extends Component {
 
@@ -24,9 +25,9 @@ export class Profile extends Component {
   }
 
   componentDidMount = () =>{
-    fetch(requestUrl)
+    fetch(`${base}/${this.props.currentUser.id}`)
     .then(res => res.json())
-    .then(requests => this.setState({ requests }))
+    .then(data => this.setState({ requests: data.requests }))
     fetch(trainerUrl)
     .then(res => res.json())
     .then(trainers => this.setState({ trainers }))
@@ -40,7 +41,7 @@ export class Profile extends Component {
     this.setState({condition:"cancel",removeEvent:item , removeId:target.id})
 
   }  
-
+  
   handler = (e) => {
     e.persist()
     if(e.target.innerText==='Confirm'){
@@ -57,17 +58,19 @@ export class Profile extends Component {
       })
     }else if(e.target.innerText==='Close'){
       this.setState({ condition: "dayCalendar"})
-    }else if(e.target.innerText==="Request a one on one"){
+    }else if(e.target.innerText==="Private lesson"){
       this.setState({condition:"timeCalendar"})
     }else if(e.target.innerText==="Group lesson"){
       this.setState({condition:"dayCalendar"})
     }
   }
-
+  
   handleDateSelect = e => { 
+    console.log(e)
     let eventStart = e.startStr.slice(0,-6)
     let eventEnd = e.endStr.slice(0,-6)
     this.setState({start: eventStart , end: eventEnd, condition:"booking"})
+    console.log(eventStart,    "÷÷",     eventEnd)
   }
 
   // unique = (value, index, self) => {
@@ -84,7 +87,9 @@ export class Profile extends Component {
     let targetType= this.state.option
     let trainer = this.state.trainers.find(trainer=> trainer.sports === targetType)
     let trainerId = trainer.id
-    let newRequest = {user_id: this.props.currentUser.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end, color:'#FF0000'}
+    let newRequest = {user_id: this.props.currentUser.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end, color:'#FF4500'}
+    console.log("trainer", trainer)
+    console.log("newRequest", newRequest)
     fetch(requestUrl,{
       method: "POST",
         headers: { 
@@ -100,11 +105,15 @@ export class Profile extends Component {
       this.setState({condition:"timeCalendar"})
   }
   
+  handleRequest = (e) => {
+    console.log(e)
+  }
 
   render() {
     const {username, image,email} = this.props.currentUser
     const {start, end, condition, trainers} = this.state
-    console.log(this.state.removeEvent,                  "!!",this.state.removeId)
+    
+
     if(username === undefined){
       return "please login first"
     }else{
@@ -112,11 +121,11 @@ export class Profile extends Component {
         <div className="profile-container">
           <div className="profile-info-container">
             <div>
-              <img src={image} alt='user img'/> 
+              <img src={image} /> 
               <h4>Welcome back {username}</h4>
               <h5>{email}</h5>
-              <button>Edit</button>
-              <button onClick={this.handler}>Request a one on one</button>
+              {/* <button>Edit</button> */}
+              <button onClick={this.handler}>Private lesson</button>
               <button onClick={this.handler}>Group lesson</button>
                       
             </div>
@@ -124,6 +133,7 @@ export class Profile extends Component {
 
           {condition === "dayCalendar"? 
           <div className="profile-calendar">
+            <h1>Your group lesson calendar</h1>
           <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
@@ -156,11 +166,12 @@ export class Profile extends Component {
             <div className='profile-booking-container'>
               <div>
                 <h3>Your one one one training requested info: </h3>
-                <h4> Time: from {start.slice(0,10)} at {start.slice(11,start.length)}  to  {end.slice(0,10)} at {end.slice(11, end.length)} </h4>
+                <h4> Time: from <b>{start.slice(0,10)} at {start.slice(11,start.length)} </b> to  <b>{end.slice(0,10)} at {end.slice(11, end.length)} </b></h4>
               </div>
               <div>
                 <h5>Please pick the sport your want to learn:</h5>
                 <select value={this.state.option} onChange={this.handleChange}>
+                  <option>please select</option>
                   {trainers.map((trainer, index) => <option key={index} value={trainer.sports}>{trainer.sports}</option>)}         
                 </select> 
                 <h5>What are you expecting from this lesson </h5>
@@ -174,6 +185,7 @@ export class Profile extends Component {
 
           {condition === "timeCalendar"? 
           <div>
+            <h1>Your private lessons calendar</h1>
             <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="timeGridWeek"
@@ -189,9 +201,9 @@ export class Profile extends Component {
               aspectRatio= {1}
               height={700}
               events={this.state.requests}
-              eventClick={this.handleRemove}
+              eventClick={this.handleRequest}
               select={this.handleDateSelect}
-              eventBackgroundColor={'#FFA500'}
+              // eventBackgroundColor={'#FF4500'}
               />  
           </div>
           :null}
