@@ -43,7 +43,7 @@ export class JoinCourse extends Component {
         this.props.addAppointment(data)
         this.props.updateUserEvents(eventId)
       })
-      alert(" You have been enrolled this course succesfully!")
+      alert(" You have been enrolled in this course succesfully!")
       this.setState({button:"Cancel"})
     }
     else if(e.target.innerText === 'Cancel'){
@@ -86,7 +86,7 @@ export class JoinCourse extends Component {
         </div>
 
         <div className="join-course-trainer">
-          <img src={image} alt="trainer picture"/>
+          <img src={image} />
           <h2>Trainer: {name}</h2>
           <h4>Course details: {details}</h4>
           
