@@ -13,6 +13,7 @@ class Login extends Component {
     const {username, password} =this.state
 
     return (
+      <div>
       <form onSubmit={(e)=>this.props.findUser(e,this.state.username,this.props.match)}>
         <h1>Login</h1>
         <div>
@@ -39,6 +40,7 @@ class Login extends Component {
         <br></br>
         <input type="submit" value="Login" />
       </form>
+      </div>
     );
   }
 }

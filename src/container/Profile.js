@@ -120,20 +120,22 @@ export class Profile extends Component {
       return (
         <div className="profile-container">
           <div className="profile-info-container">
-            <div>
-              <img src={image} /> 
+            <div className="info">
+              <img src={image} alt='user pic'/> 
+              <div>
               <h4>Welcome back {username}</h4>
               <h5>{email}</h5>
-              {/* <button>Edit</button> */}
+              </div>
+              </div>
+              <div>           
               <button onClick={this.handler}>Private lesson</button>
-              <button onClick={this.handler}>Group lesson</button>
-                      
+              <button onClick={this.handler}>Group lesson</button>       
             </div>
           </div> 
 
           {condition === "dayCalendar"? 
           <div className="profile-calendar">
-            <h1>Your group lesson calendar</h1>
+            <h1>{username}'s group lesson calendar</h1>
           <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
@@ -143,8 +145,6 @@ export class Profile extends Component {
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
               }}
               editable={true}
-              // selectable={true}
-              // selectMirror={true}
               dayMaxEvents={true}
               aspectRatio= {1}
               height={700}
@@ -184,8 +184,8 @@ export class Profile extends Component {
           }  
 
           {condition === "timeCalendar"? 
-          <div>
-            <h1>Your private lessons calendar</h1>
+          <div className="private-calendar">
+            <h1>{username}'s private lessons calendar</h1>
             <FullCalendar
               plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="timeGridWeek"

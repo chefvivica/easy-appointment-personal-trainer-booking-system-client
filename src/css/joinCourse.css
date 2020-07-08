@@ -1,37 +1,44 @@
 .join-course-container {
   /* color: #fff; */
-  color: rgba(30, 31, 30, 0.678);
+  color: #5E6C7D;
   align-items: center;
   justify-content: center;
-  margin-bottom: 80px;
-
+  margin-left: 30px;
+  margin-bottom: 30px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap:80px;
+  width: 1200px;
+  /* height: 100vh; */
+  border-radius: 10px;
 }
 .join-course-info h1{
-  font-size: 42px;
-  font-weight: bolder;
-  
+  font-size: 36px;
+  font-weight: bolder; 
 }
 
 .join-course-trainer img{
-  width: 300px;
-  height:350px;
-  position: relative;
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
 }
-.join-course-trainer h5{
- color:#191970;
+.join-course-trainer h3{
+  color:#247CE5;
 }
+
 .student-container ul {
   height: 100px;
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
   align-items: center;
-  justify-content: first baseline;
-  color: #333;
-  background-color: #dcdcdc00;
-  border-radius: 10px;
-
 }
 
+.student-container  button {
+  width: 150px;
+}
 .student-container img{ 
   border: 50px;
   border-radius: 50%;
@@ -40,16 +47,8 @@
 }
 .student-container span{ 
   color: rgba(14, 12, 12, 0.596);
+  width: fit-content;
 }
 
-.student-container button{
-  margin-top: 30px;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-  font-size: x-large;
-  width: 280px;
-  height: 40px;
-}
 
 

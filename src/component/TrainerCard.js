@@ -1,13 +1,17 @@
 import React from 'react';
 
 const TrainerCard = (props) => {
-  const {id, image, bio, name, comments,rating} = props.trainer
+  const {id, image, bio, name} = props.trainer
   
+  const renderEvent = (id) => {
+    props.history.push(`/trainer/${id}`)
+  }
+
   return(
-    <div>
+    <div onClick={(e)=>renderEvent(id)}>
       <div className="trainer-card">
         <div className="header">
-          <img  src={image}/>
+          <img  src={image} alt='trainer pic'/>
         </div>
         <div className="card-body">
           <h1>Name: {name}</h1>

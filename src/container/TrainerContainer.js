@@ -6,7 +6,7 @@ export class TrainerContainer extends Component {
 
   state = {
     trainers : [],
-    open: false
+    open: false,
   }
 
   componentDidMount(){
@@ -15,14 +15,13 @@ export class TrainerContainer extends Component {
     .then(trainers => this.setState({ trainers }))
   }
   render() {
-    
+
     return (
-
-        <div className="trainer-div">
-          {this.state.trainers.map(trainer => <TrainerCard key={trainer.id} trainer={trainer}/>)}
-        </div>   
-
-    )
+      <div className="trainer-div">
+        {this.state.trainers.map(trainer => 
+        <TrainerCard key={trainer.id}  trainer={trainer} history={this.props.history}/>)}
+      </div>   
+    ) 
   }
 }
 

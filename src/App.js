@@ -3,10 +3,6 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import MainContainer from './container/MainContainer';
 import NavBar from './component/NavBar';
 import './App.css';
-import Test from './container/Test';
-
-
-
 
 function App() {
   return (
@@ -21,9 +17,6 @@ function App() {
           <MainContainer/>
         </div>
 
-        {/* <div>
-          <Test/>
-        </div> */}
         
       </div>
     </Router>
