@@ -62,7 +62,7 @@ class MainContainer extends Component {
   
   render() {
     const {events, currentUser, appointments, userEvents} = this.state
-    console.log(this.state.userEvents)
+
     return (
       
       <div className= "main-container">
