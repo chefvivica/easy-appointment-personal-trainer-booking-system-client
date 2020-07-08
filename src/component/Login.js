@@ -28,7 +28,7 @@ class Login extends Component {
         </div>
         <br></br>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password: </label>
           <input 
             type="password" 
             name="password" 
@@ -38,7 +38,7 @@ class Login extends Component {
           />
         </div>
         <br></br>
-        <input type="submit" value="Login" />
+        <input className="auth" type="submit" value="Login" />
       </form>
       </div>
     );

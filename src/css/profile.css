@@ -4,7 +4,7 @@
   border: 30px;
   padding: 30px;
   width: 99%;
-  box-shadow: 0 2px 20px #5E6C7D;
+  box-shadow: 0 2px 10px #5E6C7D;
 }
 .profile-info-container {
   display: grid;
@@ -16,13 +16,14 @@
 }
 .profile-info-container button{
   width: 200px;
-  box-shadow: 0 2px 20px #5E6C7D;
+  box-shadow: 0 2px 15px #5E6C7D;
 }
 
 .profile-info-container img{
   border-radius: 50%;
   height: 100px;
   width: 100px;
+  margin-right: 50px;
 }
 .info{
   display: flex;
@@ -30,6 +31,7 @@
   box-shadow: 0 2px 20px #5E6C7D;
   margin: 10px;
   padding: 10px;
+  border-radius: 5px;
 }
 .profile-calendar{
   margin: auto; 
@@ -51,4 +53,51 @@
 
 .profile-container h1{
   color: #4A73A6;
+}
+.private-calendar h4 { 
+  color: #d89585;
+  text-shadow: 1px 2px #cfdceb;
+  
+}
+
+.profile-booking-container {
+  color: #5E6C7D;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 2px 15px #5E6C7D;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-left: 80px;
+  width: 900px;
+}
+
+.profile-booking-container h4 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #247CE5;
+}
+
+.profile-booking-container textarea {
+  height: 200px;
+  width: 400px;
+  border: 2px solid #5E6C7D;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px;
+  color: #5E6C7D;
+  margin-bottom: 20px;
+
+}
+
+.drop-down {
+  width: 260px;
+  height: 26px;
+  font-size: medium;
+  color: #5E6C7D;
+}
+
+.btn {
+  margin-bottom: 100px;
 }
