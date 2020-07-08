@@ -101,3 +101,28 @@
 .btn {
   margin-bottom: 100px;
 }
+
+.profile-cancle-container {
+  color: #5E6C7D;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 2px 15px #5E6C7D;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-left: 80px;
+  width: 900px;
+}
+
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.cancel-btn button {
+  width: 100px;
+}

@@ -70,7 +70,6 @@ export class Profile extends Component {
     let eventStart = e.startStr.slice(0,-6)
     let eventEnd = e.endStr.slice(0,-6)
     this.setState({start: eventStart , end: eventEnd, condition:"booking"})
-    console.log(eventStart,    "÷÷",     eventEnd)
   }
 
   
@@ -107,8 +106,8 @@ export class Profile extends Component {
 
   render() {
     const {username, image,email} = this.props.currentUser
-    const {start, end, condition, trainers} = this.state
-    
+    const {start, end, condition, trainers ,removeEvent} = this.state
+    console.log(removeEvent)
 
     if(username === undefined){
       return "please login first"
@@ -156,7 +155,12 @@ export class Profile extends Component {
           {condition === "cancel"? 
             <div className='profile-cancle-container'>
               <h3>Are you sure you want to cancel this course?</h3>
-              <button onClick={this.handler}>Close</button><button onClick={this.handler}>Confirm</button>
+              <h1>Course: {removeEvent.title}</h1>
+              <h4> Date & Time: from {removeEvent.start.slice(0,10)} at {removeEvent.start.slice(11,removeEvent.start.length)}  to  {removeEvent.end.slice(0,10)} at {removeEvent.end.slice(11, removeEvent.end.length)} </h4>
+              <div className="cancel-btn">
+                <button onClick={this.handler}>Close</button>
+                <button onClick={this.handler}>Confirm</button>
+              </div>
             </div>               
           :null
           }  
