@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 .trainer-div{
+ 
   margin-left: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -7,7 +9,7 @@
   
 }
 .trainer-div .trainer-card{ 
-  background-color: rgb(248, 242, 233);
+  background-color: #FFFFFF;
   display: grid;
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
@@ -15,9 +17,9 @@
   width: 630px;
   height: 550px;
   border-radius: 10px;
-  box-shadow: 0 2px 20px rgb(15, 15, 15);
-  box-shadow: 0 2px 20px rgb(255, 254, 254);
+  box-shadow: 0 2px 20px #5E6C7D;
   overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .header img{

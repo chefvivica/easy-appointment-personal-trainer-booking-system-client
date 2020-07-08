@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Home from '../component/Home'
 import MainCalendar from './MainCalendar'
+import TrainerCalendar from './TrainerCalendar'
 import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
-import Test from '../container/Test'
 
 const url = "http://localhost:3000/appointments"
 class MainContainer extends Component {
@@ -69,9 +69,11 @@ class MainContainer extends Component {
           <h1>Easy Appointment</h1>
         </div>
         <Switch>
+
+          <Route path='/trainer/:id' render={routerProps => 
+          <TrainerCalendar  {...routerProps}/>}/>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
           <Route path='/users/:id' render={routerProps => 
-          // <Test/>
             <Profile  
             {...routerProps} 
             removeAppointment={this.removeAppointment}
@@ -82,8 +84,6 @@ class MainContainer extends Component {
             currentUser={currentUser}/>     
           }
           />
-
-          
 
           <Route path='/calendar' render={routerProps => 
             <MainCalendar

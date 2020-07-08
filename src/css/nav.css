@@ -5,7 +5,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #031224;
   overflow-x: hidden;
   padding-top: 16px;
 }
@@ -14,7 +14,7 @@
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
-  color: #818181;
+  color: #FFFFFF;
   display: block;
   border: none;
   background: none;
@@ -25,7 +25,7 @@
 }
 
 .nav-bar a:hover {
-  color: #f1f1f1;
+  color: #849BB6;
 }
 
 /* @media screen and (max-height: 450px) {
