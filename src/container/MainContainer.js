@@ -43,6 +43,7 @@ class MainContainer extends Component {
     }
   }
 
+  addUser = (user) => this.setState({users: [...this.state.users,user]})
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
