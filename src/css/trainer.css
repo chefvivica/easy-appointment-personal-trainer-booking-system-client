@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 .trainer-div{
- 
   margin-left: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   height: 100vh;
+  overflow: scroll;
   
 }
 .trainer-div .trainer-card{ 
@@ -13,13 +13,14 @@
   display: grid;
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
-  gap:20px;
-  width: 630px;
+  gap:10px;
+  width: 600px;
   height: 550px;
   border-radius: 10px;
   box-shadow: 0 2px 20px #5E6C7D;
   overflow: hidden;
   font-family: 'Open Sans', sans-serif;
+  margin: 20px;
 }
 
 .header img{

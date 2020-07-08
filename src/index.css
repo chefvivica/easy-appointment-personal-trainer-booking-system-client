@@ -33,15 +33,14 @@ body button:hover {
 .main-container {
   position: relative;
   margin-left: 160px; 
-  margin-right: 160px; 
+  /* margin-right: 160px;  */
   margin-top: 0;
   border: 0;
-  margin-bottom: 100px;
   margin-right: 0;
   width: 85%;
   align-items: center;
   justify-content: center;
-  height: 100vh; 
+  overflow: hidden;
 }
 
 .banner{

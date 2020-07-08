@@ -3,10 +3,12 @@
   background-color: #FFFFFF;
   position: relative;
   width: 1270px;
-  padding: 2 px 10px; 
+  padding: 2px 10px; 
   border-radius: 10px;
   box-shadow: 0 2px 20px #5E6C7D;
-  overflow: hidden; 
+  overflow: hidden;
+  margin-bottom: 20px;
+  margin-left: 10px;
 }
 
 .coach-calendar-container h1{
