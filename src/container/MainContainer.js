@@ -100,6 +100,7 @@ class MainContainer extends Component {
           />
           <Route exact path='/' render={routerProps => <Home addUser={this.addUser} findUser={this.findUser} {...routerProps}/>}/>
         </Switch>
+        
       </div>   
     )
   }

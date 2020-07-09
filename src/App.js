@@ -16,8 +16,6 @@ function App() {
         <div className='main-container'>
           <MainContainer/>
         </div>
-
-        
       </div>
     </Router>
   );

@@ -179,7 +179,6 @@ export class Profile extends Component {
                 <textarea value={this.state.detail} name='detail' onChange={this.handleDetail}/>
                 <div className='btn'>
                   <button onClick={this.handleSubmit}>Submit</button> 
-                  {/* <button>Back</button> */}
                 </div>                         
               </div>
             </div>        
@@ -208,7 +207,6 @@ export class Profile extends Component {
               events={this.state.requests}
               eventClick={this.handleRequest}
               select={this.handleDateSelect}
-              // eventBackgroundColor={'#FF4500'}
               />  
           </div>
           :null}

@@ -7,7 +7,7 @@ export class JoinCourse extends Component {
   state = {
     button:'Join this course',
     trainer:{},
-    view:'courseDetail'
+    view:''
   }
 
   handleConfirm = e => {
@@ -26,6 +26,7 @@ export class JoinCourse extends Component {
       alert("You have already joined this event")
     }
     else if(e.target.innerText === 'Join this course'){
+      this.setState({view: "joinCourse"})
       fetch(`${url}`,{
         method: "POST",
         headers: { 
@@ -41,22 +42,21 @@ export class JoinCourse extends Component {
         this.props.updateUserEvents(eventId)
         this.props.addStudent(this.props.currentUser)
       })
-      alert(" You have been enrolled in this course succesfully!")
       this.setState({button:"Cancel"})
     }
     else if(e.target.innerText === 'Cancel'){
-        let arr = this.props.appointments.find(a=> a.user_id === userId && a.event_id === eventId)
-        let id = arr.id
-        fetch(`${url}/${id}`,{ 
-          method: "DELETE"
-          })
-          .then(res=> res.json())
-          .then(data=>{
-              this.props.removeAppointment(data)
-              this.props.removeJoinCourse(this.props.currentUser)
-            })   
-      alert(" You cancelled this course succesfully!")
-      this.setState({button:"Join this course"})
+      let arr = this.props.appointments.find(a=> a.user_id === userId && a.event_id === eventId)
+      let id = arr.id
+      this.setState({view: "cancelCourse"})
+      fetch(`${url}/${id}`,{ 
+        method: "DELETE"
+        })
+        .then(res=> res.json())
+        .then(data=>{
+            this.props.removeAppointment(data)
+            this.props.removeJoinCourse(this.props.currentUser)
+          })   
+      this.setState({button:"Join this course"})      
     }
     else if(e.target.innerText === 'Back'){
       this.props.closeForm()
@@ -78,6 +78,7 @@ export class JoinCourse extends Component {
 
 
     return (     
+
       <div className="join-course-container">
         <div className="join-course-trainer">
           <h1>{title}</h1>
@@ -95,8 +96,18 @@ export class JoinCourse extends Component {
           </ul>
           <button className="join-course-confirm-button" onClick={this.handleConfirm}> {this.state.button}</button>
           <button className="join-course-close-form-button" onClick={this.handleConfirm}>Back</button> 
-        </div> 
-      </div>
+          {this.state.view === 'cancelCourse' ?
+          <div className="popupCancel" >
+            <h3>You cancelled this course succesfully!</h3>
+          </div>
+          :null} 
+          {this.state.view ==='joinCourse' ?
+          <div className="popupJoin" >
+            <h3>You have been enrolled this course succesfully!</h3>
+          </div>
+          :null}                     
+        </div>  
+      </div>    
     )   
   }
 }
