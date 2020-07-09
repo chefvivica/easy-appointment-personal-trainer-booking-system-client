@@ -1,5 +1,4 @@
 .join-course-container {
-  /* color: #fff; */
   color: #5E6C7D;
   align-items: center;
   justify-content: center;
@@ -10,7 +9,6 @@
   grid-template-columns: repeat(2, 1fr);
   gap:80px;
   width: 1200px;
-  /* height: 100vh; */
   border-radius: 10px;
 }
 .join-course-info h1{

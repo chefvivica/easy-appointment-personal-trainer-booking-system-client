@@ -7,10 +7,8 @@ export class JoinCourse extends Component {
   state = {
     button:'Join this course',
     trainer:{},
-    on:false
+    view:'courseDetail'
   }
-
-  toggle = () => this.setState({ on : !this.state.on})
 
   handleConfirm = e => {
     e.persist()
@@ -41,6 +39,7 @@ export class JoinCourse extends Component {
         this.props.addJoinCourse(this.props.currentUser)
         this.props.addAppointment(data)
         this.props.updateUserEvents(eventId)
+        this.props.addStudent(this.props.currentUser)
       })
       alert(" You have been enrolled in this course succesfully!")
       this.setState({button:"Cancel"})
@@ -57,7 +56,7 @@ export class JoinCourse extends Component {
               this.props.removeJoinCourse(this.props.currentUser)
             })   
       alert(" You cancelled this course succesfully!")
-      this.props.closeForm()
+      this.setState({button:"Join this course"})
     }
     else if(e.target.innerText === 'Back'){
       this.props.closeForm()
@@ -90,15 +89,13 @@ export class JoinCourse extends Component {
         </div>
 
         <div className='student-container'>
-            <h3>Students who have been enrolled in this course</h3>
+          <h3>Students who have been enrolled in this course</h3>
           <ul className='student-info'>
             {studentsTorender.map((user,index)=> <div key={index}><img src={user.image} alt='user pic'/></div>)} 
           </ul>
-        <button className="join-course-confirm-button" onClick={this.handleConfirm}> {this.state.button}</button>
-        <button className="join-course-close-form-button" onClick={this.handleConfirm}>Back</button> 
-        </div>
-          
-        
+          <button className="join-course-confirm-button" onClick={this.handleConfirm}> {this.state.button}</button>
+          <button className="join-course-close-form-button" onClick={this.handleConfirm}>Back</button> 
+        </div> 
       </div>
     )   
   }
