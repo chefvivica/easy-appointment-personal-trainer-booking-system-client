@@ -34,8 +34,8 @@ class MainContainer extends Component {
   
   findUser = (e, username,match) => {
     e.preventDefault()
-    if(this.state.users.find(user=> user.username===username)){
-      let user = this.state.users.find(user=> user.username ===username)
+    if(this.state.users.find(user=> user.username === username)){
+      let user = this.state.users.find(user=> user.username === username)
       this.setState({currentUser: user, userEvents:user.events})
       match.history.push("/trainer")
     }else{
@@ -43,16 +43,15 @@ class MainContainer extends Component {
     }
   }
 
-  addUser = (user) => this.setState({users: [...this.state.users,user]})
+  addUser = user => this.setState({users: [...this.state.users,user]})
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
   removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt)})
 
   updateUserEvents = eventId => {
-    console.log(eventId)
     let newEvent = this.state.events.find(event=> event.id === eventId)
-    this.setState({userEvents: [...this.state.userEvents, newEvent]})
+    this.setState({userEvents: [...this.state.userEvents, newEvent] , students: newEvent.users})
   }
 
   removeUserEvent = removeEvent => {
@@ -60,11 +59,13 @@ class MainContainer extends Component {
     this.setState({userEvents : updatedUserEvents})
   }
   
+  addStudent = student => this.setState({ students : [...this.state.students, student] })
+
+
   render() {
     const {events, currentUser, appointments, userEvents} = this.state
 
     return (
-      
       <div className= "main-container">
         <div className="banner"> 
           <h1>Easy Appointment</h1>
@@ -72,7 +73,7 @@ class MainContainer extends Component {
         <Switch>
 
           <Route path='/trainer/:id' render={routerProps => 
-          <TrainerCalendar  {...routerProps}/>}/>
+          <TrainerCalendar  {...routerProps} events={events} />}/>
           <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
           <Route path='/users/:id' render={routerProps => 
             <Profile  
@@ -94,6 +95,7 @@ class MainContainer extends Component {
             addAppointment={this.addAppointment}
             removeAppointment={this.removeAppointment}
             appointments={appointments}
+            addStudent={this.addStudent}
             {...routerProps}/>}
           />
           <Route exact path='/' render={routerProps => <Home addUser={this.addUser} findUser={this.findUser} {...routerProps}/>}/>

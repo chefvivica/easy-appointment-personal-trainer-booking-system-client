@@ -37,7 +37,7 @@ export default class MainCarlendar extends React.Component {
   closeForm = () => this.setState({ on: false })
 
   render() {
-    const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents} = this.props
+    const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents, addStudent} = this.props
     const {joinCourse, joinedUsers,trainer,on, date, range} = this.state
     
     return (
@@ -59,7 +59,7 @@ export default class MainCarlendar extends React.Component {
             selectMirror={true}
             dayMaxEvents={true}
             aspectRatio= {1}
-            height={780}
+            height={880}
             events={events}
             eventClick={this.joinEvent}           
             />        
@@ -83,6 +83,7 @@ export default class MainCarlendar extends React.Component {
           updateUserEvents={updateUserEvents}
           date={date}
           range={range}
+          addStudent={addStudent}
           />
         </div>
           :null

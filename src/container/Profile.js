@@ -66,7 +66,6 @@ export class Profile extends Component {
   }
   
   handleDateSelect = e => { 
-    console.log(e)
     let eventStart = e.startStr.slice(0,-6)
     let eventEnd = e.endStr.slice(0,-6)
     this.setState({start: eventStart , end: eventEnd, condition:"booking"})
@@ -100,14 +99,11 @@ export class Profile extends Component {
       this.setState({condition:"timeCalendar"})
   }
   
-  handleRequest = (e) => {
-    console.log(e)
-  }
+
 
   render() {
     const {username, image,email} = this.props.currentUser
     const {start, end, condition, trainers ,removeEvent} = this.state
-    console.log(removeEvent)
 
     if(username === undefined){
       return "please login first"
@@ -183,7 +179,7 @@ export class Profile extends Component {
                 <textarea value={this.state.detail} name='detail' onChange={this.handleDetail}/>
                 <div className='btn'>
                   <button onClick={this.handleSubmit}>Submit</button> 
-                  <button>Close</button>
+                  {/* <button>Back</button> */}
                 </div>                         
               </div>
             </div>        

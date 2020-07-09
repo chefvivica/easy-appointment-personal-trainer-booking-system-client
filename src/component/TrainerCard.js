@@ -6,7 +6,6 @@ const TrainerCard = (props) => {
   const renderEvent = (id) => {
     props.history.push(`/trainer/${id}`)
   }
-
   return(
     <div onClick={(e)=>renderEvent(id)}>
       <div className="trainer-card">
