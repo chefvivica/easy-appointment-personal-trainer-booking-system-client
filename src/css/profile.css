@@ -17,7 +17,8 @@
 }
 .profile-info-container button{
   width: 200px;
-  box-shadow: 0 2px 15px #5E6C7D;
+  box-shadow: 0 2px 10px #5E6C7D;
+  font-size: 14px;
 }
 
 .profile-info-container img{

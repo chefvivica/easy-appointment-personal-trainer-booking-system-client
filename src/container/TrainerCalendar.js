@@ -28,6 +28,8 @@ export class TrainerCalendar extends Component {
     let target = this.props.events.find( event => event.start === start)
     this.setState({ students : target.users, on: true })
   }
+
+
   render() {
     const{name, events} = this.state.trainer
     const{students,on} = this.state
