@@ -8,13 +8,34 @@ class Login extends Component {
   }
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value})
+
+  handleSubmit = e => {
+    e.preventDefault()
+    fetch("http://localhost:3000/login",{
+      method: "POST",
+      headers: { 
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body:JSON.stringify(this.state)
+    })
+    .then(res=> res.json())
+    .then(response => {
+      if(response.errors){
+        alert(response.errors)
+      }else{
+        this.props.setUser(response)
+        this.props.history.push('/trainer')
+      }
+    })
+  }
   
   render() {
     const {username, password} =this.state
 
     return (
       <div>
-      <form onSubmit={(e)=>this.props.findUser(e,this.state.username,this.props.match)}>
+      <form onSubmit={this.handleSubmit}>
         <h1>Login</h1>
         <div>
           <label htmlFor="username">Username: </label>

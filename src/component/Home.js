@@ -12,14 +12,13 @@ export class Home extends Component {
   toggle = () => this.setState({on: !this.state.on})
 
 
-  render() {
-    const { addUser } = this.props
+  render() { 
     return (
       <div className="home"> 
         <h1>
         <img alt=''src={require("../img/logo.JPG")}/>
         </h1>
-        {this.state.on? <Login match={this.props} findUser={this.props.findUser}/> : <Signup addUser={addUser} match={this.props} /> }
+        {this.state.on? <Login {...this.props} /> : <Signup {...this.props} /> }
         <button onClick={this.toggle}>{this.state.on? "Sign up instead": "Login in instead"}</button>
       </div>
     )

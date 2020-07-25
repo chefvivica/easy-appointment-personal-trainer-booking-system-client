@@ -5,7 +5,7 @@ const headers = {
   Accept: 'application/json'
 }
 
-const initState = {name: '', username: '', email: '', password: '', confirmation: '', phone_number: ''}
+const initState = {name: '', username: '', email: '', password: '', confirmation: '', phone_number: '', image: ''}
 export class Signup extends Component {
   
   state = initState
@@ -26,21 +26,28 @@ export class Signup extends Component {
           name: this.state.name,
           username: this.state.username,
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
+          phone_number: this.state.phone_number,
+          image: this.state.image
         })
       })
         .then(resp => resp.json())
-        .then(data=> this.props.addUser(data))
+        .then(response => {
+          if(response.errors){
+            alert(response.errors)
+          }else{
+            this.props.setUser(response)
+            this.props.history.push('/trainer')
+          }
+        })
     } else {
       alert("Passwords don't match")
     }
-    this.setState(initState)
-    this.props.match.history.push("/")
   }
 
   render() {
-
-    const { username, email, phone_number,password, confirmation } = this.state
+    const { username, email, phone_number,password, confirmation, image} = this.state
+    console.log(this.props)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -97,6 +104,17 @@ export class Signup extends Component {
               name="confirmation" 
               value={confirmation}
               placeholder="Confirm your password" 
+              onChange={this.handleChange}
+            />
+          </div>
+          <br></br>
+          <div>
+            <label htmlFor="image">Profile Photo: </label>
+            <input 
+              type="text" 
+              name="image" 
+              value={image}
+              placeholder="Your image url " 
               onChange={this.handleChange}
             />
           </div>
