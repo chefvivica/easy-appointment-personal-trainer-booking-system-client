@@ -6,6 +6,7 @@ import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
+// import Signup from '../component/Signup'
 
 const url = "http://localhost:3000/appointments"
 class MainContainer extends Component {
@@ -32,18 +33,9 @@ class MainContainer extends Component {
     .then(appointments => this.setState({ appointments }))  
   }
   
-  findUser = (e, username,match) => {
-    e.preventDefault()
-    if(this.state.users.find(user=> user.username === username)){
-      let user = this.state.users.find(user=> user.username === username)
-      this.setState({currentUser: user, userEvents:user.events})
-      match.history.push("/trainer")
-    }else{
-      alert("Something went wrong, please try again, or sign up.")
-    }
+  setUser = user => {
+    this.setState({currentUser : user})
   }
-
-  addUser = user => this.setState({users: [...this.state.users,user]})
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
@@ -64,7 +56,6 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents} = this.state
-
     return (
       <div className= "main-container">
         <div className="banner"> 
@@ -74,7 +65,8 @@ class MainContainer extends Component {
 
           <Route path='/trainer/:id' render={routerProps => 
           <TrainerCalendar  {...routerProps} events={events} />}/>
-          <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
+          <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}
+          />
           <Route path='/users/:id' render={routerProps => 
             <Profile  
             {...routerProps} 
@@ -83,7 +75,7 @@ class MainContainer extends Component {
             events={events}
             userEvents={userEvents}
             appointments={appointments}
-            currentUser={currentUser}/>     
+            user={currentUser.user}/>     
           }
           />
 
@@ -98,7 +90,7 @@ class MainContainer extends Component {
             addStudent={this.addStudent}
             {...routerProps}/>}
           />
-          <Route exact path='/' render={routerProps => <Home addUser={this.addUser} findUser={this.findUser} {...routerProps}/>}/>
+          <Route exact path='/' render={routerProps => <Home setUser={this.setUser} {...routerProps}/>}/>
         </Switch>
         
       </div>   
