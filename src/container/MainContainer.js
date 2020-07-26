@@ -8,7 +8,9 @@ import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
 
 
-const url = "http://localhost:3000/appointments"
+const apptUrl = "http://localhost:3000/appointments"
+const userUrl = 'http://localhost:3000/users'
+const eventUrl = 'http://localhost:3000/events'
 class MainContainer extends Component {
 
   state = {
@@ -21,20 +23,20 @@ class MainContainer extends Component {
   }
   
   componentDidMount(){
-    fetch('http://localhost:3000/events')
+    fetch(eventUrl)
     .then(res => res.json())
     .then(events => this.setState({ events }))
     
-    fetch('http://localhost:3000/users')
+    fetch(userUrl)
     .then(res => res.json())
     .then(users => this.setState({ users }))
 
-    fetch(url)
+    fetch(apptUrl)
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
   }
   
-  setUser = user => this.setState({currentUser : user, requests : user.requests})
+  setUser = user => this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
@@ -57,7 +59,8 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(this.state.currentUser)
+    console.log(userEvents)
+
     return (
       <div className= "main-container">
         <div className="banner"> 
