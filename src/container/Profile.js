@@ -42,7 +42,6 @@ export class Profile extends Component {
     e.persist()
     if(e.target.innerText==='Confirm'){
       let appt = this.props.appointments.find(appointment => appointment.event_id === this.state.removeId && appointment.user_id === this.props.currentUser.id)
-      console.log(appt)
       let id = appt.id
       fetch(`${url}/${id}`,{
         method: "DELETE"

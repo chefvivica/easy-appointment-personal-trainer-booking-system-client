@@ -11,7 +11,7 @@ export class NavBar extends Component {
     <NavLink to="/calendar" exact>Calendar</NavLink>
     <NavLink to="/trainer" exact>Trainer</NavLink>
     <NavLink to="/users/:id" exact>Your Profile</NavLink>
-    <NavLink to="/" exact>Logout</NavLink>
+    <NavLink to="/" exact>Login</NavLink>
     </div>
 
     )

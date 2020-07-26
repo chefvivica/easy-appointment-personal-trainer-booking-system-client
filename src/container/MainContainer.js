@@ -38,6 +38,8 @@ class MainContainer extends Component {
   
   setUser = user => this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
 
+  logout = () => this.setState({ currentUser : ''})
+
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
   removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt)})
@@ -57,9 +59,10 @@ class MainContainer extends Component {
   addRequest = newRequest => this.setState({ requests: [...this.state.requests, newRequest]})
   
 
+
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(userEvents)
+    console.log(userEvents, currentUser)
 
     return (
       <div className= "main-container">
@@ -97,7 +100,8 @@ class MainContainer extends Component {
             addStudent={this.addStudent}
             {...routerProps}/>}
           />
-          <Route exact path='/' render={routerProps => <Home setUser={this.setUser} {...routerProps}/>}/>
+          <Route exact path='/' render={routerProps => <Home setUser={this.setUser} {...routerProps} logout={this.logout}/>}/>
+          
         </Switch>
         
       </div>   
