@@ -6,17 +6,18 @@ import TrainerContainer from './TrainerContainer'
 import {Route, Switch} from 'react-router-dom' 
 import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
-// import Signup from '../component/Signup'
+
 
 const url = "http://localhost:3000/appointments"
 class MainContainer extends Component {
 
   state = {
-    users: [ ],
-    events:[ ],
+    users: [],
+    events:[],
     currentUser:{},
     userEvents:[],
     appointments:[],
+    requests:[]
   }
   
   componentDidMount(){
@@ -33,9 +34,7 @@ class MainContainer extends Component {
     .then(appointments => this.setState({ appointments }))  
   }
   
-  setUser = user => {
-    this.setState({currentUser : user})
-  }
+  setUser = user => this.setState({currentUser : user, requests : user.requests})
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
@@ -53,9 +52,12 @@ class MainContainer extends Component {
   
   addStudent = student => this.setState({ students : [...this.state.students, student] })
 
+  addRequest = newRequest => this.setState({ requests: [...this.state.requests, newRequest]})
+  
 
   render() {
-    const {events, currentUser, appointments, userEvents} = this.state
+    const {events, currentUser, appointments, userEvents, requests} = this.state
+    console.log(this.state.currentUser)
     return (
       <div className= "main-container">
         <div className="banner"> 
@@ -72,10 +74,12 @@ class MainContainer extends Component {
             {...routerProps} 
             removeAppointment={this.removeAppointment}
             removeUserEvent={this.removeUserEvent}
+            addRequest={this.addRequest}
             events={events}
+            requests={requests}
             userEvents={userEvents}
             appointments={appointments}
-            user={currentUser.user}/>     
+            currentUser={currentUser}/>     
           }
           />
 
@@ -99,5 +103,6 @@ class MainContainer extends Component {
 }
 
 export default MainContainer
+
 
 

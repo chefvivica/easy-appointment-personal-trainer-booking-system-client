@@ -8,7 +8,6 @@ import "../css/profile.css"
 const requestUrl = 'http://localhost:3000/requests'
 const url = "http://localhost:3000/appointments"
 const trainerUrl = 'http://localhost:3000/trainers'
-const base = 'http://localhost:3000/users'
 
 export class Profile extends Component {
 
@@ -25,9 +24,9 @@ export class Profile extends Component {
   }
 
   componentDidMount = () =>{
-    fetch(`${base}/${this.props.user.id}`)
-    .then(res => res.json())
-    .then(data => this.setState({ requests: data.requests }))
+    // fetch(`${base}/${this.props.user.id}`)
+    // .then(res => res.json())
+    // .then(data => this.setState({ requests: data.requests }))
     fetch(trainerUrl)
     .then(res => res.json())
     .then(trainers => this.setState({ trainers }))
@@ -82,7 +81,7 @@ export class Profile extends Component {
     let targetType= this.state.option
     let trainer = this.state.trainers.find(trainer=> trainer.sports === targetType)
     let trainerId = trainer.id
-    let newRequest = {user_id: this.props.user.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end, color:'#FF4500'}
+    let newRequest = {user_id: this.props.currentUser.id, trainer_id: trainerId, detail: this.state.detail, title: trainer.sports, start: this.state.start, end: this.state.end, color:'#FF4500'}
 
     fetch(requestUrl,{
       method: "POST",
@@ -94,7 +93,7 @@ export class Profile extends Component {
       })
       .then(res=> res.json())
       .then(data => {
-        this.setState({ requests: [...this.state.requests, data]})           
+        this.props.addRequest(data)
     })
       this.setState({condition:"timeCalendar"})
   }
@@ -102,12 +101,11 @@ export class Profile extends Component {
 
 
   render() {
-    if(this.props.user === undefined){
+    if(this.props.currentUser === undefined){
       return "please log in first"}
     else{
-      const {username, email, image} = this.props.user
+      const {username, email, image} = this.props.currentUser
       const {start, end, condition, trainers ,removeEvent} = this.state 
-      console.log(this.state.requests)     
       if(username === undefined){
         return "please login first"
       }else{
@@ -207,7 +205,7 @@ export class Profile extends Component {
                 aspectRatio= {1}
                 height={700}
                 eventBackgroundColor={'#FF4500'}
-                events={this.state.requests}
+                events={this.props.requests}
                 eventClick={this.handleRequest}
                 select={this.handleDateSelect}
                 />  
