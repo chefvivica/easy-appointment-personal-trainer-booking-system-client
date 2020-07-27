@@ -38,7 +38,10 @@ class MainContainer extends Component {
   
   setUser = user => this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
 
-  logout = () => this.setState({ currentUser : ''})
+  logout = (history) => {
+    this.setState({ currentUser : ''})
+    history.push('/')
+  }
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
@@ -62,8 +65,7 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(userEvents, currentUser)
-
+    // console.log(currentUser)
     return (
       <div className= "main-container">
         <div className="banner"> 
@@ -81,11 +83,13 @@ class MainContainer extends Component {
             removeAppointment={this.removeAppointment}
             removeUserEvent={this.removeUserEvent}
             addRequest={this.addRequest}
+            logout={this.logout}
             events={events}
             requests={requests}
             userEvents={userEvents}
             appointments={appointments}
-            currentUser={currentUser}/>     
+            currentUser={currentUser}/>
+            
           }
           />
 

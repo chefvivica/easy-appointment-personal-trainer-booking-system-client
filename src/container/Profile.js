@@ -95,9 +95,13 @@ export class Profile extends Component {
       this.setState({condition:"timeCalendar"})
   }
   
+  edit = (e) => {
+    console.log(e)
+  }
 
 
   render() {
+    // console.log(this.props.history)
     if(this.props.currentUser === undefined){
       return "please log in first"}
     else{
@@ -114,7 +118,10 @@ export class Profile extends Component {
                 <div>
                   <h4>Welcome back {username}</h4>
                   <h5>{email}</h5>
-                  <button>Edit</button>
+                  <div className='profile-btn'>
+                    <button onClick={this.edit}>Edit</button>
+                    <button onClick={()=>this.props.logout(this.props.history)}>Log out</button>
+                  </div>
                 </div>
               </div>
                 <div>           

@@ -128,3 +128,12 @@
 .cancel-btn button {
   width: 100px;
 }
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-btn button {
+  width: 100px;
+}

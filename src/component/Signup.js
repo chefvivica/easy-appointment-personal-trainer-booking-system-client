@@ -37,7 +37,6 @@ export class Signup extends Component {
             alert(response.errors)
           }else{
             this.props.setUser(response)
-            console.log(response)
             this.props.history.push('/trainer')
           }
         })
