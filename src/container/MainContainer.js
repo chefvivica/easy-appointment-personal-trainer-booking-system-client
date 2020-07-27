@@ -11,6 +11,7 @@ import '../css/courseCalendar.css'
 const apptUrl = "http://localhost:3000/appointments"
 const userUrl = 'http://localhost:3000/users'
 const eventUrl = 'http://localhost:3000/events'
+const autoLogin = 'http://localhost:3000/auto_login'
 class MainContainer extends Component {
 
   state = {
@@ -34,12 +35,34 @@ class MainContainer extends Component {
     fetch(apptUrl)
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
+
+    const user_id = localStorage.user_id
+    if(user_id){
+      fetch(autoLogin,{
+        headers:{
+          'Authorization':user_id
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        if(response.errors){
+          alert(response.errors)
+        }else{
+          this.setState({ currentUser: response})
+          console.log(response)
+        }
+      })
+    }
   }
   
-  setUser = user => this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
+  setUser = user => {
+    this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
+    localStorage.user_id = user.id
+  }
 
   logout = (history) => {
     this.setState({ currentUser : ''})
+    localStorage.removeItem('user_id')
     history.push('/')
   }
 
