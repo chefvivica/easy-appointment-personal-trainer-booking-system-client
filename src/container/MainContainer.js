@@ -8,7 +8,10 @@ import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
 
 
-const url = "http://localhost:3000/appointments"
+const apptUrl = "http://localhost:3000/appointments"
+const userUrl = 'http://localhost:3000/users'
+const eventUrl = 'http://localhost:3000/events'
+const autoLogin = 'http://localhost:3000/auto_login'
 class MainContainer extends Component {
 
   state = {
@@ -21,20 +24,47 @@ class MainContainer extends Component {
   }
   
   componentDidMount(){
-    fetch('http://localhost:3000/events')
+    fetch(eventUrl)
     .then(res => res.json())
     .then(events => this.setState({ events }))
     
-    fetch('http://localhost:3000/users')
+    fetch(userUrl)
     .then(res => res.json())
     .then(users => this.setState({ users }))
 
-    fetch(url)
+    fetch(apptUrl)
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
+
+    const user_id = localStorage.user_id
+    if(user_id){
+      fetch(autoLogin,{
+        headers:{
+          'Authorization':user_id
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        if(response.errors){
+          alert(response.errors)
+        }else{
+          this.setState({ currentUser: response})
+          console.log(response)
+        }
+      })
+    }
   }
   
-  setUser = user => this.setState({currentUser : user, requests : user.requests})
+  setUser = user => {
+    this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
+    localStorage.user_id = user.id
+  }
+
+  logout = (history) => {
+    this.setState({ currentUser : ''})
+    localStorage.removeItem('user_id')
+    history.push('/')
+  }
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
@@ -55,9 +85,10 @@ class MainContainer extends Component {
   addRequest = newRequest => this.setState({ requests: [...this.state.requests, newRequest]})
   
 
+
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(this.state.currentUser)
+    // console.log(currentUser)
     return (
       <div className= "main-container">
         <div className="banner"> 
@@ -75,11 +106,13 @@ class MainContainer extends Component {
             removeAppointment={this.removeAppointment}
             removeUserEvent={this.removeUserEvent}
             addRequest={this.addRequest}
+            logout={this.logout}
             events={events}
             requests={requests}
             userEvents={userEvents}
             appointments={appointments}
-            currentUser={currentUser}/>     
+            currentUser={currentUser}/>
+            
           }
           />
 
@@ -94,7 +127,8 @@ class MainContainer extends Component {
             addStudent={this.addStudent}
             {...routerProps}/>}
           />
-          <Route exact path='/' render={routerProps => <Home setUser={this.setUser} {...routerProps}/>}/>
+          <Route exact path='/' render={routerProps => <Home setUser={this.setUser} {...routerProps} logout={this.logout}/>}/>
+          
         </Switch>
         
       </div>   

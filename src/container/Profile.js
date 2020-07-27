@@ -24,9 +24,6 @@ export class Profile extends Component {
   }
 
   componentDidMount = () =>{
-    // fetch(`${base}/${this.props.user.id}`)
-    // .then(res => res.json())
-    // .then(data => this.setState({ requests: data.requests }))
     fetch(trainerUrl)
     .then(res => res.json())
     .then(trainers => this.setState({ trainers }))
@@ -44,7 +41,7 @@ export class Profile extends Component {
   handler = (e) => {
     e.persist()
     if(e.target.innerText==='Confirm'){
-      let appt = this.props.appointments.find(appointment => appointment.event_id === this.state.removeId && appointment.user_id === this.props.user.id)
+      let appt = this.props.appointments.find(appointment => appointment.event_id === this.state.removeId && appointment.user_id === this.props.currentUser.id)
       let id = appt.id
       fetch(`${url}/${id}`,{
         method: "DELETE"
@@ -98,9 +95,13 @@ export class Profile extends Component {
       this.setState({condition:"timeCalendar"})
   }
   
+  edit = (e) => {
+    console.log(e)
+  }
 
 
   render() {
+    // console.log(this.props.history)
     if(this.props.currentUser === undefined){
       return "please log in first"}
     else{
@@ -117,7 +118,10 @@ export class Profile extends Component {
                 <div>
                   <h4>Welcome back {username}</h4>
                   <h5>{email}</h5>
-                  <button>Edit</button>
+                  <div className='profile-btn'>
+                    <button onClick={this.edit}>Edit</button>
+                    <button onClick={()=>this.props.logout(this.props.history)}>Log out</button>
+                  </div>
                 </div>
               </div>
                 <div>           
