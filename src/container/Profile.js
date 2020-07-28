@@ -79,26 +79,38 @@ export class Profile extends Component {
 
   changeHandler = e => {
     this.setState({ [e.target.name] : e.target.value})
-    if(this.state.username  === ''){
-      this.setState({username: this.props.currentUser.username})
-    }else if(this.state.email  === ''){
-      this.setState({email: this.props.currentUser.email})
-    }else if(this.state.phone_number  === ''){
-      this.setState({phone_number: this.props.currentUser.phone_number})
-    }else if(this.state.image  === ''){
-      this.setState({image: this.props.currentUser.image})
-    }
   }
 
   edit = e => {
     e.preventDefault()
+    let username = ''
+    if(this.state.username  === ''){
+      username = this.props.currentUser.username
+    }else{
+      username = this.state.username
+    }let email = ''
+    if(this.state.email  === ''){
+      email = this.props.currentUser.email
+    }else{
+      email= this.state.email 
+    }let phone_number = ''
+    if(this.state.phone_number  === ''){
+      phone_number = this.props.currentUser.phone_number
+    }else{
+      phone_number = this.state.phone_number
+    }let image = ''
+    if(this.state.image  === ''){
+      image = this.props.currentUser.image
+    }else{
+      image = this.state.image
+    }
     fetch(`${userUrl}/${this.props.currentUser.id}`,{
       method:'PATCH',
       headers: { 
         'Content-Type': 'application/json',
         Accept: 'application/json'
       },
-      body:JSON.stringify({username: this.state.username, email: this.state.email, phone_number: this.state.phone_number, image: this.state.image})
+      body:JSON.stringify({username: username, email: email, phone_number: phone_number, image: image})
     })
     .then(res=> res.json())
     .then(data => {
