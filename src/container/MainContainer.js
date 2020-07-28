@@ -36,8 +36,6 @@ class MainContainer extends Component {
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
 
-  
-
     const user_id = localStorage.user_id
     if(user_id){
       fetch(autoLogin,{
@@ -50,15 +48,15 @@ class MainContainer extends Component {
         if(response.errors){
           alert(response.errors)
         }else{
-          this.setState({ currentUser: response})
+          this.setState({ currentUser: response.token})
         }
       })
     }
   }
   
-  setUser = user => {
-    this.setState({currentUser : user.user, requests : user.user.requests, userEvents: user.user.events})
-    localStorage.user_id = user.user.id
+  setUser = resp => {
+    this.setState({currentUser : resp.user, requests : resp.user.requests, userEvents: resp.user.events})
+    localStorage.user_id = resp.token
   }
 
   logout = (history) => {
@@ -90,7 +88,6 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(requests, currentUser)
     return (
       <div className= "main-container">
         <div className="banner"> 
