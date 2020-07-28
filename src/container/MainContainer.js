@@ -36,11 +36,11 @@ class MainContainer extends Component {
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
 
-    const user_id = localStorage.user_id
-    if(user_id){
+    const token = localStorage.token
+    if(token){
       fetch(autoLogin,{
         headers:{
-          'Authorization':user_id
+          'Authorization':token
         }
       })
       .then(res => res.json())
@@ -48,7 +48,7 @@ class MainContainer extends Component {
         if(response.errors){
           alert(response.errors)
         }else{
-          this.setState({ currentUser: response.token})
+          this.setState({ currentUser: response})
         }
       })
     }
@@ -56,12 +56,12 @@ class MainContainer extends Component {
   
   setUser = resp => {
     this.setState({currentUser : resp.user, requests : resp.user.requests, userEvents: resp.user.events})
-    localStorage.user_id = resp.token
+    localStorage.token = resp.token
   }
 
   logout = (history) => {
     this.setState({ currentUser : ''})
-    localStorage.removeItem('user_id')
+    localStorage.removeItem('token')
     history.push('/')
   }
 
