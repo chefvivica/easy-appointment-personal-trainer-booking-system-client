@@ -36,6 +36,8 @@ class MainContainer extends Component {
     .then(res => res.json())
     .then(appointments => this.setState({ appointments }))  
 
+  
+
     const user_id = localStorage.user_id
     if(user_id){
       fetch(autoLogin,{
@@ -49,7 +51,6 @@ class MainContainer extends Component {
           alert(response.errors)
         }else{
           this.setState({ currentUser: response})
-          console.log(response)
         }
       })
     }
@@ -84,11 +85,12 @@ class MainContainer extends Component {
 
   addRequest = newRequest => this.setState({ requests: [...this.state.requests, newRequest]})
   
+  updateUser = user => this.setState({currentUser : user})
 
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    // console.log(currentUser)
+    console.log(currentUser)
     return (
       <div className= "main-container">
         <div className="banner"> 
@@ -107,6 +109,7 @@ class MainContainer extends Component {
             removeUserEvent={this.removeUserEvent}
             addRequest={this.addRequest}
             logout={this.logout}
+            updateUser={this.updateUser}
             events={events}
             requests={requests}
             userEvents={userEvents}

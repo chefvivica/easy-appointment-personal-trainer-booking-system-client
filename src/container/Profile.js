@@ -8,6 +8,7 @@ import "../css/profile.css"
 const requestUrl = 'http://localhost:3000/requests'
 const url = "http://localhost:3000/appointments"
 const trainerUrl = 'http://localhost:3000/trainers'
+const userUrl = 'http://localhost:3000/users'
 
 export class Profile extends Component {
 
@@ -20,7 +21,11 @@ export class Profile extends Component {
     start:'',
     end:'',
     option:'',
-    detail:''
+    detail:'',
+    username:'',
+    email: '',
+    phone_number:'',
+    image: ''
   }
 
   componentDidMount = () =>{
@@ -58,6 +63,8 @@ export class Profile extends Component {
       this.setState({condition:"timeCalendar"})
     }else if(e.target.innerText==="Group lesson"){
       this.setState({condition:"dayCalendar"})
+    }else if(e.target.innerText==="Edit"){
+      this.setState({condition:"Edit"})
     }
   }
   
@@ -69,6 +76,38 @@ export class Profile extends Component {
 
   
   handleChange = e => this.setState({ option: e.target.value})
+
+  changeHandler = e => {
+    this.setState({ [e.target.name] : e.target.value})
+    if(this.state.username  === ''){
+      this.setState({username: this.props.currentUser.username})
+    }else if(this.state.email  === ''){
+      this.setState({email: this.props.currentUser.email})
+    }else if(this.state.phone_number  === ''){
+      this.setState({phone_number: this.props.currentUser.phone_number})
+    }else if(this.state.image  === ''){
+      this.setState({image: this.props.currentUser.image})
+    }
+  }
+
+  edit = e => {
+    e.preventDefault()
+    fetch(`${userUrl}/${this.props.currentUser.id}`,{
+      method:'PATCH',
+      headers: { 
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body:JSON.stringify({username: this.state.username, email: this.state.email, phone_number: this.state.phone_number, image: this.state.image})
+    })
+    .then(res=> res.json())
+    .then(data => {
+      console.log(data)
+      this.props.updateUser(data)
+    })
+    this.setState({condition:"dayCalendar"})
+}
+  
   
 
   handleDetail = e => this.setState({ detail: e.target.value})
@@ -95,130 +134,141 @@ export class Profile extends Component {
       this.setState({condition:"timeCalendar"})
   }
   
-  edit = (e) => {
-    console.log(e)
-  }
-
 
   render() {
-    // console.log(this.props.history)
-    if(this.props.currentUser === undefined){
-      return "please log in first"}
-    else{
-      const {username, email, image} = this.props.currentUser
-      const {start, end, condition, trainers ,removeEvent} = this.state 
-      if(username === undefined){
-        return "please login first"
-      }else{
-        return (
-          <div className="profile-container">
-            <div className="profile-info-container">
-              <div className="info">
-                <img src={image} alt='user pic'/> 
-                <div>
-                  <h4>Welcome back {username}</h4>
-                  <h5>{email}</h5>
-                  <div className='profile-btn'>
-                    <button onClick={this.edit}>Edit</button>
-                    <button onClick={()=>this.props.logout(this.props.history)}>Log out</button>
-                  </div>
+    const {username, email, image, phone_number} = this.props.currentUser
+    const {start, end, condition, trainers ,removeEvent, detail, option} = this.state
+    const {userEvents, history, logout, requests} = this.props
+
+    if(username === undefined){
+      return "please login first"
+    }else{
+      return (
+        <div className="profile-container">
+          <div className="profile-info-container">
+            <div className="info">
+              <img src={image} alt='user pic'/> 
+              <div>
+                <h4>Welcome back {username}</h4>
+                <h5>{email}</h5>
+                <div className='profile-btn'>
+                  <button onClick={this.handler}>Edit</button>
+                  <button onClick={()=>logout(history)}>Log out</button>
                 </div>
               </div>
-                <div>           
-                <button onClick={this.handler}>Private lesson</button>
-                <button onClick={this.handler}>Group lesson</button>       
-              </div>
-            </div> 
-
-            {condition === "dayCalendar"? 
-            <div className="profile-calendar">
-              <h1>{username}'s group lesson calendar</h1>
-            <FullCalendar
-                plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                headerToolbar={{
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }}
-                editable={true}
-                dayMaxEvents={true}
-                aspectRatio= {1}
-                height={700}
-                events={this.props.userEvents}
-                eventClick={this.handleRemove}
-                eventBackgroundColor={'#ADD8E6'}
-                eventTextColor={'black'}
-                />  
             </div>
-            :null} 
-            
-            {condition === "cancel"? 
-              <div className='profile-cancle-container'>
-                <h3>Are you sure you want to cancel this course?</h3>
-                <h1>Course: {removeEvent.title}</h1>
-                <h4> Date & Time: from {removeEvent.start.slice(0,10)} at {removeEvent.start.slice(11,removeEvent.start.length)}  to  {removeEvent.end.slice(0,10)} at {removeEvent.end.slice(11, removeEvent.end.length)} </h4>
-                <div className="cancel-btn">
-                  <button onClick={this.handler}>Close</button>
-                  <button onClick={this.handler}>Confirm</button>
-                </div>
-              </div>               
-            :null
-            }  
-
-            {condition === "booking"? 
-              <div className='profile-booking-container'>
-                <div>
-                  <h1>Please fill out your request info: </h1>
-                  <h4> Date & Time: from {start.slice(0,10)} at {start.slice(11,start.length)}  to  {end.slice(0,10)} at {end.slice(11, end.length)} </h4>
-                </div>
-                <div>
-                  
-                  <div>
-                    <select className="drop-down" value={this.state.option} onChange={this.handleChange}>
-                      <option>Please select your sport</option>
-                      {trainers.map((trainer, index) => <option key={index} value={trainer.sports}>{trainer.sports}</option>)}         
-                    </select> 
-                  </div>
-                  <h5>What are you expecting from this lesson?</h5>
-                  <textarea value={this.state.detail} name='detail' onChange={this.handleDetail}/>
-                  <div className='btn'>
-                    <button onClick={this.handleSubmit}>Submit</button> 
-                  </div>                         
-                </div>
-              </div>        
-            :null
-            }  
-
-            {condition === "timeCalendar"? 
-            <div className="private-calendar">
-              <h1>{username}'s private lessons calendar</h1>
-              <h4> Select a time to request a one one lesson with your favorite coach</h4>
-              <FullCalendar
-                plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="timeGridWeek"
-                headerToolbar={{ 
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }}
-                editable={true}
-                selectable={true}
-                selectMirror={true}
-                dayMaxEvents={true}
-                aspectRatio= {1}
-                height={700}
-                eventBackgroundColor={'#FF4500'}
-                events={this.props.requests}
-                eventClick={this.handleRequest}
-                select={this.handleDateSelect}
-                />  
+              <div>           
+              <button onClick={this.handler}>Private lesson</button>
+              <button onClick={this.handler}>Group lesson</button>       
             </div>
-            :null}
+          </div> 
+
+          {condition === "dayCalendar"? 
+          <div className="profile-calendar">
+            <h1>{username}'s group lesson calendar</h1>
+          <FullCalendar
+              plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              initialView="dayGridMonth"
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              }}
+              editable={true}
+              dayMaxEvents={true}
+              aspectRatio= {1}
+              height={700}
+              events={userEvents}
+              eventClick={this.handleRemove}
+              eventBackgroundColor={'#ADD8E6'}
+              eventTextColor={'black'}
+              />  
           </div>
-        )	    
-      }   
-    }	
+          :null} 
+          
+          {condition === "cancel"? 
+            <div className='profile-cancle-container'>
+              <h3>Are you sure you want to cancel this course?</h3>
+              <h1>Course: {removeEvent.title}</h1>
+              <h4> Date & Time: from {removeEvent.start.slice(0,10)} at {removeEvent.start.slice(11,removeEvent.start.length)}  to  {removeEvent.end.slice(0,10)} at {removeEvent.end.slice(11, removeEvent.end.length)} </h4>
+              <div className="cancel-btn">
+                <button onClick={this.handler}>Close</button>
+                <button onClick={this.handler}>Confirm</button>
+              </div>
+            </div>               
+          :null
+          }  
+
+          {condition === "booking"? 
+            <div className='profile-booking-container'>
+              <div>
+                <h1>Please fill out your request info: </h1>
+                <h4> Date & Time: from {start.slice(0,10)} at {start.slice(11,start.length)}  to  {end.slice(0,10)} at {end.slice(11, end.length)} </h4>
+              </div>
+              <div>
+                
+                <div>
+                  <select className="drop-down" value={option} onChange={this.handleChange}>
+                    <option>Please select your sport</option>
+                    {trainers.map((trainer, index) => <option key={index} value={trainer.sports}>{trainer.sports}</option>)}         
+                  </select> 
+                </div>
+                <h5>What are you expecting from this lesson?</h5>
+                <textarea value={detail} name='detail' onChange={this.handleDetail}/>
+                <div className='btn'>
+                  <button onClick={this.handleSubmit}>Submit</button> 
+                </div>                         
+              </div>
+            </div>        
+          :null
+          }  
+
+          {condition === "timeCalendar"? 
+          <div className="private-calendar">
+            <h1>{username}'s private lessons calendar</h1>
+            <h4> Select a time to request a one one lesson with your favorite coach</h4>
+            <FullCalendar
+              plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              initialView="timeGridWeek"
+              headerToolbar={{ 
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              }}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={true}
+              aspectRatio= {1}
+              height={700}
+              eventBackgroundColor={'#FF4500'}
+              events={requests}
+              eventClick={this.handleRequest}
+              select={this.handleDateSelect}
+              />  
+          </div>
+          :null}
+
+          {condition === "Edit"? 
+            <div className='profile-form'>
+              <form onSubmit={this.edit}>
+                <h1>Update your infomation</h1>
+                <label>Username</label>
+                <input type='text' name='username' placeholder={username} onChange={this.changeHandler}/>
+                <label>Email</label>
+                <input type='text' name='email' placeholder={email} onChange={this.changeHandler}/>
+                <label>Phone_number</label>
+                <input type='text' name="phone_number" placeholder={phone_number}  onChange={this.changeHandler}/>
+                <label>Your Profile Photo</label>
+                <input type='text' name='image' placeholder='your image url' onChange={this.changeHandler}/>
+                <input type='submit' value='Update'/>
+              </form>
+            </div>        
+          :null
+          }       
+        </div>
+      )	    
+    }   
   }
 }	
 
