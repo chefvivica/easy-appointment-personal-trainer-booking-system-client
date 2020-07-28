@@ -27,6 +27,7 @@ export class TrainerCalendar extends Component {
     let start = e.event._instance.range.start.toISOString().slice(0,-5)
     let target = this.props.events.find( event => event.start === start)
     this.setState({ students : target.users, on: true })
+    console.log(target)
   }
 
 
