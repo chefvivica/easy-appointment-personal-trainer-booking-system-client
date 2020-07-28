@@ -137,3 +137,7 @@
 .profile-btn button {
   width: 100px;
 }
+
+.profile-form {
+  display: grid;
+}
