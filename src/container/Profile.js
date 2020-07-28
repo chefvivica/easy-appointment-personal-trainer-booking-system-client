@@ -79,6 +79,10 @@ export class Profile extends Component {
 
   changeHandler = e => {
     this.setState({ [e.target.name] : e.target.value})
+  }
+
+  edit = e => {
+    e.preventDefault()
     if(this.state.username  === ''){
       this.setState({username: this.props.currentUser.username})
     }else if(this.state.email  === ''){
@@ -88,10 +92,6 @@ export class Profile extends Component {
     }else if(this.state.image  === ''){
       this.setState({image: this.props.currentUser.image})
     }
-  }
-
-  edit = e => {
-    e.preventDefault()
     fetch(`${userUrl}/${this.props.currentUser.id}`,{
       method:'PATCH',
       headers: { 

@@ -57,8 +57,8 @@ class MainContainer extends Component {
   }
   
   setUser = user => {
-    this.setState({currentUser : user, requests : user.requests, userEvents: user.events})
-    localStorage.user_id = user.id
+    this.setState({currentUser : user.user, requests : user.user.requests, userEvents: user.user.events})
+    localStorage.user_id = user.user.id
   }
 
   logout = (history) => {
@@ -90,7 +90,7 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(currentUser)
+    console.log(requests, currentUser)
     return (
       <div className= "main-container">
         <div className="banner"> 
