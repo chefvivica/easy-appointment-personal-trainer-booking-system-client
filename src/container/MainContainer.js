@@ -75,8 +75,8 @@ class MainContainer extends Component {
     this.setState({userEvents: [...this.state.userEvents, newEvent] })
   }
 
-  removeUserEvent = removeEvent => {
-    let updatedUserEvents = this.state.userEvents.filter(event=> event.start !== removeEvent.start)
+  removeUserEvent = id => {
+    let updatedUserEvents = this.state.userEvents.filter(event=> event.id !== id)
     this.setState({userEvents : updatedUserEvents})
   }
   
@@ -119,7 +119,8 @@ class MainContainer extends Component {
           <Route path='/calendar' render={routerProps => 
             <MainCalendar
             events={events}
-            updateUserEvents={this.updateUserEvents}  
+            updateUserEvents={this.updateUserEvents}
+            removeUserEvent={this.removeUserEvent}  
             currentUser={currentUser}
             addAppointment={this.addAppointment}
             removeAppointment={this.removeAppointment}

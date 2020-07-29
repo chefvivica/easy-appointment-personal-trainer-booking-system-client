@@ -59,7 +59,10 @@ export class TrainerCalendar extends Component {
           </div>
         </div>
       :
-        <div className = "stu-container"> {students.map((student,index) =><Students key={index} student={student}/>)} </div> }
+        <div>
+          <h1>Participant's List</h1>
+          <div className="stu-container">{students.map((student,index) =><Students key={index} student={student}/>)} </div>
+        </div> }
       </div>
     )
   }

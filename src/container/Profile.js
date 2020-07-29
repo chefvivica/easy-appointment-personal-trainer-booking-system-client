@@ -40,7 +40,7 @@ export class Profile extends Component {
     let target = this.props.events.find(event=> event.start === start)
     let item = this.props.userEvents.find(event=> event.start === start)
     this.setState({condition:"cancel",removeEvent:item , removeId:target.id})
-
+  
   }  
   
   handler = e => {
@@ -54,7 +54,7 @@ export class Profile extends Component {
       .then(res=> res.json())
       .then(data=> {
         this.props.removeAppointment(data)
-        this.props.removeUserEvent(this.state.removeEvent)
+        this.props.removeUserEvent(this.state.removeEvent.id)
         this.setState({condition: "dayCalendar"})
         //removeStudent
       })
@@ -189,7 +189,7 @@ export class Profile extends Component {
               editable={true}
               dayMaxEvents={true}
               aspectRatio= {1}
-              height={700}
+              height={570}
               events={userEvents}
               eventClick={this.handleRemove}
               eventBackgroundColor={'#ADD8E6'}
