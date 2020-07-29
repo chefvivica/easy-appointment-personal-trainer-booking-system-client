@@ -113,8 +113,7 @@ class MainContainer extends Component {
             requests={requests}
             userEvents={userEvents}
             appointments={appointments}
-            currentUser={currentUser}/>
-            
+            currentUser={currentUser}/>          
           }/>
 
           <Route path='/calendar' render={routerProps => 

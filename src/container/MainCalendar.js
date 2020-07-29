@@ -18,7 +18,7 @@ export default class MainCarlendar extends React.Component {
     range:''
   }
 
-  joinEvent = (e) => {
+  joinEvent = e => {
     this.setState({on: true})
     const eventInfo = e.event._def.publicId
     let targetDate = e.event._instance.range.start.toISOString().slice(0,10)
@@ -31,14 +31,13 @@ export default class MainCarlendar extends React.Component {
 
   addJoinCourse = user => this.setState({ joinedUsers : [...this.state.joinedUsers, user] })
   
-
   removeJoinCourse = username => this.setState({ joinedUsers: this.state.joinedUsers.filter(user => user !== username) })
     
   closeForm = () => this.setState({ on: false })
 
   render() {
-    const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents,  addStudent} = this.props 
-    const {joinCourse, joinedUsers,trainer,on, date, range} = this.state
+    const {currentUser, events, appointments, addAppointment, removeAppointment, updateUserEvents} = this.props 
+    const {joinCourse, joinedUsers, trainer, on, date, range} = this.state
     
     return (
       <div>
@@ -82,7 +81,6 @@ export default class MainCarlendar extends React.Component {
           updateUserEvents={updateUserEvents}
           date={date}
           range={range}
-          addStudent={addStudent}
           />
         </div>
           :null

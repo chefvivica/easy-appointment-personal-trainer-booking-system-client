@@ -3,7 +3,7 @@ import React from 'react';
 const TrainerCard = (props) => {
   const {id, image, bio, name} = props.trainer
   
-  const renderEvent = (id) => {
+  const renderEvent = id => {
     props.history.push(`/trainer/${id}`)
   }
   return(
