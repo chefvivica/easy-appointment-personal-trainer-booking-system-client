@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Home from '../component/Home'
+import Home from '../container/Home'
 import MainCalendar from './MainCalendar'
 import TrainerCalendar from './TrainerCalendar'
 import TrainerContainer from './TrainerContainer'
@@ -20,13 +20,14 @@ class MainContainer extends Component {
     currentUser:{},
     userEvents:[],
     appointments:[],
-    requests:[]
+    requests:[],
+    students: []
   }
   
   componentDidMount(){
     fetch(eventUrl)
     .then(res => res.json())
-    .then(events => this.setState({ events }))
+    .then(events => this.setState({ events}))
     
     fetch(userUrl)
     .then(res => res.json())
@@ -49,7 +50,6 @@ class MainContainer extends Component {
           alert(response.errors)
         }else{
           this.setState({ currentUser: response, requests : response.requests, userEvents: response.events})
-          console.log(this.state.currentUser, )
         }
       })
     }
@@ -60,7 +60,7 @@ class MainContainer extends Component {
     localStorage.token = response.token
   }
 
-  logout = (history) => {
+  logout = history => {
     this.setState({ currentUser : ''})
     localStorage.removeItem('token')
     history.push('/')
@@ -68,23 +68,18 @@ class MainContainer extends Component {
 
   addAppointment = newAppt => this.setState({ appointments: [...this.state.appointments, newAppt] })
   
-  removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment=>appointment !== appt)})
+  removeAppointment = appt => this.setState({ appointments: this.state.appointments.filter(appointment => appointment !== appt)})
 
   updateUserEvents = eventId => {
     let newEvent = this.state.events.find(event=> event.id === eventId)
-    this.setState({userEvents: [...this.state.userEvents, newEvent] , students: newEvent.users})
+    this.setState({userEvents: [...this.state.userEvents, newEvent] })
   }
-  // updateEvents = eventId => {
-  //   let newEvent = this.state.events.find(event=> event.id === eventId)
-  //   this.setState({currentUser: [...this.state.userEvents, newEvent] , students: newEvent.users})
-  // }
 
   removeUserEvent = removeEvent => {
-    let updatedUserEvents = this.state.userEvents.filter(event=> event.start !==removeEvent.start)
+    let updatedUserEvents = this.state.userEvents.filter(event=> event.start !== removeEvent.start)
     this.setState({userEvents : updatedUserEvents})
   }
   
-  addStudent = student => this.setState({ students : [...this.state.students, student] })
 
   addRequest = newRequest => this.setState({ requests: [...this.state.requests, newRequest]})
   
@@ -93,7 +88,7 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(userEvents)
+    
     return (
       <div className= "main-container">
         <div className="banner"> 
@@ -103,8 +98,9 @@ class MainContainer extends Component {
 
           <Route path='/trainer/:id' render={routerProps => 
           <TrainerCalendar  {...routerProps} events={events} />}/>
-          <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}
-          />
+          
+          <Route path='/trainer' render={routerProps => <TrainerContainer  {...routerProps}/>}/>
+          
           <Route path='/users/:id' render={routerProps => 
             <Profile  
             {...routerProps} 
@@ -119,8 +115,7 @@ class MainContainer extends Component {
             appointments={appointments}
             currentUser={currentUser}/>
             
-          }
-          />
+          }/>
 
           <Route path='/calendar' render={routerProps => 
             <MainCalendar
@@ -133,6 +128,7 @@ class MainContainer extends Component {
             addStudent={this.addStudent}
             {...routerProps}/>}
           />
+
           <Route exact path='/' render={routerProps => <Home setUser={this.setUser} {...routerProps} logout={this.logout}/>}/>
           
         </Switch>

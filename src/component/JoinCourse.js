@@ -41,7 +41,7 @@ export class JoinCourse extends Component {
         this.props.addAppointment(data)
         this.props.updateUserEvents(eventId)
         // console.log(data)
-        this.props.addStudent(this.props.currentUser)
+        // this.props.addStudent(this.props.currentUser)
       })
       this.setState({button:"Cancel"})
     }
@@ -64,18 +64,10 @@ export class JoinCourse extends Component {
     }
   }
 
-  getUnique = (arr, index) =>{
-    const unique = arr.map(e => e[index])
-    .map((e, i, final) => final.indexOf(e) === i && i)
-    .filter(e => arr[e]).map(e => arr[e]);      
-    return unique;
-  }
-
   render() {  
     const {title, details} = this.props.joinCourse
-    const {date, range} = this.props 
+    const {date, range, joinedUsers} = this.props 
     const {name, image}=this.props.trainer
-    let studentsTorender = this.getUnique([...this.props.joinedUsers],"username")
 
 
     return (     
@@ -93,7 +85,7 @@ export class JoinCourse extends Component {
         <div className='student-container'>
           <h3>Students who have been enrolled in this course</h3>
           <ul className='student-info'>
-            {studentsTorender.map((user,index)=> <div key={index}><img src={user.image} alt='user pic'/></div>)} 
+            {joinedUsers.map((user,index)=> <div key={index}><img src={user.image} alt='user pic'/></div>)} 
           </ul>
           <button className="join-course-confirm-button" onClick={this.handleConfirm}> {this.state.button}</button>
           <button className="join-course-close-form-button" onClick={this.handleConfirm}>Back</button> 

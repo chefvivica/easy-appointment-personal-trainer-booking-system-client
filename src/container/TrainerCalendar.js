@@ -29,11 +29,12 @@ export class TrainerCalendar extends Component {
     this.setState({ students : target.users, on: true })
     console.log(target)
   }
-
+ 
 
   render() {
     const{name, events} = this.state.trainer
     const{students,on} = this.state
+    console.log(students)
 
     return (
       <div className='trainer-calendar-container'>
@@ -50,7 +51,6 @@ export class TrainerCalendar extends Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             editable={true}
-            // selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
             aspectRatio= {1}
