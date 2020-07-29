@@ -35,7 +35,7 @@ export class Profile extends Component {
   }
 
 
-  handleRemove = (e) => {
+  handleRemove = e => {
     let start = e.event._instance.range.start.toISOString().slice(0,-5)
     let target = this.props.events.find(event=> event.start === start)
     let item = this.props.userEvents.find(event=> event.start === start)
@@ -43,7 +43,7 @@ export class Profile extends Component {
 
   }  
   
-  handler = (e) => {
+  handler = e => {
     e.persist()
     if(e.target.innerText==='Confirm'){
       let appt = this.props.appointments.find(appointment => appointment.event_id === this.state.removeId && appointment.user_id === this.props.currentUser.id)
@@ -56,6 +56,7 @@ export class Profile extends Component {
         this.props.removeAppointment(data)
         this.props.removeUserEvent(this.state.removeEvent)
         this.setState({condition: "dayCalendar"})
+        //removeStudent
       })
     }else if(e.target.innerText==='Close'){
       this.setState({ condition: "dayCalendar"})
@@ -114,7 +115,6 @@ export class Profile extends Component {
     })
     .then(res=> res.json())
     .then(data => {
-      console.log(data)
       this.props.updateUser(data)
     })
     this.setState({condition:"dayCalendar"})

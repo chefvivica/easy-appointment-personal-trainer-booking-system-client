@@ -10,13 +10,13 @@ export class Signup extends Component {
   
   state = initState
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     })
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault()  
     if(this.state.password === this.state.confirmation){
       fetch('http://localhost:3000/users', {
@@ -47,7 +47,7 @@ export class Signup extends Component {
 
   render() {
     const { username, email, phone_number,password, confirmation, image} = this.state
-    console.log(this.props)
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
