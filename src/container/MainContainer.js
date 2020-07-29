@@ -48,15 +48,16 @@ class MainContainer extends Component {
         if(response.errors){
           alert(response.errors)
         }else{
-          this.setState({ currentUser: response})
+          this.setState({ currentUser: response, requests : response.requests, userEvents: response.events})
+          console.log(this.state.currentUser, )
         }
       })
     }
   }
   
-  setUser = resp => {
-    this.setState({currentUser : resp.user, requests : resp.user.requests, userEvents: resp.user.events})
-    localStorage.token = resp.token
+  setUser = response => {
+    this.setState({currentUser : response.user, requests : response.user.requests, userEvents: response.user.events})
+    localStorage.token = response.token
   }
 
   logout = (history) => {
@@ -73,6 +74,10 @@ class MainContainer extends Component {
     let newEvent = this.state.events.find(event=> event.id === eventId)
     this.setState({userEvents: [...this.state.userEvents, newEvent] , students: newEvent.users})
   }
+  // updateEvents = eventId => {
+  //   let newEvent = this.state.events.find(event=> event.id === eventId)
+  //   this.setState({currentUser: [...this.state.userEvents, newEvent] , students: newEvent.users})
+  // }
 
   removeUserEvent = removeEvent => {
     let updatedUserEvents = this.state.userEvents.filter(event=> event.start !==removeEvent.start)
@@ -88,6 +93,7 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
+    console.log(userEvents)
     return (
       <div className= "main-container">
         <div className="banner"> 

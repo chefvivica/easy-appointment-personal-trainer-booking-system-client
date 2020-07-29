@@ -273,7 +273,7 @@ export class Profile extends Component {
                 <input type='text' name="phone_number" placeholder={phone_number}  onChange={this.changeHandler}/>
                 <label>Your Profile Photo</label>
                 <input type='text' name='image' placeholder='your image url' onChange={this.changeHandler}/>
-                <input type='submit' value='Update'/>
+                <input type='submit' className='update-btn' value='Update'/>
               </form>
             </div>        
           :null

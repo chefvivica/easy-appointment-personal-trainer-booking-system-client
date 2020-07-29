@@ -40,6 +40,7 @@ export class JoinCourse extends Component {
         this.props.addJoinCourse(this.props.currentUser)
         this.props.addAppointment(data)
         this.props.updateUserEvents(eventId)
+        // console.log(data)
         this.props.addStudent(this.props.currentUser)
       })
       this.setState({button:"Cancel"})

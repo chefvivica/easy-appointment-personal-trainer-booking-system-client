@@ -37,7 +37,7 @@ export default class MainCarlendar extends React.Component {
   closeForm = () => this.setState({ on: false })
 
   render() {
-    const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents, addStudent} = this.props
+    const {currentUser, events,appointments,addAppointment, removeAppointment,updateUserEvents,  addStudent} = this.props 
     const {joinCourse, joinedUsers,trainer,on, date, range} = this.state
     
     return (
@@ -55,7 +55,6 @@ export default class MainCarlendar extends React.Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             editable={true}
-            // selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
             aspectRatio= {1}
