@@ -32,11 +32,11 @@ export default class MainCarlendar extends React.Component {
   addJoinCourse = user => this.setState({ joinedUsers : [...this.state.joinedUsers, user] })
   
   removeJoinCourse = username => this.setState({ joinedUsers: this.state.joinedUsers.filter(user => user !== username) })
-    
+
   closeForm = () => this.setState({ on: false })
 
   render() {
-    const {currentUser, events, appointments, addAppointment, removeAppointment, updateUserEvents} = this.props 
+    const {currentUser, events, appointments, addAppointment, removeAppointment, updateUserEvents, removeUserEvent} = this.props 
     const {joinCourse, joinedUsers, trainer, on, date, range} = this.state
     
     return (
@@ -59,7 +59,7 @@ export default class MainCarlendar extends React.Component {
             aspectRatio= {1}
             height={880}
             events={events}
-            eventClick={this.joinEvent}           
+            eventClick={this.joinEvent}
             />        
         </div>
         :null}
@@ -74,6 +74,7 @@ export default class MainCarlendar extends React.Component {
           addJoinCourse={this.addJoinCourse}
           removeJoinCourse={this.removeJoinCourse}
           closeForm={this.closeForm}
+          removeUserEvent={removeUserEvent}          
           appointments={appointments}
           addAppointment={addAppointment}
           removeAppointment={removeAppointment}

@@ -55,6 +55,7 @@ export class JoinCourse extends Component {
         .then(data=>{
             this.props.removeAppointment(data)
             this.props.removeJoinCourse(this.props.currentUser)
+            this.props.removeUserEvent(eventId)
           })   
       this.setState({button:"Join this course"})      
     }
