@@ -25,6 +25,7 @@ export default class MainCarlendar extends React.Component {
     let  timeRange = "from " + e.event._instance.range.start.toISOString().slice(11,19) + " to " + e.event._instance.range.end.toISOString().slice(11,19)
     let id = parseInt(eventInfo)
     let targetEvent = this.props.events.find(event=> event.id === id)
+    console.log(targetEvent)
     let info = targetEvent.users
     this.setState({joinCourse: targetEvent, trainer:targetEvent.trainer, joinedUsers:info , date: targetDate, range:timeRange})
   }
