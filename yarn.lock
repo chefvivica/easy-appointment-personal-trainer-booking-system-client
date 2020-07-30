@@ -1139,12 +1139,19 @@
   dependencies:
     tslib "^2.0.0"
 
-"@fullcalendar/core@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-5.0.0.tgz#007ce602bc52adc0d867aed839850de39fff5f3b"
-  integrity sha512-FPw8f8m8FI9/ofjWBxm/4cCiM5NHFnCBNj31HiJE/beNFUk034RJnFDxTa1pTWqLK8Wjj06xj4/IRMsIAi8FoA==
+"@fullcalendar/common@~5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/common/-/common-5.1.0.tgz#a45e01ebdcf00654f4d45f0457926cf2f5909820"
+  integrity sha512-ubwf9T0BDocGLh0AK8achrmc0siQdrp3Wn6Rmg/Ht4/WnwBtjc5gumzJ0ezG/xHE0GWG+Pz6Tm0IJF/jE7NJHw==
   dependencies:
-    "@fullcalendar/common" "~5.0.0"
+    tslib "^2.0.0"
+
+"@fullcalendar/core@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-5.1.0.tgz#0d9813b0564f24fe6285e31f8313d9366c6db411"
+  integrity sha512-C9OA9LHD1zgfcMABQ17TaxvAO/iubYFLDrgTIRCe77LatC0G36UBafthevUlMRqCR6rt5SBcw0oBt23HqSJO3A==
+  dependencies:
+    "@fullcalendar/common" "~5.1.0"
     preact "^10.0.5"
     tslib "^2.0.0"
 
@@ -1188,6 +1195,14 @@
     "@fullcalendar/common" "~5.0.0"
     tslib "^2.0.0"
 
+"@fullcalendar/premium-common@~5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/premium-common/-/premium-common-5.1.0.tgz#990ed0deaa0aeba887d681c860d99b23b917444d"
+  integrity sha512-WktApQ+h0zEQD8ZxdimozAdun3aXeK56q4HuSw4Czteh9zF+wA5Jnm5tnakOPS2uhbwSN264y2YbdzshsN6NNA==
+  dependencies:
+    "@fullcalendar/common" "~5.1.0"
+    tslib "^2.0.0"
+
 "@fullcalendar/react@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-5.0.0.tgz#4c6d07710df7a2a27c2ae1e8db7c1149e56ca0f5"
@@ -1203,6 +1218,15 @@
   dependencies:
     "@fullcalendar/common" "~5.0.0"
     "@fullcalendar/premium-common" "~5.0.0"
+    tslib "^2.0.0"
+
+"@fullcalendar/resource-common@~5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/resource-common/-/resource-common-5.1.0.tgz#2aa7ee83159926849288e68417a6d73364db4891"
+  integrity sha512-m86pMUO8Eh4Z8Htl7XCZGAz2FRqKMR6pG4EvlbEBMgo3xZnz3QbLwWCOxXIN51SGPJpGeOOvyQ9pLSeC85xYMg==
+  dependencies:
+    "@fullcalendar/common" "~5.1.0"
+    "@fullcalendar/premium-common" "~5.1.0"
     tslib "^2.0.0"
 
 "@fullcalendar/resource-daygrid@~5.0.0":
@@ -1228,25 +1252,25 @@
     "@fullcalendar/timegrid" "~5.0.0"
     tslib "^2.0.0"
 
-"@fullcalendar/resource-timeline@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/resource-timeline/-/resource-timeline-5.0.0.tgz#93ebf4ce70a04deebf2d4ecddef53770f342ec9e"
-  integrity sha512-vh2l0FwNZA9QthgS4GPVfYsLYmglM11eTSj6hewbmHSpTtCCIkVleCr7MLfYFfYZvebbxfK9VmJBRb+8amGN1g==
+"@fullcalendar/resource-timeline@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/resource-timeline/-/resource-timeline-5.1.0.tgz#132996ae026aa965c80b39ee841c572efd1352ee"
+  integrity sha512-0jQ9MKzddGAEepOD1LlC1F5oF1UDp4U6jV4xxGLRgdKu2kbLc+g6DOej0bysTqhsbag/kx0H+TZgrl9+G7PBFQ==
   dependencies:
-    "@fullcalendar/common" "~5.0.0"
-    "@fullcalendar/premium-common" "~5.0.0"
-    "@fullcalendar/resource-common" "~5.0.0"
-    "@fullcalendar/scrollgrid" "~5.0.0"
-    "@fullcalendar/timeline" "~5.0.0"
+    "@fullcalendar/common" "~5.1.0"
+    "@fullcalendar/premium-common" "~5.1.0"
+    "@fullcalendar/resource-common" "~5.1.0"
+    "@fullcalendar/scrollgrid" "~5.1.0"
+    "@fullcalendar/timeline" "~5.1.0"
     tslib "^2.0.0"
 
-"@fullcalendar/scrollgrid@~5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/scrollgrid/-/scrollgrid-5.0.0.tgz#0072a35a957a7096ab2255b5b0e6c7b331a11c41"
-  integrity sha512-cRoaRGGoGbxxTfM0MMe+0sagnrAvqZly0nARAIlEjhtChMv0s6icQOMHfdN2TNEQIF+EfXbaaU6eH02SWKktXA==
+"@fullcalendar/scrollgrid@~5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/scrollgrid/-/scrollgrid-5.1.0.tgz#b2333d0534560248451f22968924b4f8c01fc119"
+  integrity sha512-OkaxuQujp6HO4j39mCdQuaEz6P8BzQaAYMYRkV3PT2L6cUZ96I+FhKbiN2jOB1FMr49o+ZPOVUkMNP/2Wgrwjg==
   dependencies:
-    "@fullcalendar/common" "~5.0.0"
-    "@fullcalendar/premium-common" "~5.0.0"
+    "@fullcalendar/common" "~5.1.0"
+    "@fullcalendar/premium-common" "~5.1.0"
     tslib "^2.0.0"
 
 "@fullcalendar/timegrid@^5.0.1", "@fullcalendar/timegrid@~5.0.0":
@@ -1258,14 +1282,14 @@
     "@fullcalendar/daygrid" "~5.0.0"
     tslib "^2.0.0"
 
-"@fullcalendar/timeline@~5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/timeline/-/timeline-5.0.0.tgz#e9cca690f442785bde16c6446b1bf216c7dc33b8"
-  integrity sha512-i4wLulY0yrndk+HU4Uylm/V4Ru+5fMr/sLDeIeB5tVkeOHKnNbhMzOC8z5h5A6uzFhkTm3kXcMkh5G4J8+XLlA==
+"@fullcalendar/timeline@~5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/timeline/-/timeline-5.1.0.tgz#3dea187f8ebef1b64935bccaa54dd3f9a6b85bdb"
+  integrity sha512-hsdXXI6sE62t0W6nPXtAIB8IG8yI51y8H7LhIL4hMvj5a6wxQmlObfMAXQy1bk401ZYvPHGri1gIPH2hR8zdLg==
   dependencies:
-    "@fullcalendar/common" "~5.0.0"
-    "@fullcalendar/premium-common" "~5.0.0"
-    "@fullcalendar/scrollgrid" "~5.0.0"
+    "@fullcalendar/common" "~5.1.0"
+    "@fullcalendar/premium-common" "~5.1.0"
+    "@fullcalendar/scrollgrid" "~5.1.0"
     tslib "^2.0.0"
 
 "@hapi/address@2.x.x":
@@ -2636,9 +2660,9 @@ bluebird@^3.5.5:
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
-  version "4.11.8"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
-  integrity sha512-ItfYfPLkWHUjckQCk8xC+LwxgK8NYcXywGigJgSwOP8Y2iyWT4f2vsZnoOXTTbo+o5yXmIUJ4gn5538SO5S3gA==
+  version "4.11.9"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.9.tgz#26d556829458f9d1e81fc48952493d0ba3507828"
+  integrity sha512-E6QoYqCKZfgatHTdHzs1RRKP7ip4vvm+EyRUeE2RF0NblwVvb0p6jSVeNTOFxPn26QXN2o6SMfNxKp6kU8zQaw==
 
 body-parser@1.19.0:
   version "1.19.0"
@@ -4089,9 +4113,9 @@ electron-to-chromium@^1.3.378:
   integrity sha512-NK9DBBYEBb5f9D7zXI0hiE941gq3wkBeQmXs1ingigA/jnTg5mhwY2Z5egwA+ZI8OLGKCx0h1Cl8/xeuIBuLlg==
 
 elliptic@^6.0.0:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.2.tgz#05c5678d7173c049d8ca433552224a495d0e3762"
-  integrity sha512-f4x70okzZbIQl/NSRLkI/+tteV/9WqL98zx+SQ69KbXxmVrmjwsNUPn/gYJJ0sHvEak24cZgHIPegRePAtA/xw==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.3.tgz#cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6"
+  integrity sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==
   dependencies:
     bn.js "^4.4.0"
     brorand "^1.0.1"
@@ -9039,11 +9063,6 @@ react-transition-group@^4.0.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
-
-react95@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react95/-/react95-2.0.0.tgz#fa921b968a588612c36ceb8fa77deeac5d271b86"
-  integrity sha512-0Y299Rbqhdz3bu5u1NC1sLbrPiQEXaOGthToitT/W/ta4C2Ct+A2YF1jxcPU9jBFv6mAUdl183luwjZ/0XJCJg==
 
 react@^16.13.1:
   version "16.13.1"
