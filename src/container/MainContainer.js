@@ -9,6 +9,7 @@ import '../css/courseCalendar.css'
 import TrainerLogin from '../component/TrainerLogin'
 
 
+
 const apptUrl = "http://localhost:3000/appointments"
 const userUrl = 'http://localhost:3000/users'
 const eventUrl = 'http://localhost:3000/events'
@@ -89,7 +90,7 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(events)
+
     return (
       <div className= "main-container">
         <div className="banner"> 
