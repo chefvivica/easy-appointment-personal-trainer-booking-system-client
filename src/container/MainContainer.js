@@ -97,7 +97,7 @@ class MainContainer extends Component {
           <h1>Easy Appointment</h1>
         </div>
         <Switch>
-          <Route exact path='/trainer/login/:id' render={routerProps => <TrainerLogin/>}/>
+          <Route exact path='/trainer/login/:id' render={routerProps => <TrainerLogin {...routerProps}/>}/>
           <Route path='/trainer/:id' render={routerProps => 
           <TrainerCalendar  {...routerProps} events={events} />}/>
           

@@ -12,7 +12,8 @@ export class TrainerLogin extends Component {
     trainerEmail:'',
     trainerImage:'',
     trainerPassword:'',
-    confirmation:''
+    confirmation:'',
+    currentTrainer:{},
   }
 
   toggle = () => this.setState({open :!this.state.open})
@@ -24,58 +25,42 @@ export class TrainerLogin extends Component {
   };
   handleLogin = e =>{
     e.preventDefault()
-    // fetch("http://localhost:3000/trainerLogin",{
-    //   method: "POST",
-    //   headers: { 
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json'
-    //   },
-    //   body:JSON.stringify(this.state)
-    // })
-    // .then(res=> res.json())
-    // .then(response => {
-    //   if(response.errors){
-    //     alert(response.errors)
-    //   }else{
-    //     this.props.setUser(response)
-    //     this.props.history.push('/trainer')
-    //   }
-    // })  
+    // console.log(e)
+  }
+
+  setTrainer = (response) => {
+    this.setState({ currentTrainer : response})
   }
 
   handleSubmit = e => {
     e.preventDefault()  
-    if(this.state.trainerPassword === this.state.confirmation){
-      fetch('http://localhost:3000/trainers', {
-        method: "POST",
-        headers: {'Content-Type': 'application/json', 
-                  Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          name: this.state.trainerName,
-          email: this.state.trainerEmail,
-          password: this.state.trainerPassword,
-          image: this.state.trainerImage
-        })
+    fetch('http://localhost:3000/trainers', {
+      method: "POST",
+      headers: {'Content-Type': 'application/json', 
+                Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.trainerName,
+        email: this.state.trainerEmail,
+        password: this.state.trainerPassword,
+        image: this.state.trainerImage
       })
-        .then(resp => resp.json())
-        .then(response => {
-          if(response.errors){
-            alert(response.errors)
-          }else{
-            // this.props.setUser(response)
-            // this.props.history.push('/trainer')
-            console.log(response)
-          }
-        })
-    } else {
-      alert("Passwords don't match")
-    }
+    })
+    .then(resp => resp.json())
+    .then(response => {
+      if(response.errors){
+        alert(response.errors)
+      }else{
+        this.setTrainer(response)
+        this.props.history.push('/trainer')
+      }
+    })
   }
 
 
   render() {
-    console.log(this.state)
+    console.log(this.props)
+    
     return (
       <div className="home">
         {!this.state.open? 
