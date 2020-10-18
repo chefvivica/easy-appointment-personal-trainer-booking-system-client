@@ -24,6 +24,7 @@ export class TrainerLogin extends Component {
   };
   handleLogin = e =>{
     e.preventDefault()
+    console.log(e)
     // fetch("http://localhost:3000/trainerLogin",{
     //   method: "POST",
     //   headers: { 
