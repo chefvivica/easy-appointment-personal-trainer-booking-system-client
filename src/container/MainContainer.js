@@ -7,6 +7,8 @@ import {Route, Switch} from 'react-router-dom'
 import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
 import TrainerLogin from '../component/TrainerLogin'
+import TrainerProfile from './TrainerProfile'
+
 
 
 const apptUrl = "http://localhost:3000/appointments"
@@ -89,14 +91,17 @@ class MainContainer extends Component {
 
   render() {
     const {events, currentUser, appointments, userEvents, requests} = this.state
-    console.log(events)
+
     return (
       <div className= "main-container">
         <div className="banner"> 
           <h1>Easy Appointment</h1>
         </div>
         <Switch>
-          <Route exact path='/trainer/login/:id' render={routerProps => <TrainerLogin/>}/>
+          <Route exact path='/trainerProfile' render={routerProps => <TrainerProfile {...routerProps}/>}/>
+
+          <Route exact path='/trainer/login/:id' render={routerProps => <TrainerLogin {...routerProps}/>}/>
+
           <Route path='/trainer/:id' render={routerProps => 
           <TrainerCalendar  {...routerProps} events={events} />}/>
           
