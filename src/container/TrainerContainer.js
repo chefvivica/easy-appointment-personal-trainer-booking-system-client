@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import TrainerCard from '../component/TrainerCard'
-import TrainerLogin from '../component/TrainerLogin'
 import "../css/trainer.css"
 
 export class TrainerContainer extends Component {

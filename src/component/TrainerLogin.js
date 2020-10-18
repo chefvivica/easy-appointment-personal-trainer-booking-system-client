@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-
-
 export class TrainerLogin extends Component {
 
 
@@ -52,7 +50,7 @@ export class TrainerLogin extends Component {
         alert(response.errors)
       }else{
         this.setTrainer(response)
-        this.props.history.push('/trainer')
+        this.props.history.push('/trainerProfile')
       }
     })
   }

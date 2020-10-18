@@ -7,6 +7,7 @@ import {Route, Switch} from 'react-router-dom'
 import Profile from '../container/Profile'
 import '../css/courseCalendar.css'
 import TrainerLogin from '../component/TrainerLogin'
+import TrainerProfile from './TrainerProfile'
 
 
 
@@ -97,7 +98,10 @@ class MainContainer extends Component {
           <h1>Easy Appointment</h1>
         </div>
         <Switch>
+          <Route exact path='/trainerProfile' render={routerProps => <TrainerProfile {...routerProps}/>}/>
+
           <Route exact path='/trainer/login/:id' render={routerProps => <TrainerLogin {...routerProps}/>}/>
+
           <Route path='/trainer/:id' render={routerProps => 
           <TrainerCalendar  {...routerProps} events={events} />}/>
           
